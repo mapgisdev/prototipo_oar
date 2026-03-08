@@ -89,11 +89,11 @@ const Layout = ({ user, sidebarOpen, setSidebarOpen, onLogout }) => {
   );
 };
 
-// Protect Routes wrapper
+// Protect Routes wrapper (Modificado temporalmente para acceso público)
 const ProtectedRoute = ({ user, children }) => {
-  if (!user) {
-    return <Navigate to="/auth/login" replace />;
-  }
+  // if (!user) {
+  //   return <Navigate to="/auth/login" replace />;
+  // }
   return children;
 };
 
@@ -101,7 +101,8 @@ const ProtectedRoute = ({ user, children }) => {
 function App() {
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem('oar_user');
-    return saved ? JSON.parse(saved) : null;
+    // Si no hay usuario, retornamos un perfil público por defecto para habilitar interfaces
+    return saved ? JSON.parse(saved) : { name: "Invitado", role: "public" };
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -111,7 +112,8 @@ function App() {
   };
 
   const handleLogout = () => {
-    setUser(null);
+    // Al cerrar sesión, retornar al usuario invitado en lugar de null para evitar bloqueo
+    setUser({ name: "Invitado", role: "public" });
     localStorage.removeItem('oar_user');
   };
 
