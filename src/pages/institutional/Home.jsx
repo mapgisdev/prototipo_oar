@@ -25,10 +25,6 @@ export const Home = () => {
                     <span className="inline-block px-6 py-2 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-emerald-300 text-lg md:text-xl font-bold tracking-wider uppercase">
                         Observatorio Ambiental Regional (OAR)
                     </span>
-                    <h1 className="text-5xl md:text-7xl font-serif font-black leading-tight drop-shadow-xl">
-                        Decisiones basadas en <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-cyan-300">Evidencia Ambiental</span>
-                    </h1>
                 </div>
             </section>
 
@@ -131,8 +127,8 @@ export const Home = () => {
                                 Seleccione un eje estratégico para acceder a sus tableros, mapas y reportes especializados orientados a la resiliencia regional.
                             </p>
                         </div>
-                        <Button 
-                            variant="outline" 
+                        <Button
+                            variant="outline"
                             className="rounded-full px-8 border-emerald-300 text-emerald-700 hover:bg-white"
                             onClick={() => navigate('/strategic-questions')}
                         >
@@ -183,7 +179,7 @@ export const Home = () => {
                                 route: "/strategic-axis/clima"
                             }
                         ].map((axis, index) => (
-                            <div 
+                            <div
                                 key={index}
                                 className="group flex items-center justify-between p-4 md:p-6 bg-white rounded-2xl border border-slate-200 hover:border-emerald-500/30 hover:shadow-md transition-all cursor-pointer"
                                 onClick={() => navigate(axis.route)}
@@ -240,18 +236,18 @@ export const Home = () => {
                             { name: "Darién", country: "Panamá", img: "/forests/panama.png", slug: "parque-nacional-darien" },
                             { name: "Valle Nuevo", country: "Rep. Dominicana", img: "/forests/dominican_republic.png", slug: "valle-nuevo-los-haitises" }
                         ].map((forest, idx) => (
-                            <div 
-                                key={idx} 
+                            <div
+                                key={idx}
                                 className="group relative aspect-video sm:aspect-[3/4] rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
                                 onClick={() => navigate(`/grandes-bosques/historias/${forest.slug}`)}
                             >
-                                <img 
-                                    src={forest.img} 
-                                    alt={forest.name} 
+                                <img
+                                    src={forest.img}
+                                    alt={forest.name}
                                     className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                                
+
                                 <div className="absolute top-4 left-4">
                                     <span className="px-3 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-emerald-200 text-[10px] font-black uppercase tracking-widest">
                                         {forest.country}
@@ -267,9 +263,9 @@ export const Home = () => {
                             </div>
                         ))}
                     </div>
-                    
+
                     <div className="mt-16 text-center">
-                        <Button 
+                        <Button
                             className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full px-10 py-6 font-bold"
                             onClick={() => navigate('/grandes-bosques')}
                         >
@@ -282,7 +278,7 @@ export const Home = () => {
             {/* Laboratorio de Análisis Geoespacial - Home Preview */}
             <section className="py-24 bg-slate-50 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-full h-full opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
-                
+
                 <div className="container mx-auto px-4 relative z-10">
                     <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
                         <div className="max-w-3xl">
@@ -296,8 +292,8 @@ export const Home = () => {
                                 Ejecute algoritmos complejos de cruce espacial en tiempo real. Integre capas oficiales para responder a desafíos territoriales críticos.
                             </p>
                         </div>
-                        <Button 
-                            variant="outline" 
+                        <Button
+                            variant="outline"
                             className="rounded-full px-8 py-6 h-auto border-slate-200 hover:bg-slate-900 hover:text-white transition-all group"
                             onClick={() => navigate('/technical/geo-analysis')}
                         >
@@ -336,7 +332,7 @@ export const Home = () => {
                                 path: "/technical/geo-analysis/projects"
                             }
                         ].map((item, idx) => (
-                            <div 
+                            <div
                                 key={idx}
                                 onClick={() => navigate(item.path)}
                                 className="group bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer"
@@ -373,9 +369,9 @@ export const Home = () => {
                 <div className="container mx-auto px-4">
                     <div className="relative h-[600px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl group/map">
                         <MapViewer hideControls={true} />
-                        
+
                         {!isActiveMap && (
-                            <div 
+                            <div
                                 className="absolute inset-0 z-[1002] bg-slate-900/40 backdrop-blur-[2px] flex items-center justify-center cursor-pointer group-hover/map:bg-slate-900/30 transition-all duration-500"
                                 onClick={() => setIsActiveMap(true)}
                             >
@@ -394,7 +390,7 @@ export const Home = () => {
 
                         {/* Overlay with more info link */}
                         <div className="absolute bottom-8 right-8 z-[1001]">
-                            <Button 
+                            <Button
                                 className="bg-blue-600 hover:bg-blue-700 text-white shadow-xl px-8"
                                 onClick={() => navigate('/technical/maps')}
                             >
@@ -424,15 +420,15 @@ export const Home = () => {
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
                         {/* Report 1: Forest - ACTIVE & PREMIUM */}
-                        <div 
+                        <div
                             className="group relative flex flex-col h-full bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-700 cursor-pointer overflow-hidden border-b-8 border-b-emerald-500"
                             onClick={() => navigate('/technical/reports/fra-2024')}
                         >
                             <div className="h-64 relative overflow-hidden">
-                                <img 
-                                    src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=1200" 
-                                    alt="Forest Report" 
-                                    className="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110" 
+                                <img
+                                    src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=1200"
+                                    alt="Forest Report"
+                                    className="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/80 via-transparent to-transparent"></div>
                                 <div className="absolute top-6 left-6">
@@ -441,7 +437,7 @@ export const Home = () => {
                                     </Badge>
                                 </div>
                             </div>
-                            
+
                             <div className="p-10 flex flex-col flex-1 relative bg-white">
                                 <div className="bg-emerald-50 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 -mt-16 relative z-10 shadow-lg group-hover:bg-emerald-500 transition-colors duration-500">
                                     <Trees className="h-7 w-7 text-emerald-600 group-hover:text-white transition-colors" />
@@ -451,14 +447,14 @@ export const Home = () => {
                                     El análisis más robusto de la década sobre la salud forestal del SICA, integrando datos del FRA-2020/2025 y alertas satelitales en tiempo real.
                                 </p>
                                 <div className="grid grid-cols-2 gap-4 border-t border-slate-50 pt-8 mt-auto">
-                                    <button 
+                                    <button
                                         onClick={(e) => { e.stopPropagation(); navigate('/technical/reports/fra-2024'); }}
                                         className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all duration-300 group/btn"
                                     >
                                         <FileText className="h-5 w-5" />
                                         <span className="text-[10px] font-black uppercase tracking-tighter">Explorar Reporte</span>
                                     </button>
-                                    <button 
+                                    <button
                                         onClick={(e) => { e.stopPropagation(); navigate('/technical/dashboard'); }}
                                         className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white transition-all duration-300 group/btn"
                                     >
@@ -472,10 +468,10 @@ export const Home = () => {
                         {/* Report 2: Biodiversity - COMING SOON */}
                         <div className="group flex flex-col h-full bg-slate-50/50 rounded-[2.5rem] border border-dashed border-slate-200 opacity-80 cursor-not-allowed overflow-hidden">
                             <div className="h-64 relative overflow-hidden grayscale opacity-40">
-                                <img 
-                                    src="https://images.unsplash.com/photo-1452570053594-1b985d6ea890?auto=format&fit=crop&q=80&w=1200" 
-                                    alt="Bio Report" 
-                                    className="w-full h-full object-cover" 
+                                <img
+                                    src="https://images.unsplash.com/photo-1452570053594-1b985d6ea890?auto=format&fit=crop&q=80&w=1200"
+                                    alt="Bio Report"
+                                    className="w-full h-full object-cover"
                                 />
                                 <div className="absolute inset-0 bg-slate-200/20"></div>
                             </div>
@@ -503,10 +499,10 @@ export const Home = () => {
                         {/* Report 3: Oceans - COMING SOON */}
                         <div className="group flex flex-col h-full bg-slate-50/50 rounded-[2.5rem] border border-dashed border-slate-200 opacity-80 cursor-not-allowed overflow-hidden">
                             <div className="h-64 relative overflow-hidden grayscale opacity-40">
-                                <img 
-                                    src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200" 
-                                    alt="Ocean Report" 
-                                    className="w-full h-full object-cover" 
+                                <img
+                                    src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200"
+                                    alt="Ocean Report"
+                                    className="w-full h-full object-cover"
                                 />
                             </div>
                             <div className="p-10 flex flex-col flex-1">
@@ -549,9 +545,9 @@ export const Home = () => {
                     {/* Role Tabs */}
                     <div className="flex flex-wrap justify-center gap-2 mb-12">
                         {[
-                            { id: 'decision', label: 'Tomadores de Decisión', icon: Users },
-                            { id: 'tech', label: 'Técnicos y Científicos', icon: BarChart3 },
-                            { id: 'citizen', label: 'Ciudadanía', icon: Globe }
+                            { id: 'decision', label: 'Dashboard', icon: Users },
+                            { id: 'tech', label: 'Visor Interactivo', icon: BarChart3 },
+                            { id: 'citizen', label: 'Historias', icon: Globe }
                         ].map((role) => (
                             <button
                                 key={role.id}
