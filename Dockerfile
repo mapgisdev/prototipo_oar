@@ -1,33 +1,46 @@
-# Etapa de construcción (Build stage)
-FROM node:20-alpine AS builder
+# ==========================================
+# OPTIMIZACIÓN PARA RAILWAY (Frontend SPA)
+# ==========================================
 
+# 1. Instalación de Dependencias (Capa de Caché)
+FROM node:20-alpine AS deps
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
-
-# Instalar dependencias usando lockfile para garantizar reproducibilidad
-COPY package*.json ./
+COPY package.json package-lock.json ./
+# Railway: npm ci es la forma más rápida de instalar dependencias limpias
 RUN npm ci
 
-# Copiar código fuente y procesar el empaquetado de producción
+# 2. Compilación (Build)
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# Generamos el bundle de producción
 RUN npm run build
 
-# Etapa de ejecución (Runtime stage)
-FROM node:20-alpine
+# 3. Servidor de Producción (Nginx Ultra-Ligero)
+# Reducimos el tamaño de la imagen de ~200MB a ~15MB
+FROM nginx:stable-alpine AS runner
 
-WORKDIR /app
+# Configuración optimizada para React/Vite en Railway
+RUN echo 'server { \
+    listen [PORT_REPLACE]; \
+    location / { \
+        root /usr/share/nginx/html; \
+        index index.html index.htm; \
+        try_files $uri $uri/ /index.html; \
+    } \
+    # Optimización: Cache de larga duración para assets de Vite (tienen hash) \
+    location /assets/ { \
+        root /usr/share/nginx/html; \
+        expires 1y; \
+        add_header Cache-Control "public, immutable"; \
+    } \
+}' > /etc/nginx/conf.d/default.conf
 
-# Instalar servidor de archivos estáticos optimizado
-RUN npm install -g serve
+# Copiamos solo los archivos estáticos generados
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copiar los artefactos minimizados desde la etapa de compilación
-COPY --from=builder /app/dist ./dist
-
-# Configuración de puerto por defecto (Railway inyecta $PORT en ejecución)
-ENV PORT=3000
-EXPOSE $PORT
-
-# Ejecutar el servicio. El flag '-s' gestiona el enrutamiento en Single Page Applications (SPA)
-CMD serve -s dist -l tcp://0.0.0.0:${PORT}
-
-#npm run dev
-
+# Railway asigna un puerto dinámico mediante la variable $PORT.
+# El comando CMD lo inyecta en la configuración de Nginx al arrancar.
+CMD sed -i "s/\[PORT_REPLACE\]/${PORT:-80}/g" /etc/nginx/conf.d/default.conf && nginx -g "daemon off;"
