@@ -28,9 +28,9 @@ export const Navbar = ({ user, onLogout, toggleSidebar, isSidebarVisible }) => {
                             </button>
                         )}
                         <Link to="/" className="flex items-center gap-2">
-                            <img 
-                                src="https://centroclima.org/wp-content/uploads/2016/06/CCAD-300x76.png" 
-                                alt="CCAD Logo" 
+                            <img
+                                src="https://centroclima.org/wp-content/uploads/2016/06/CCAD-300x76.png"
+                                alt="CCAD Logo"
                                 className="h-10 w-auto object-contain"
                             />
                         </Link>
@@ -59,7 +59,7 @@ export const Navbar = ({ user, onLogout, toggleSidebar, isSidebarVisible }) => {
                     <div className="flex items-center gap-4">
                         <div className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600 mr-4">
                             <Link to="/" className="hover:text-brand-primary transition-colors">Inicio</Link>
-                            
+
                             {/* Ejes ERAM Dropdown */}
                             <div className="relative group py-4">
                                 <button className="flex items-center gap-1 hover:text-brand-primary transition-colors cursor-pointer">
@@ -74,7 +74,6 @@ export const Navbar = ({ user, onLogout, toggleSidebar, isSidebarVisible }) => {
                                 </div>
                             </div>
 
-                            <Link to="/analisis-multidimensional" className="hover:text-brand-primary transition-colors">Análisis BI</Link>
                         </div>
 
                         {!user ? (

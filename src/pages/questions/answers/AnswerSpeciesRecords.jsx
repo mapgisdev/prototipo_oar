@@ -170,7 +170,7 @@ export const AnswerSpeciesRecords = () => {
                         value={stats?.kingdom?.[0]?.count}
                         unit={stats?.kingdom?.[0]?.name}
                         subtitle="Grupo taxonómico con mayor cantidad de registros."
-                        colorClass={`border-t-[${stats?.kingdom?.[0]?.color}]`}
+                        colorClass="border-t-brand-primary"
                     />
                     <StatCard
                         title="Registros con Imágenes"

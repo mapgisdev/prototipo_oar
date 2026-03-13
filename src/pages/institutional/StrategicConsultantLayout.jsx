@@ -16,67 +16,14 @@ import {
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
+import { QUESTIONS_DATA } from '../questions/questions';
+
 export const StrategicConsultantLayout = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [searchQuery, setSearchQuery] = useState('');
 
-    const questions = [
-        {
-            icon: Trees,
-            question: "¿Cuál es el estado de los bosques?",
-            path: "/technical/reports/fra-2024",
-            color: "#15803D"
-        },
-        {
-            icon: Trees,
-            question: "¿Donde hay pérdida de cobertura?",
-            path: "/technical/reports/gfw",
-            color: "#97BD3D"
-        },
-        {
-            icon: Shield,
-            question: "¿Cómo va la meta 30x30?",
-            path: "/technical/reports/biodiversity",
-            color: "#3B82F6"
-        },
-        {
-            icon: Flame,
-            question: "¿Dónde hay incendios activos?",
-            path: "/technical/reports/fires",
-            color: "#EF4444"
-        },
-        {
-            icon: Footprints,
-            question: "¿Qué registros de especies hay?",
-            path: "/technical/reports/gbif",
-            color: "#F59E0B"
-        },
-        {
-            icon: CloudRain,
-            question: "¿Cuál es el riesgo de sequía?",
-            path: "/technical/reports/climate",
-            color: "#8B5CF6"
-        },
-        {
-            icon: Anchor,
-            question: "¿Qué salud tienen los océanos?",
-            path: "/technical/reports/ocean",
-            color: "#06B6D4"
-        },
-        {
-            icon: Droplet,
-            question: "¿Cuál es el riesgo hídrico?",
-            path: "/technical/reports/water",
-            color: "#3B82F6"
-        },
-        {
-            icon: MapIcon,
-            question: "¿Qué áreas protegidas hay?",
-            path: "/technical/reports/protected-planet",
-            color: "#10B981"
-        }
-    ];
+    const questions = QUESTIONS_DATA;
 
     const filteredQuestions = questions.filter(q => 
         q.question.toLowerCase().includes(searchQuery.toLowerCase())
@@ -110,6 +57,7 @@ export const StrategicConsultantLayout = () => {
                         <button
                             key={idx}
                             onClick={() => navigate(q.path)}
+                            title={q.question}
                             className={cn(
                                 "w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all text-left group",
                                 location.pathname === q.path 
@@ -124,7 +72,9 @@ export const StrategicConsultantLayout = () => {
                                 <q.icon className="h-4 w-4" style={{ color: location.pathname === q.path ? q.color : undefined }} />
                             </div>
                             <div className="overflow-hidden">
-                                <p className="text-sm font-bold truncate leading-tight">{q.question}</p>
+                                <p className="text-sm font-bold truncate leading-tight" title={q.question}>
+                                    {q.shortQuestion || q.question}
+                                </p>
                             </div>
                             {location.pathname === q.path && <ChevronRight className="h-4 w-4 ml-auto text-brand-primary" />}
                         </button>

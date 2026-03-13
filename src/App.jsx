@@ -38,23 +38,23 @@ import { ShieldAlert, Activity, Layers, Briefcase } from 'lucide-react';
 // Component to scroll to top on route change
 const ScrollToTop = () => {
   const { pathname } = useLocation();
-  
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-  
+
   return null;
 };
 
 
 const Layout = ({ user, sidebarOpen, setSidebarOpen, onLogout }) => {
   const location = useLocation();
-  const isTechnical = location.pathname.startsWith('/technical') || 
-                     location.pathname === '/strategic-questions' || 
-                     location.pathname.startsWith('/grandes-bosques') ||
-                     location.pathname.startsWith('/strategic-axis') ||
-                     location.pathname.startsWith('/technical/geo-analysis');
-  
+  const isTechnical = location.pathname.startsWith('/technical') ||
+    location.pathname === '/strategic-questions' ||
+    location.pathname.startsWith('/grandes-bosques') ||
+    location.pathname.startsWith('/strategic-axis') ||
+    location.pathname.startsWith('/technical/geo-analysis');
+
   // Auto-hide sidebar logic for Strategic Axes & Analysis
   React.useEffect(() => {
     if (location.pathname.startsWith('/strategic-axis') || location.pathname.startsWith('/technical/geo-analysis')) {
@@ -165,39 +165,39 @@ function App() {
           {/* Strategic Questions Module wrapped in Consultant Layout */}
           <Route element={<StrategicConsultantLayout />}>
             {/* ERAM Strategic Axes Hubs */}
-            <Route path="/strategic-axis/calidad" element={<StrategicAxisGeneric 
-                axisTitle="Calidad Ambiental" 
-                axisLine="1" 
-                axisColor="blue" 
-                axisIcon={Wind}
-                description="Calidad de aire/agua, presión antrópica y variables de seguimiento ambiental."
+            <Route path="/strategic-axis/calidad" element={<StrategicAxisGeneric
+              axisTitle="Calidad Ambiental"
+              axisLine="1"
+              axisColor="blue"
+              axisIcon={Wind}
+              description="Calidad de aire/agua, presión antrópica y variables de seguimiento ambiental."
             />} />
-            <Route path="/strategic-axis/mares" element={<StrategicAxisGeneric 
-                axisTitle="Mares y Biodiversidad" 
-                axisLine="2" 
-                axisColor="cyan" 
-                axisIcon={Waves}
-                description="Biodiversidad, ecosistemas marino-costeros y conectividad ecológica."
+            <Route path="/strategic-axis/mares" element={<StrategicAxisGeneric
+              axisTitle="Mares y Biodiversidad"
+              axisLine="2"
+              axisColor="cyan"
+              axisIcon={Waves}
+              description="Biodiversidad, ecosistemas marino-costeros y conectividad ecológica."
             />} />
-            <Route path="/strategic-axis/agua" element={<StrategicAxisGeneric 
-                axisTitle="Gestión Integral del Recurso Hídrico" 
-                axisLine="3" 
-                axisColor="blue" 
-                axisIcon={Droplets}
-                description="Cuencas, disponibilidad hídrica, presión y riesgos asociados al agua."
+            <Route path="/strategic-axis/agua" element={<StrategicAxisGeneric
+              axisTitle="Gestión Integral del Recurso Hídrico"
+              axisLine="3"
+              axisColor="blue"
+              axisIcon={Droplets}
+              description="Cuencas, disponibilidad hídrica, presión y riesgos asociados al agua."
             />} />
             <Route path="/strategic-axis/bosques" element={<StrategicAxisHome axisLine="4" />} />
-            <Route path="/strategic-axis/clima" element={<StrategicAxisGeneric 
-                axisTitle="Cambio Climático y Gestión de Riesgo" 
-                axisLine="5" 
-                axisColor="purple" 
-                axisIcon={CloudRain}
-                description="Amenazas, vulnerabilidad, escenarios climáticos y alertas tempranas."
+            <Route path="/strategic-axis/clima" element={<StrategicAxisGeneric
+              axisTitle="Cambio Climático y Gestión de Riesgo"
+              axisLine="5"
+              axisColor="purple"
+              axisIcon={CloudRain}
+              description="Amenazas, vulnerabilidad, escenarios climáticos y alertas tempranas."
             />} />
 
             <Route path="/strategic-questions" element={<QuestionsIndex />} />
             <Route path="/preguntas" element={<QuestionsIndex />} />
-            
+
             {/* New Clean Clean Paths for Questions */}
             <Route path="/preguntas/estado-bosques" element={<ProtectedRoute user={user}><AnswerForestState /></ProtectedRoute>} />
             <Route path="/preguntas/perdida-bosque" element={<ProtectedRoute user={user}><AnswerForestLoss /></ProtectedRoute>} />
@@ -225,7 +225,7 @@ function App() {
           <Route element={<ProtectedRoute user={user}><GeoAnalysisLayout /></ProtectedRoute>}>
             <Route path="/technical/geo-analysis" element={<GeoAnalysisHome />} />
             <Route path="/technical/geo-analysis/restrictions" element={
-              <GeoAnalysisGeneric 
+              <GeoAnalysisGeneric
                 title="Restricciones de Conservación"
                 icon={ShieldAlert}
                 description="Identificación de polígonos con restricciones legales por áreas protegidas, zonas de amortiguamiento y corredores biológicos regionales."
@@ -239,7 +239,7 @@ function App() {
               />
             } />
             <Route path="/technical/geo-analysis/deforestation" element={
-              <GeoAnalysisGeneric 
+              <GeoAnalysisGeneric
                 title="Detección de Deforestación"
                 icon={Activity}
                 description="Análisis de series temporales para verificar si el área seleccionada proviene de una zona con deforestación reciente (2020-2024)."
@@ -253,7 +253,7 @@ function App() {
               />
             } />
             <Route path="/technical/geo-analysis/ecosystems" element={
-              <GeoAnalysisGeneric 
+              <GeoAnalysisGeneric
                 title="Análisis de Ecosistemas"
                 icon={Layers}
                 description="Identificación de la composición de ecosistemas y unidades de vegetación presentes dentro del perímetro seleccionado."
@@ -267,7 +267,7 @@ function App() {
               />
             } />
             <Route path="/technical/geo-analysis/projects" element={
-              <GeoAnalysisGeneric 
+              <GeoAnalysisGeneric
                 title="Cruce de Proyectos"
                 icon={Briefcase}
                 description="Visualización de proyectos de cooperación técnica y desarrollo sostenible que inciden en el área geográfica de interés."
@@ -281,6 +281,9 @@ function App() {
               />
             } />
           </Route>
+
+
+
 
         </Route>
       </Routes>

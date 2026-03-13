@@ -21,7 +21,10 @@ const SICA_FACTS = [
     "Tres países de la región han logrado revertir la tendencia regional y ahora muestran una ganancia neta de cobertura boscosa en 2024.",
     "El stock total de carbono en los bosques de la región SICA alcanza las 3.2 Gigatoneladas, un pilar crítico para la resiliencia climática.",
     "La 'Selva Maya' es el bosque tropical más extenso de Mesoamérica, albergando una biodiversidad única en el mundo.",
-    "El carbono orgánico del suelo representa más del 50% del total almacenado en nuestros ecosistemas forestales regionales."
+    "El carbono orgánico del suelo representa más del 50% del total almacenado en nuestros ecosistemas forestales regionales.",
+    "Los sistemas agroforestales de café y cacao en el SICA capturan hasta 40 toneladas de carbono por hectárea anualmente.",
+    "La región alberga el 7% de la biodiversidad mundial en apenas el 0.5% de la superficie terrestre del planeta.",
+    "Los manglares de la región SICA protegen contra marejadas y almacenan hasta 5 veces más carbono que los bosques terrestres."
 ];
 
 const ModuleCard = ({ icon: Icon, title, description, path, colorClass, delay }) => {
@@ -57,14 +60,20 @@ const ModuleCard = ({ icon: Icon, title, description, path, colorClass, delay })
 
 export const StrategicAxisHome = ({ axisLine }) => {
     const navigate = useNavigate();
-    const [factIndex, setFactIndex] = useState(0);
+    const [factIndex, setFactIndex] = React.useState(() => Math.floor(Math.random() * SICA_FACTS.length));
     const [isRefreshing, setIsRefreshing] = useState(false);
 
     const handleShuffle = (e) => {
         e.stopPropagation();
         setIsRefreshing(true);
         setTimeout(() => {
-            setFactIndex((prev) => (prev + 1) % SICA_FACTS.length);
+            setFactIndex((prev) => {
+                let next;
+                do {
+                    next = Math.floor(Math.random() * SICA_FACTS.length);
+                } while (next === prev && SICA_FACTS.length > 1);
+                return next;
+            });
             setIsRefreshing(false);
         }, 300);
     };

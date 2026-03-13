@@ -17,7 +17,7 @@ const QuestionCard = ({ icon: Icon, question, path, color, description }) => {
                 <div className="p-3 rounded-full w-fit mb-3 transition-colors group-hover:bg-opacity-20" style={{ backgroundColor: `${color}20` }}>
                     <Icon className="h-8 w-8" style={{ color }} />
                 </div>
-                <h3 className="text-xl font-bold text-slate-800 mb-2 leading-tight group-hover:text-brand-primary transition-colors">
+                <h3 className="text-xl font-bold text-slate-800 mb-2 leading-tight group-hover:text-brand-primary transition-colors" title={question}>
                     {question}
                 </h3>
                 <p className="text-sm text-slate-500">

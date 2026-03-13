@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Card, Badge } from '../../components/ui/Shared';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Globe, Trees, Users, ChevronRight, BarChart3, Map, FileText, ExternalLink, HelpCircle, Flame, CloudRain, Wind, Waves, Droplets, Shield, Activity, ShieldAlert, Layers, Briefcase, Database, PieChart as PieIcon } from 'lucide-react';
+import { ArrowRight, Globe, Trees, Users, ChevronRight, BarChart3, Map, FileText, ExternalLink, HelpCircle, Flame, CloudRain, Wind, Waves, Droplets, Shield, Activity, ShieldAlert, Layers, Briefcase } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { MapViewer } from '../../components/map/MapViewer';
-
-import { QUESTIONS_DATA } from '../questions/questions';
 
 export const Home = () => {
     const navigate = useNavigate();
     const [activeRole, setActiveRole] = useState('decision'); // 'decision', 'tech', 'citizen'
     const [isActiveMap, setIsActiveMap] = useState(false);
 
-    // Filter questions for the home page cards
-    const homeQuestions = QUESTIONS_DATA.filter(q =>
-        ['forest-loss', 'active-fires', 'drought-risk', 'conservation-30x30', 'water-security', 'ocean-health'].includes(q.id)
-    );
+
 
     return (
         <div className="flex flex-col min-h-screen bg-white">
@@ -30,111 +25,257 @@ export const Home = () => {
                     <span className="inline-block px-6 py-2 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-emerald-300 text-lg md:text-xl font-bold tracking-wider uppercase">
                         Observatorio Ambiental Regional (OAR)
                     </span>
-
                 </div>
             </section>
 
 
-            {/* --- SECCIÓN 1: Preguntas Estratégicas (Punto de entrada) --- */}
+            {/* Quick Access - Strategic Questions */}
             <section className="relative z-40 -mt-16 container mx-auto px-4">
-                <div className="text-center mb-12">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white shadow-xl text-emerald-700 text-[10px] font-black uppercase tracking-[0.2em] mb-4 border border-emerald-100">
-                        <HelpCircle className="h-3.5 w-3.5" /> Respuestas a Desafíos Regionales
-                    </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {homeQuestions.map((q) => (
-                        <Card
-                            key={q.id}
-                            className="flex flex-col h-full hover:shadow-xl transition-all duration-300 border-l-4 group cursor-pointer bg-white"
-                            style={{ borderLeftColor: q.color }}
-                            onClick={() => navigate(q.path)}
-                        >
-                            <div className="p-8 pb-4">
-                                <div className="p-3 rounded-full w-fit mb-4 transition-colors group-hover:bg-opacity-20" style={{ backgroundColor: `${q.color}20` }}>
-                                    <q.icon className="h-8 w-8" style={{ color: q.color }} />
-                                </div>
-                                <h3 className="text-xl font-bold text-slate-800 mb-3 leading-tight group-hover:text-brand-primary transition-colors" title={q.question}>
-                                    {q.question}
-                                </h3>
-                                <p className="text-sm text-slate-500 leading-relaxed">
-                                    {q.description}
-                                </p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Q1: Forests */}
+                    <Card className="p-6 bg-white/95 backdrop-blur shadow-xl border-t-4 border-t-[#97BD3D] hover:-translate-y-1 transition-transform cursor-pointer group" onClick={() => navigate('/technical/reports/gfw')}>
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="bg-[#97BD3D]/10 p-3 rounded-full">
+                                <Trees className="h-6 w-6 text-[#97BD3D]" />
                             </div>
-                            <div className="mt-auto px-8 py-4 border-t border-slate-50 flex justify-end">
-                                <span className="text-xs font-bold uppercase tracking-wider flex items-center gap-1" style={{ color: q.color }}>
-                                    Ver Análisis <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
-                                </span>
+                            <ArrowRight className="h-5 w-5 text-slate-300 group-hover:text-[#97BD3D] transition-colors" />
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-800 mb-2 leading-tight">¿Dónde y cuánto bosque estamos perdiendo?</h3>
+                        <p className="text-sm text-slate-600">Más de <span className="font-bold text-[#97BD3D]">7 millones de hectáreas</span> de cobertura arbórea perdidas en el SICA desde 2010.</p>
+                    </Card>
+
+                    {/* Q2: Fires */}
+                    <Card className="p-6 bg-white/95 backdrop-blur shadow-xl border-t-4 border-t-[#EF4444] hover:-translate-y-1 transition-transform cursor-pointer group" onClick={() => navigate('/technical/reports/fires')}>
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="bg-[#EF4444]/10 p-3 rounded-full">
+                                <Flame className="h-6 w-6 text-[#EF4444]" />
                             </div>
-                        </Card>
-                    ))}
+                            <ArrowRight className="h-5 w-5 text-slate-300 group-hover:text-[#EF4444] transition-colors" />
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-800 mb-2 leading-tight">¿Dónde hay incendios activos ahora?</h3>
+                        <p className="text-sm text-slate-600">Detectados <span className="font-bold text-[#EF4444]">7,280 focos de calor</span> en las últimas 24h, con alta incidencia en el Petén y Olancho.</p>
+                    </Card>
+
+                    {/* Q3: Climate */}
+                    <Card className="p-6 bg-white/95 backdrop-blur shadow-xl border-t-4 border-t-[#8B5CF6] hover:-translate-y-1 transition-transform cursor-pointer group" onClick={() => navigate('/technical/reports/climate')}>
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="bg-[#8B5CF6]/10 p-3 rounded-full">
+                                <CloudRain className="h-6 w-6 text-[#8B5CF6]" />
+                            </div>
+                            <ArrowRight className="h-5 w-5 text-slate-300 group-hover:text-[#8B5CF6] transition-colors" />
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-800 mb-2 leading-tight">¿Riesgo de sequía en Corredor Seco?</h3>
+                        <p className="text-sm text-slate-600">Riesgo <span className="font-bold text-[#8B5CF6]">Moderado a Severo</span> debido a un déficit pluviométrico detectado en los últimos 90 días.</p>
+                    </Card>
+
+                    {/* Q4: Biodiversity */}
+                    <Card className="p-6 bg-white/95 backdrop-blur shadow-xl border-t-4 border-t-[#10B981] hover:-translate-y-1 transition-transform cursor-pointer group" onClick={() => navigate('/technical/reports/biodiversity')}>
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="bg-[#10B981]/10 p-3 rounded-full">
+                                <Shield className="h-6 w-6 text-[#10B981]" />
+                            </div>
+                            <ArrowRight className="h-5 w-5 text-slate-300 group-hover:text-[#10B981] transition-colors" />
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-800 mb-2 leading-tight">¿Cómo vamos con la meta 30x30?</h3>
+                        <p className="text-sm text-slate-600">La región protege el <span className="font-bold text-[#10B981]">20.4%</span> de su territorio. Falta un 9.6% para alcanzar el objetivo global al 2030.</p>
+                    </Card>
+
+                    {/* Q5: Water */}
+                    <Card className="p-6 bg-white/95 backdrop-blur shadow-xl border-t-4 border-t-[#3B82F6] hover:-translate-y-1 transition-transform cursor-pointer group" onClick={() => navigate('/technical/reports/water')}>
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="bg-[#3B82F6]/10 p-3 rounded-full">
+                                <Droplets className="h-6 w-6 text-[#3B82F6]" />
+                            </div>
+                            <ArrowRight className="h-5 w-5 text-slate-300 group-hover:text-[#3B82F6] transition-colors" />
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-800 mb-2 leading-tight">¿Qué tan segura es nuestra agua?</h3>
+                        <p className="text-sm text-slate-600">Estrés hídrico <span className="font-bold text-[#3B82F6]">Medio-Alto (2.8/5)</span> en la región, con una cobertura de agua potable del 89%.</p>
+                    </Card>
+
+                    {/* Q6: Oceans */}
+                    <Card className="p-6 bg-white/95 backdrop-blur shadow-xl border-t-4 border-t-[#06B6D4] hover:-translate-y-1 transition-transform cursor-pointer group" onClick={() => navigate('/technical/reports/ocean')}>
+                        <div className="flex justify-between items-start mb-4">
+                            <div className="bg-[#06B6D4]/10 p-3 rounded-full">
+                                <Waves className="h-6 w-6 text-[#06B6D4]" />
+                            </div>
+                            <ArrowRight className="h-5 w-5 text-slate-300 group-hover:text-[#06B6D4] transition-colors" />
+                        </div>
+                        <h3 className="text-lg font-bold text-slate-800 mb-2 leading-tight">¿Nuestros océanos se calientan?</h3>
+                        <p className="text-sm text-slate-600">Anomalía térmica de <span className="font-bold text-[#06B6D4]">+0.88°C</span> en aguas regionales, elevando el riesgo de blanqueamiento coralino.</p>
+                    </Card>
                 </div>
 
-                <div className="mt-12 text-center">
-                    <Button
-                        variant="outline"
-                        className="rounded-full px-8 py-6 border-emerald-200 text-emerald-700 hover:bg-emerald-50 font-bold"
-                        onClick={() => navigate('/strategic-questions')}
-                    >
-                        Ver todas las preguntas estratégicas <ChevronRight className="ml-2 h-4 w-4" />
+                <div className="text-center mt-8">
+                    <Button variant="outline" className="bg-white/80 backdrop-blur border-emerald-300 hover:bg-white text-emerald-800 shadow-sm" onClick={() => navigate('/strategic-questions')}>
+                        Ver todas las Preguntas Estratégicas
                     </Button>
                 </div>
             </section>
 
-
-
-
-            {/* --- SECCIÓN 3: Ejes Estratégicos ERAM (Explorar por ejes) --- */}
-            <section className="py-24 bg-white border-t border-slate-100">
-                <div className="container mx-auto px-4">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-[10px] font-black uppercase tracking-widest mb-6">
-                            <Globe className="h-3 w-3" /> Marco Estratégico
+            {/* Explorar por ejes ERAM */}
+            <section className="py-24 container mx-auto px-4">
+                <div className="bg-slate-50/50 rounded-[3rem] p-8 md:p-16 border border-slate-100">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+                        <div className="max-w-3xl">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-black uppercase tracking-widest mb-6">
+                                <Globe className="h-3 w-3" /> Marco Estratégico
+                            </div>
+                            <h2 className="text-3xl md:text-5xl font-serif font-black text-slate-900 leading-tight mb-6">
+                                Explorar por <span className="text-emerald-600">ejes ERAM</span>
+                            </h2>
+                            <p className="text-slate-600 text-lg md:text-xl font-light leading-relaxed">
+                                Seleccione un eje estratégico para acceder a sus tableros, mapas y reportes especializados orientados a la resiliencia regional.
+                            </p>
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-serif font-black text-slate-900 leading-tight mb-6">Explorar por <span className="text-emerald-600 font-serif">ejes ERAM</span></h2>
-                        <p className="text-slate-500 text-lg font-light leading-relaxed">
-                            Seleccione un eje temático para acceder a sus portales dedicados, bibliotecas y herramientas especializadas.
-                        </p>
+                        <Button
+                            variant="outline"
+                            className="rounded-full px-8 border-emerald-300 text-emerald-700 hover:bg-white"
+                            onClick={() => navigate('/strategic-questions')}
+                        >
+                            Ver todos los ejes
+                        </Button>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <div className="space-y-4">
                         {[
-                            { title: "Calidad Ambiental", icon: Wind, color: "#3b82f6", path: "/strategic-axis/calidad" },
-                            { title: "Mares y Biodiversidad", icon: Waves, color: "#06b6d4", path: "/strategic-axis/mares" },
-                            { title: "Recurso Hídrico", icon: Droplets, color: "#2563eb", path: "/strategic-axis/agua" },
-                            { title: "Bosques y Paisajes", icon: Trees, color: "#059669", path: "/strategic-axis/bosques", active: true },
-                            { title: "Cambio Climático", icon: CloudRain, color: "#9333ea", path: "/strategic-axis/clima" }
-                        ].map((axis) => (
-                            <Card
-                                key={axis.title}
-                                className={cn(
-                                    "p-6 bg-white shadow-xl border-t-4 hover:shadow-2xl hover:scale-105 transition-all cursor-pointer group relative overflow-hidden",
-                                    axis.active ? "ring-2 ring-emerald-500/20" : "opacity-90"
-                                )}
-                                style={{ borderTopColor: axis.color }}
-                                onClick={() => navigate(axis.path)}
+                            {
+                                title: "Calidad Ambiental",
+                                description: "Calidad de aire/agua, presión antrópica y variables de seguimiento ambiental.",
+                                icon: Wind,
+                                color: "text-blue-500",
+                                bgColor: "bg-blue-50",
+                                route: "/strategic-axis/calidad"
+                            },
+                            {
+                                title: "Mares y Biodiversidad",
+                                description: "Biodiversidad, ecosistemas marino-costeros y conectividad ecológica.",
+                                icon: Waves,
+                                color: "text-cyan-500",
+                                bgColor: "bg-cyan-50",
+                                route: "/strategic-axis/mares"
+                            },
+                            {
+                                title: "Gestión Integral del Recurso Hídrico",
+                                description: "Cuencas, disponibilidad hídrica, presión y riesgos asociados al agua.",
+                                icon: Droplets,
+                                color: "text-blue-600",
+                                bgColor: "bg-blue-50",
+                                route: "/strategic-axis/agua"
+                            },
+                            {
+                                title: "Bosques y Paisajes Sostenibles",
+                                description: "Deforestación, restauración, incendios y gestión sostenible del paisaje.",
+                                icon: Trees,
+                                color: "text-emerald-600",
+                                bgColor: "bg-emerald-50",
+                                route: "/strategic-axis/bosques"
+                            },
+                            {
+                                title: "Cambio Climático y Gestión Integral del Riesgo",
+                                description: "Amenazas, vulnerabilidad, escenarios climáticos y alertas tempranas.",
+                                icon: CloudRain,
+                                color: "text-purple-600",
+                                bgColor: "bg-purple-50",
+                                route: "/strategic-axis/clima"
+                            }
+                        ].map((axis, index) => (
+                            <div
+                                key={index}
+                                className="group flex items-center justify-between p-4 md:p-6 bg-white rounded-2xl border border-slate-200 hover:border-emerald-500/30 hover:shadow-md transition-all cursor-pointer"
+                                onClick={() => navigate(axis.route)}
                             >
-                                {!axis.active && (
-                                    <div className="absolute top-2 right-2">
-                                        <span className="text-[7px] font-black uppercase tracking-tighter text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded">Próximamente</span>
+                                <div className="flex items-center gap-6">
+                                    <div className={cn("hidden md:flex p-4 rounded-full border border-slate-100", axis.bgColor)}>
+                                        <axis.icon className={cn("h-7 w-7", axis.color)} />
                                     </div>
-                                )}
-                                <div className="flex flex-col items-center text-center space-y-4">
-                                    <div className="p-4 rounded-2xl group-hover:scale-110 transition-transform" style={{ backgroundColor: `${axis.color}10` }}>
-                                        <axis.icon className="h-8 w-8" style={{ color: axis.color }} />
+                                    <div className="md:hidden p-2 rounded-full border border-slate-100">
+                                        <axis.icon className={cn("h-5 w-5", axis.color)} />
                                     </div>
-                                    <h3 className="text-sm font-black text-slate-800 leading-tight uppercase tracking-wider">{axis.title}</h3>
-                                    <div className="flex items-center gap-1 text-[9px] font-bold text-slate-400 group-hover:text-emerald-600 transition-colors uppercase">
-                                        Ver Hub <ArrowRight size={10} />
+                                    <div>
+                                        <h4 className="font-bold text-slate-900 text-lg md:text-xl group-hover:text-emerald-600 transition-colors">
+                                            {axis.title}
+                                        </h4>
+                                        <p className="text-slate-500 text-sm md:text-base">
+                                            {axis.description}
+                                        </p>
                                     </div>
                                 </div>
-                            </Card>
+                                <div className="flex items-center gap-2 text-slate-400 group-hover:text-emerald-600 transition-colors shrink-0 ml-4">
+                                    <span className="hidden md:inline font-medium text-sm">Explorar</span>
+                                    <ArrowRight className="h-5 w-5" />
+                                </div>
+                            </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* --- SECCIÓN 4: Laboratorio de Análisis Geoespacial --- */}
+            {/* Los Grandes Bosques de la Región */}
+            <section className="py-24 bg-white overflow-hidden">
+                <div className="container mx-auto px-4 text-center mb-16">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-black uppercase tracking-widest mb-6">
+                        <Trees className="h-3 w-3" /> Iniciativa Regional
+                    </div>
+                    <h2 className="text-3xl md:text-5xl font-serif font-black text-slate-900 leading-tight mb-6">
+                        Los Grandes Bosques de <br /><span className="text-emerald-600">Centroamérica y República Dominicana</span>
+                    </h2>
+                    <p className="text-slate-600 text-lg md:text-xl font-light leading-relaxed max-w-3xl mx-auto">
+                        Explore la riqueza natural y el estado de conservación de los macizos forestales más emblemáticos de nuestra región.
+                    </p>
+                </div>
+
+                <div className="container mx-auto px-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { name: "Montañas Mayas", country: "Belice", img: "/forests/belize.png", slug: "montanas-mayas" },
+                            { name: "Biosfera Maya", country: "Guatemala", img: "/forests/guatemala.png", slug: "reserva-de-la-biosfera-maya" },
+                            { name: "El Imposible", country: "El Salvador", img: "/forests/el_salvador.png", slug: "parque-nacional-el-imposible" },
+                            { name: "Río Plátano", country: "Honduras", img: "/forests/honduras.png", slug: "reserva-de-la-biosfera-del-rio-platano" },
+                            { name: "Bosawás", country: "Nicaragua", img: "/forests/nicaragua.png", slug: "reserva-de-la-biosfera-bosawas" },
+                            { name: "Corcovado", country: "Costa Rica", img: "/forests/costa_rica.png", slug: "parque-nacional-corcovado" },
+                            { name: "Darién", country: "Panamá", img: "/forests/panama.png", slug: "parque-nacional-darien" },
+                            { name: "Valle Nuevo", country: "Rep. Dominicana", img: "/forests/dominican_republic.png", slug: "valle-nuevo-los-haitises" }
+                        ].map((forest, idx) => (
+                            <div
+                                key={idx}
+                                className="group relative aspect-video sm:aspect-[3/4] rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
+                                onClick={() => navigate(`/grandes-bosques/historias/${forest.slug}`)}
+                            >
+                                <img
+                                    src={forest.img}
+                                    alt={forest.name}
+                                    className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+
+                                <div className="absolute top-4 left-4">
+                                    <span className="px-3 py-1 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-emerald-200 text-[10px] font-black uppercase tracking-widest">
+                                        {forest.country}
+                                    </span>
+                                </div>
+
+                                <div className="absolute bottom-6 left-6 right-6 translate-y-2 group-hover:translate-y-0 transition-transform text-left">
+                                    <h4 className="text-xl font-bold text-white mb-2 leading-tight">{forest.name}</h4>
+                                    <div className="flex items-center gap-2 text-emerald-400 text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                                        Ver Historia <ArrowRight className="h-4 w-4" />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-16 text-center">
+                        <Button
+                            className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full px-10 py-6 font-bold"
+                            onClick={() => navigate('/grandes-bosques')}
+                        >
+                            Explorar catálogo completo <ArrowRight className="ml-2 h-5 w-5" />
+                        </Button>
+                    </div>
+                </div>
+            </section>
+
+            {/* Laboratorio de Análisis Geoespacial - Home Preview */}
             <section className="py-24 bg-slate-50 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-full h-full opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
 
@@ -388,51 +529,6 @@ export const Home = () => {
                 </div>
             </section>
 
-            {/* --- SECCIÓN 2: Intelligence & Analytics (Análisis Multidimensional) --- */}
-            <section className="mt-32 py-24 bg-gradient-to-b from-white via-slate-50 to-slate-100 overflow-hidden relative border-t border-slate-100">
-                <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-primary/5 blur-[120px] rounded-full"></div>
-
-                <div className="container mx-auto px-4 relative z-10">
-                    <div className="flex flex-col lg:flex-row items-center gap-16">
-                        <div className="flex-1 space-y-8">
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary text-[10px] font-black uppercase tracking-[0.2em] border border-brand-primary/20">
-                                <Database className="h-3.5 w-3.5" /> Intelligence Center
-                            </div>
-                            <h2 className="text-4xl md:text-6xl font-serif font-black leading-tight text-slate-900">
-                                Análisis <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-emerald-600">Multidimensional</span>
-                            </h2>
-                            <p className="text-slate-600 text-lg md:text-xl font-light leading-relaxed max-w-xl">
-                                Explore nuestras bases de datos mediante cruces dinámicos de variables. Herramienta global disponible para todos los ejes estratégicos.
-                            </p>
-                            <div className="flex flex-wrap gap-6 pt-4">
-                                <Button
-                                    className="bg-brand-primary text-white hover:bg-brand-primary/90 rounded-full px-10 py-7 h-auto font-black text-base shadow-xl shadow-brand-primary/20 transition-all hover:scale-105 active:scale-95"
-                                    onClick={() => navigate('/analisis-multidimensional')}
-                                >
-                                    Iniciar Sandbox <ArrowRight className="ml-2 h-5 w-5" />
-                                </Button>
-                            </div>
-                        </div>
-
-                        <div className="flex-1 relative w-full lg:w-auto h-[400px] md:h-[500px]">
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="relative w-full max-w-md aspect-square">
-                                    <div className="absolute top-10 left-0 p-4 bg-white/60 backdrop-blur-xl rounded-2xl border border-white shadow-2xl rotate-[-6deg] hover:rotate-0 transition-transform duration-500 z-20">
-                                        <div className="h-20 w-40 flex items-end gap-1 pt-4">
-                                            <div className="flex-1 bg-brand-primary/60 rounded-t h-full animate-[pulse_3s_infinite]"></div>
-                                            <div className="flex-1 bg-brand-primary/30 rounded-t h-[60%] animate-[pulse_4s_infinite]"></div>
-                                            <div className="flex-1 bg-brand-primary/80 rounded-t h-[85%] animate-[pulse_2s_infinite]"></div>
-                                        </div>
-                                    </div>
-                                    <div className="absolute inset-0 bg-brand-primary/5 rounded-full blur-[100px]"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Audience Segmentation */}
             <section className="py-24 bg-slate-50 relative">
                 <div className="container mx-auto px-4">
@@ -473,7 +569,7 @@ export const Home = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                         <div className="order-2 md:order-1 space-y-6">
                             {activeRole === 'decision' && (
-                                <div className="space-y-6">
+                                <div className="animate-in fade-in slide-in-from-left-4 duration-500">
                                     <h3 className="text-2xl font-bold text-slate-900">Tableros de Control Ejecutivo</h3>
                                     <p className="text-slate-600 text-lg leading-relaxed">
                                         Visualice el cumplimiento de metas regionales (ERAM, AFOLU) mediante semáforos de alerta temprana. Acceda a reportes sintetizados para cumbres ministeriales.
@@ -493,7 +589,7 @@ export const Home = () => {
                             )}
 
                             {activeRole === 'tech' && (
-                                <div className="space-y-6">
+                                <div className="animate-in fade-in slide-in-from-left-4 duration-500">
                                     <h3 className="text-2xl font-bold text-slate-900">Datos Abiertos e Interoperabilidad</h3>
                                     <p className="text-slate-600 text-lg leading-relaxed">
                                         Acceda al catálogo de metadatos geográficos. Descargue capas Shapefile/GeoJSON y conecte sus sistemas mediante servicios WMS/WFS estandarizados.
@@ -505,7 +601,7 @@ export const Home = () => {
                             )}
 
                             {activeRole === 'citizen' && (
-                                <div className="space-y-6">
+                                <div className="animate-in fade-in slide-in-from-left-4 duration-500">
                                     <h3 className="text-2xl font-bold text-slate-900">Narrativas de Impacto</h3>
                                     <p className="text-slate-600 text-lg leading-relaxed">
                                         Conozca las historias detrás de los datos. Explore mapas interactivos simplificados sobre la iniciativa "Grandes Bosques" y el estado de la biodiversidad.
@@ -536,14 +632,23 @@ export const Home = () => {
                 </div>
             </section>
 
-
-            {/* Footer Divider / Context */}
-            <div className="max-w-7xl mx-auto px-8 pb-16 mt-32">
-                <div className="border-t border-slate-200 py-8 text-center text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">
-                    Observatorio Ambiental Regional (OAR) • Estrategia Regional Ambiental de Centroamérica y República Dominicana
+            {/* Integration with CCAD Web */}
+            <section className="py-12 bg-white border-t border-slate-100">
+                <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div className="flex items-center gap-4">
+                        <div className="bg-slate-100 p-3 rounded-lg">
+                            <ExternalLink className="h-6 w-6 text-slate-500" />
+                        </div>
+                        <div>
+                            <h4 className="font-bold text-slate-900">Parte del Ecosistema CCAD</h4>
+                            <p className="text-sm text-slate-500">Este observatorio se integra con el portal institucional oficial.</p>
+                        </div>
+                    </div>
+                    <Button variant="outline" size="sm" onClick={() => window.open('https://www.sica.int/ccad', '_blank')}>
+                        Ir al sitio web de CCAD
+                    </Button>
                 </div>
-            </div>
+            </section>
         </div>
     );
 };
-

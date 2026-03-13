@@ -25,7 +25,7 @@ const FIRE_POINTS = [
 ];
 
 const StatCard = ({ title, value, unit, colorClass, subtitle }) => (
-    <div className={`bg - white p - 6 border - t - 4 ${colorClass} shadow - sm hover: shadow - md transition - shadow`}>
+    <div className={`bg-white p-6 border-t-4 ${colorClass} shadow-sm hover:shadow-md transition-shadow`}>
         <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">{title}</h4>
         <div className="flex items-baseline gap-2 mb-2">
             <span className="text-3xl font-extrabold text-slate-800">

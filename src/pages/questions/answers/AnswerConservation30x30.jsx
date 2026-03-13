@@ -35,6 +35,11 @@ export const AnswerConservation30x30 = () => {
     const [loading, setLoading] = useState(true);
     const [showHelp, setShowHelp] = useState(false);
 
+    const dataSources = [
+        { name: "Global Biodiversity Framework (GBF)", description: "Metas mundiales para la biodiversidad, incluyendo la meta 3 (30x30).", provider: "UN Biodiversity Lab", updateFrequency: "Anual" },
+        { name: "Integridad Ecológica", description: "Índice de integridad de los ecosistemas terrestres.", provider: "Venter et al. / UNBL", updateFrequency: "Bienal" }
+    ];
+
     useEffect(() => {
         setLoading(true);
         const remoteUrl = `https://raw.githubusercontent.com/mapgisdev/prototipo_oar/main/public/api/bio_data.json`;
