@@ -101,6 +101,17 @@ export const Sidebar = ({ isOpen }) => {
                         <Activity className="h-5 w-5" />
                         <span>Análisis Geoespacial</span>
                     </Link>
+
+                    <Link
+                        to="/analisis-multidimensional"
+                        className={cn(
+                            "flex items-center gap-3 px-4 py-3 text-slate-300 rounded-lg hover:bg-slate-800 hover:text-white transition-colors",
+                            location.pathname === '/analisis-multidimensional' && "bg-blue-600 text-white font-medium shadow-lg shadow-blue-900/40"
+                        )}
+                    >
+                        <Database className="h-5 w-5" />
+                        <span>Análisis BI</span>
+                    </Link>
                 </nav>
 
 

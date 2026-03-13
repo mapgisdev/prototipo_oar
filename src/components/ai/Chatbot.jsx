@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageSquare, X, Send, Bot, User } from 'lucide-react';
+import { MessageSquare, X, Send, Bot, User, Search, HelpCircle, Database, ChevronUp, ChevronDown } from 'lucide-react';
 import { Card, Button } from '../ui/Shared';
 import { AI_RESPONSES } from '../../api/mockData';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '../../lib/utils';
-import ReactMarkdown from 'react-markdown'; // Assuming we want basic styling, but for now standard text
 
 export const Chatbot = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isChatOpen, setIsChatOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [messages, setMessages] = useState([
         { id: 1, sender: 'bot', text: 'Hola, soy el asistente IA del OAR. ¿En qué puedo ayudarte hoy? (Prueba preguntar sobre "incendios" o "cobertura")' }
     ]);
@@ -15,14 +15,20 @@ export const Chatbot = () => {
     const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef(null);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // Cerrar menú al navegar
+    useEffect(() => {
+        setIsMenuOpen(false);
+    }, [location.pathname]);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
     useEffect(() => {
-        scrollToBottom();
-    }, [messages, isTyping]);
+        if (isChatOpen) scrollToBottom();
+    }, [messages, isTyping, isChatOpen]);
 
     const handleSend = () => {
         if (!input.trim()) return;
@@ -32,7 +38,6 @@ export const Chatbot = () => {
         setInput('');
         setIsTyping(true);
 
-        // Simulate AI Latency
         setTimeout(() => {
             const lower = userMsg.text.toLowerCase();
             let responseText = AI_RESPONSES.default;
@@ -62,31 +67,97 @@ export const Chatbot = () => {
         }, 1500);
     };
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') handleSend();
+    const handleSearchClick = () => {
+        window.dispatchEvent(new Event('oar-open-search'));
+        setIsMenuOpen(false);
     };
+
+    const menuItems = [
+        { 
+            id: 'search', 
+            label: 'Búsqueda Global', 
+            icon: Search, 
+            color: 'bg-slate-900', 
+            action: handleSearchClick 
+        },
+        { 
+            id: 'questions', 
+            label: 'Preguntas Estratégicas', 
+            icon: HelpCircle, 
+            color: 'bg-emerald-600', 
+            action: () => navigate('/strategic-questions') 
+        },
+        { 
+            id: 'analysis', 
+            label: 'Cruce de Variables', 
+            icon: Database, 
+            color: 'bg-brand-primary', 
+            action: () => navigate('/analisis-multidimensional') 
+        },
+        { 
+            id: 'chat', 
+            label: 'Asistente IA', 
+            icon: Bot, 
+            color: 'bg-blue-600', 
+            action: () => {
+                setIsChatOpen(true);
+                setIsMenuOpen(false);
+            } 
+        }
+    ];
 
     return (
         <>
-            {/* Floating Toggle Button */}
-            {!isOpen && (
+            {/* Multi-Function FAB Menu */}
+            <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[950] flex flex-col items-end gap-3">
+                {/* Menu Options (Slide up) */}
+                <div className={cn(
+                    "flex flex-col items-end gap-3 transition-all duration-300 transform",
+                    isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
+                )}>
+                    {menuItems.map((item, idx) => (
+                        <div key={item.id} className="flex items-center gap-3 group">
+                            <span className="bg-white px-3 py-1.5 rounded-lg shadow-xl text-xs font-bold text-slate-700 border border-slate-100 opacity-0 group-hover:opacity-100 transition-opacity">
+                                {item.label}
+                            </span>
+                            <button
+                                onClick={item.action}
+                                className={cn(
+                                    "p-3 text-white rounded-full shadow-lg hover:scale-110 transition-transform flex items-center justify-center",
+                                    item.color
+                                )}
+                                title={item.label}
+                            >
+                                <item.icon className="h-5 w-5" />
+                            </button>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Main Trigger Button (Chatbot Style) */}
                 <button
-                    onClick={() => setIsOpen(true)}
-                    className="fixed bottom-4 right-4 md:bottom-6 md:right-6 p-4 bg-brand-primary text-white rounded-full shadow-2xl hover:bg-blue-800 transition-all z-[900] hover:scale-110 flex items-center gap-2"
+                    onClick={() => {
+                        if (isChatOpen) setIsChatOpen(false);
+                        else setIsMenuOpen(!isMenuOpen);
+                    }}
+                    className={cn(
+                        "p-4 text-white rounded-full shadow-2xl transition-all hover:scale-110 flex items-center gap-2",
+                        isChatOpen || isMenuOpen ? "bg-slate-800" : "bg-brand-primary"
+                    )}
                 >
-                    <MessageSquare className="h-6 w-6" />
-                    <span className="font-bold hidden md:inline">Asistente IA</span>
+                    {isChatOpen || isMenuOpen ? <X className="h-6 w-6" /> : <Bot className="h-6 w-6" />}
+                    {!isChatOpen && !isMenuOpen && <span className="font-bold hidden md:inline ml-1">Centro de Ayuda</span>}
                 </button>
-            )}
+            </div>
 
             {/* Chat Window */}
-            {isOpen && (
-                <div className="fixed bottom-4 right-4 w-[90vw] max-w-sm h-[70vh] md:h-[500px] z-[900] flex flex-col font-sans transition-all duration-300">
-                    <Card className="h-full flex flex-col shadow-2xl border-0 overflow-hidden">
+            {isChatOpen && (
+                <div className="fixed bottom-24 right-4 w-[90vw] max-w-sm h-[70vh] md:h-[500px] z-[900] flex flex-col font-sans transition-all duration-300 animate-in fade-in slide-in-from-bottom-8">
+                    <Card className="h-full flex flex-col shadow-2xl border-0 overflow-hidden rounded-[2rem]">
                         {/* Header */}
-                        <div className="bg-brand-primary p-4 flex justify-between items-center text-white">
-                            <div className="flex items-center gap-2">
-                                <div className="bg-white/20 p-1.5 rounded-full">
+                        <div className="bg-brand-primary p-5 flex justify-between items-center text-white">
+                            <div className="flex items-center gap-3">
+                                <div className="bg-white/20 p-2 rounded-xl">
                                     <Bot className="h-5 w-5" />
                                 </div>
                                 <div>
@@ -97,8 +168,8 @@ export const Chatbot = () => {
                                     </p>
                                 </div>
                             </div>
-                            <button onClick={() => setIsOpen(false)} className="text-white/80 hover:text-white">
-                                <X className="h-5 w-5" />
+                            <button onClick={() => setIsChatOpen(false)} className="bg-white/10 p-1.5 rounded-lg hover:bg-white/20 transition-colors">
+                                <X className="h-4 w-4" />
                             </button>
                         </div>
 
@@ -116,9 +187,8 @@ export const Chatbot = () => {
                                         "max-w-[80%] p-3 rounded-2xl text-sm shadow-sm",
                                         msg.sender === 'user'
                                             ? "bg-brand-primary text-white rounded-br-none"
-                                            : "bg-white text-slate-700 border border-slate-200 rounded-bl-none"
+                                             : "bg-white text-slate-700 border border-slate-200 rounded-bl-none"
                                     )}>
-                                        {/* Use dangerouslySetInnerHTML or just text for bolding simulated markdown */}
                                         <p dangerouslySetInnerHTML={{ __html: msg.text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') }}></p>
 
                                         {msg.action && (
@@ -154,27 +224,24 @@ export const Chatbot = () => {
                         </div>
 
                         {/* Input Area */}
-                        <div className="p-3 bg-white border-t border-slate-200">
+                        <div className="p-4 bg-white border-t border-slate-100">
                             <div className="flex gap-2">
                                 <input
                                     type="text"
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
-                                    onKeyDown={handleKeyDown}
+                                    onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                                     placeholder="Escribe tu pregunta..."
-                                    className="flex-1 bg-slate-100 border-0 rounded-full px-4 text-sm focus:ring-2 focus:ring-brand-primary/50 outline-none"
+                                    className="flex-1 bg-slate-100 border-0 rounded-full px-5 py-2.5 text-sm focus:ring-2 focus:ring-brand-primary/20 outline-none"
                                 />
                                 <button
                                     onClick={handleSend}
                                     disabled={!input.trim()}
-                                    className="p-2 bg-brand-primary text-white rounded-full hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                    className="p-2.5 bg-brand-primary text-white rounded-full hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                                 >
                                     <Send className="h-4 w-4" />
                                 </button>
                             </div>
-                            <p className="text-[10px] text-center text-slate-400 mt-2">
-                                IA simulada. Puede cometer errores.
-                            </p>
                         </div>
                     </Card>
                 </div>

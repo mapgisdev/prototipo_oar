@@ -9,6 +9,13 @@ export const Navbar = ({ user, onLogout, toggleSidebar, isSidebarVisible }) => {
     const navigate = useNavigate();
     const [isSearchOpen, setIsSearchOpen] = useState(false);
 
+    // Permitir apertura remota desde el botón flotante
+    React.useEffect(() => {
+        const handleOpen = () => setIsSearchOpen(true);
+        window.addEventListener('oar-open-search', handleOpen);
+        return () => window.removeEventListener('oar-open-search', handleOpen);
+    }, []);
+
     return (
         <>
             <nav className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md">
@@ -49,19 +56,17 @@ export const Navbar = ({ user, onLogout, toggleSidebar, isSidebarVisible }) => {
                         <Search className="h-5 w-5" />
                     </button>
 
-                    {/* Actions */}
                     <div className="flex items-center gap-4">
+                        <div className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600 mr-4">
+                            <Link to="/" className="hover:text-brand-primary transition-colors">Inicio</Link>
+                            <Link to="/grandes-bosques" className="hover:text-brand-primary transition-colors">Grandes Bosques</Link>
+                            <Link to="/analisis-multidimensional" className="hover:text-brand-primary transition-colors">Análisis BI</Link>
+                        </div>
+
                         {!user ? (
-                            <>
-                                <div className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600">
-                                    <Link to="/" className="hover:text-brand-primary transition-colors">Inicio</Link>
-                                    <Link to="/grandes-bosques" className="hover:text-brand-primary transition-colors">Grandes Bosques</Link>
-                                    <Link to="/analisis-multidimensional" className="hover:text-brand-primary transition-colors">Análisis BI</Link>
-                                </div>
-                                <Button onClick={() => navigate('/auth/login')} size="sm">
-                                    Acceso Funcionarios
-                                </Button>
-                            </>
+                            <Button onClick={() => navigate('/auth/login')} size="sm">
+                                Acceso Funcionarios
+                            </Button>
                         ) : (
                             <div className="flex items-center gap-4">
                                 <div className="hidden md:flex items-center gap-2 text-right">

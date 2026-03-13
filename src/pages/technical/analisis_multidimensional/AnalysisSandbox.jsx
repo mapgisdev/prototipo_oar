@@ -32,31 +32,50 @@ import { DATASETS_CONFIG } from './datasets.config';
 // --- UTILS ---
 
 const parseCSV = (text) => {
-    const lines = text.split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
-    return lines.slice(1).filter(line => line.trim()).map(line => {
-        const values = [];
-        let current = '';
-        let inQuotes = false;
+    try {
+        if (!text || !text.trim()) return [];
+        const lines = text.split('\n');
         
-        for (let char of line) {
-            if (char === '"') inQuotes = !inQuotes;
-            else if (char === ',' && !inQuotes) {
+        const normalize = (str) => {
+            return str.normalize("NFD")
+                      .replace(/[\u0300-\u036f]/g, "")
+                      .replace(/[^a-zA-Z0-9\s\(\)\/\.]/g, "")
+                      .trim();
+        };
+
+        const rawHeaders = lines[0].split(',').map(h => h.trim());
+        const headers = rawHeaders.map(h => normalize(h));
+        
+        return lines.slice(1)
+            .filter(line => line.trim())
+            .map(line => {
+                const values = [];
+                let current = '';
+                let inQuotes = false;
+                
+                for (let char of line) {
+                    if (char === '"') inQuotes = !inQuotes;
+                    else if (char === ',' && !inQuotes) {
+                        values.push(current.trim());
+                        current = '';
+                    } else {
+                        current += char;
+                    }
+                }
                 values.push(current.trim());
-                current = '';
-            } else {
-                current += char;
-            }
-        }
-        values.push(current.trim());
-        
-        const obj = {};
-        headers.forEach((h, i) => {
-            const val = values[i];
-            obj[h] = isNaN(val) || val === '' ? val : parseFloat(val);
-        });
-        return obj;
-    });
+                
+                const obj = {};
+                headers.forEach((h, i) => {
+                    const val = values[i];
+                    const cleanVal = val === undefined ? '' : val.replace(/^"|"$/g, '').trim();
+                    obj[h] = isNaN(cleanVal) || cleanVal === '' ? cleanVal : parseFloat(cleanVal);
+                });
+                return obj;
+            });
+    } catch (e) {
+        console.error("Critical error parsing CSV:", e);
+        return [];
+    }
 };
 
 const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4', '#F472B6', '#475569', '#15803D', '#7C3AED'];
@@ -66,17 +85,20 @@ const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4'
 const DatasetCard = ({ dataset, onSelect, isActive }) => (
     <div 
         onClick={() => onSelect(dataset)}
-        className={`p-6 rounded-3xl border-2 transition-all cursor-pointer group ${
+        className={`p-8 rounded-[2rem] border-2 transition-all cursor-pointer group h-full flex flex-col ${
             isActive ? 'border-brand-primary bg-blue-50' : 'border-slate-100 bg-white hover:border-slate-300'
         }`}
     >
-        <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110 ${
-            isActive ? 'bg-brand-primary text-white' : 'bg-slate-100 text-slate-500'
+        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${
+            isActive ? 'bg-brand-primary text-white shadow-lg' : 'bg-slate-50 text-slate-400'
         }`}>
-            <Database size={24} />
+            <Database size={28} />
         </div>
-        <h3 className="font-bold text-slate-800 mb-1">{dataset.name}</h3>
-        <p className="text-xs text-slate-500 leading-relaxed line-clamp-2">{dataset.description}</p>
+        <h3 className="font-bold text-slate-800 text-lg mb-2">{dataset.name}</h3>
+        <p className="text-sm text-slate-500 leading-relaxed line-clamp-3">{dataset.description}</p>
+        <div className="mt-auto pt-6 flex items-center text-xs font-bold text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity">
+            Explorar Datos <ArrowLeft className="ml-2 h-3.5 w-3.5 rotate-180" />
+        </div>
     </div>
 );
 
@@ -87,6 +109,7 @@ export const AnalysisSandbox = () => {
     const [selectedDataset, setSelectedDataset] = useState(null);
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     
     // Configuración del Cruzado
     const [dim1, setDim1] = useState('');
@@ -99,18 +122,36 @@ export const AnalysisSandbox = () => {
     useEffect(() => {
         if (!selectedDataset) return;
         setLoading(true);
+        setError(null);
+
         fetch(selectedDataset.src)
-            .then(res => res.text())
+            .then(res => {
+                if (!res.ok) throw new Error(`Error ${res.status}: No se pudo cargar el dataset.`);
+                return res.text();
+            })
             .then(text => {
                 const parsed = parseCSV(text);
+                if (parsed.length === 0) throw new Error("El archivo está vacío o tiene un formato incorrecto.");
                 setData(parsed);
-                // Pre-selección inteligente
-                setDim1(selectedDataset.dimensions[0].id);
-                setMetric(selectedDataset.metrics[0].id);
+                
+                // Pre-selección inteligente sincronizada con limpieza de cabeceras
+                const normalize = (str) => {
+                    return str.normalize("NFD")
+                              .replace(/[\u0300-\u036f]/g, "")
+                              .replace(/[^a-zA-Z0-9\s\(\)\/\.]/g, "")
+                              .trim();
+                };
+
+                const cleanD1 = normalize(selectedDataset.dimensions[0].id);
+                const cleanM = normalize(selectedDataset.metrics[0].id);
+                
+                setDim1(cleanD1);
+                setMetric(cleanM);
                 setLoading(false);
             })
             .catch(err => {
                 console.error("Error loading CSV:", err);
+                setError(err.message);
                 setLoading(false);
             });
     }, [selectedDataset]);
@@ -123,9 +164,9 @@ export const AnalysisSandbox = () => {
 
         data.forEach(row => {
             const key1 = row[dim1] || 'N/A';
-            const val = row[metric] || 0;
+            const val = typeof row[metric] === 'number' ? row[metric] : 0;
 
-            if (dim2) {
+            if (dim2 && row[dim2]) {
                 const key2 = row[dim2] || 'N/A';
                 if (!grouped[key1]) grouped[key1] = {};
                 if (!grouped[key1][key2]) grouped[key1][key2] = { total: 0, count: 0 };
@@ -142,17 +183,23 @@ export const AnalysisSandbox = () => {
         return Object.entries(grouped).map(([name, value]) => {
             if (dim2) {
                 const result = { name };
+                let totalRowValue = 0;
                 Object.entries(value).forEach(([subKey, subVal]) => {
-                    result[subKey] = aggMode === 'avg' ? (subVal.total / subVal.count) : (aggMode === 'count' ? subVal.count : subVal.total);
+                    const calculated = aggMode === 'avg' ? (subVal.total / subVal.count) : (aggMode === 'count' ? subVal.count : subVal.total);
+                    result[subKey] = calculated;
+                    totalRowValue += calculated;
                 });
+                result._total = totalRowValue; // Para ordenamiento
                 return result;
             } else {
+                const val = aggMode === 'avg' ? (value.total / value.count) : (aggMode === 'count' ? value.count : value.total);
                 return {
                     name,
-                    value: aggMode === 'avg' ? (value.total / value.count) : (aggMode === 'count' ? value.count : value.total)
+                    value: val,
+                    _total: val
                 };
             }
-        }).sort((a, b) => (b.value || 0) - (a.value || 0)).slice(0, 15); // Top 15 para legibilidad
+        }).sort((a, b) => b._total - a._total).slice(0, 15);
     }, [data, dim1, dim2, metric, aggMode]);
 
     // Obtener llaves únicas secundarias para series agrupadas
@@ -168,20 +215,20 @@ export const AnalysisSandbox = () => {
     }, [chartData, dim2]);
 
     return (
-        <div className="min-h-full bg-slate-50 font-sans p-8 pt-20">
+        <div className="min-h-full bg-slate-50/50 font-sans p-8 pt-24">
             {/* Header */}
             <div className="max-w-7xl mx-auto mb-10">
                 <div className="flex items-center gap-4 mb-4">
-                    <Button variant="ghost" size="sm" onClick={() => navigate('/')} className="rounded-full">
-                        <ArrowLeft className="h-4 w-4 mr-2" /> Volver
+                    <Button variant="ghost" size="sm" onClick={() => navigate('/')} className="rounded-full text-slate-500 hover:text-brand-primary">
+                        <ArrowLeft className="h-4 w-4 mr-2" /> Volver al Inicio
                     </Button>
-                    <Badge variant="blue" className="bg-blue-100 text-blue-700 uppercase tracking-widest text-[10px] font-black">
-                        Módulo Experimental
+                    <Badge variant="blue" className="bg-brand-primary/10 text-brand-primary uppercase tracking-widest text-[10px] font-black border-none px-3 py-1">
+                        Intelligence Center
                     </Badge>
                 </div>
-                <h1 className="text-4xl font-serif font-black text-slate-900 mb-2">Análisis Multidimensional</h1>
-                <p className="text-slate-500 max-w-2xl font-light">
-                    Combine variables de diferentes fuentes de datos para descubrir tendencias y correlaciones regionales.
+                <h1 className="text-4xl md:text-5xl font-serif font-black text-slate-900 mb-2">Análisis Multidimensional</h1>
+                <p className="text-slate-500 max-w-2xl font-light text-lg">
+                    Herramienta avanzada para el cruce de variables ambientales y métricas regionales.
                 </p>
             </div>
 
@@ -306,6 +353,15 @@ export const AnalysisSandbox = () => {
                                         <p className="text-slate-400 font-medium italic">Procesando millones de datos...</p>
                                     </div>
                                 </div>
+                            ) : error ? (
+                                <div className="flex-1 flex items-center justify-center text-red-500 bg-red-50 rounded-2xl border border-red-100 p-8 text-center flex-col gap-4">
+                                    <Activity className="h-10 w-10 opacity-50" />
+                                    <div>
+                                        <h4 className="font-bold text-lg mb-1">Error de Datos</h4>
+                                        <p className="text-sm opacity-70">{error}</p>
+                                    </div>
+                                    <Button variant="outline" size="sm" onClick={() => setSelectedDataset(null)}>Seleccionar otro dataset</Button>
+                                </div>
                             ) : chartData.length > 0 ? (
                                 <div className="flex-1">
                                     <div className="mb-8 flex justify-between items-start">
@@ -322,7 +378,7 @@ export const AnalysisSandbox = () => {
                                     
                                     <div className="h-[450px] w-full">
                                         <ResponsiveContainer width="100%" height="100%">
-                                            {renderChart(chartType, chartData, secondaryKeys)}
+                                            {renderChart(chartType, chartData, secondaryKeys, dim2)}
                                         </ResponsiveContainer>
                                     </div>
                                 </div>
@@ -353,7 +409,13 @@ const ChartTypeButton = ({ type, icon: Icon, label, active, onClick }) => (
     </button>
 );
 
-const renderChart = (type, data, secondaryKeys) => {
+const renderChart = (type, data, secondaryKeys, dim2) => {
+    if (!data || data.length === 0) {
+        return <div className="flex items-center justify-center h-full text-slate-400 italic">No hay datos para esta combinación</div>;
+    }
+
+    const primaryKey = dim2 ? (secondaryKeys[0] || 'value') : 'value';
+
     switch(type) {
         case 'bar':
             return (
@@ -377,7 +439,7 @@ const renderChart = (type, data, secondaryKeys) => {
                     <YAxis fontSize={11} stroke="#64748B" />
                     <Tooltip contentStyle={{ borderRadius: '12px', border: 'none' }} />
                     <Legend />
-                    {secondaryKeys.map((k, i) => <Bar key={k} dataKey={k} stackId="a" fill={COLORS[i % COLORS.length]} />)}
+                    {secondaryKeys.length > 0 && secondaryKeys.map((k, i) => <Bar key={k} dataKey={k} stackId="a" fill={COLORS[i % COLORS.length]} />)}
                 </BarChart>
             );
         case 'line':
@@ -411,10 +473,18 @@ const renderChart = (type, data, secondaryKeys) => {
         case 'pie':
             return (
                 <PieChart>
-                    <Pie data={data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={120} label>
+                    <Pie 
+                        data={data} 
+                        dataKey={primaryKey} 
+                        nameKey="name" 
+                        cx="50%" 
+                        cy="50%" 
+                        outerRadius={150} 
+                        label={({name, percent}) => `${name} (${((percent || 0) * 100).toFixed(0)}%)`}
+                    >
                         {data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
                     </Pie>
-                    <Tooltip />
+                    <Tooltip contentStyle={{ borderRadius: '12px', border: 'none' }} />
                     <Legend />
                 </PieChart>
             );
@@ -422,58 +492,62 @@ const renderChart = (type, data, secondaryKeys) => {
             return (
                 <RadarChart outerRadius={150} data={data}>
                     <PolarGrid stroke="#E2E8F0" />
-                    <PolarAngleAxis dataKey="name" tick={{fontSize: 10}} />
-                    <PolarRadiusAxis fontSize={10} />
-                    <Radar dataKey="value" stroke="#3B82F6" fill="#3B82F6" fillOpacity={0.5} />
-                    <Tooltip />
+                    <PolarAngleAxis dataKey="name" tick={{fontSize: 10, fill: '#64748B'}} />
+                    <PolarRadiusAxis fontSize={10} stroke="#E2E8F0" />
+                    {secondaryKeys.length > 0 
+                        ? secondaryKeys.slice(0, 3).map((k, i) => <Radar key={k} dataKey={k} stroke={COLORS[i % COLORS.length]} fill={COLORS[i % COLORS.length]} fillOpacity={0.4} />)
+                        : <Radar dataKey="value" stroke="#3B82F6" fill="#3B82F6" fillOpacity={0.5} />
+                    }
+                    <Tooltip contentStyle={{ borderRadius: '12px', border: 'none' }} />
                 </RadarChart>
             );
         case 'treemap':
             return (
                 <Treemap
                     data={data}
-                    dataKey="value"
-                    aspectRatio={4 / 3}
+                    dataKey={primaryKey}
+                    aspectRatio={4/3}
                     stroke="#fff"
                     fill="#3B82F6"
                 >
-                    <Tooltip />
+                    <Tooltip contentStyle={{ borderRadius: '12px', border: 'none' }} />
                 </Treemap>
             );
         case 'scatter':
-            // Transformar para que sea legible en burbujas
             return (
                 <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
-                    <XAxis dataKey="name" fontSize={11} />
-                    <YAxis dataKey="value" fontSize={11} />
-                    <ZAxis dataKey="value" range={[60, 400]} />
+                    <XAxis dataKey="name" type="category" fontSize={11} stroke="#64748B" />
+                    <YAxis dataKey={primaryKey} fontSize={11} stroke="#64748B" />
+                    <ZAxis dataKey={dim2 ? (secondaryKeys[0] || '_total') : 'value'} range={[60, 1000]} />
                     <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-                    <Scatter name="Datos" data={data} fill="#3B82F6" />
+                    <Legend />
+                    {secondaryKeys.length > 0
+                        ? secondaryKeys.map((k, i) => <Scatter key={k} name={k} data={data.map(d => ({ ...d, [primaryKey]: d[k] }))} fill={COLORS[i % COLORS.length]} />)
+                        : <Scatter name="Muestra" data={data} fill="#3B82F6" />
+                    }
                 </ScatterChart>
             );
         case 'radial':
             return (
-                <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={data} innerRadius="10%" outerRadius="80%" barSize={20} startAngle={180} endAngle={0}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
-                        <XAxis dataKey="name" hide />
-                        <YAxis hide />
-                        <Tooltip />
-                        <Bar dataKey="value" fill="#3B82F6" radius={[0, 10, 10, 0]} />
-                    </BarChart>
-                </ResponsiveContainer>
+                <BarChart innerRadius="20%" outerRadius="100%" data={data} startAngle={180} endAngle={0}>
+                    <XAxis dataKey="name" hide />
+                    <YAxis hide />
+                    <Tooltip contentStyle={{ borderRadius: '12px', border: 'none' }} />
+                    <Legend iconType="circle" />
+                    <Bar dataKey="value" fill="#3B82F6" radius={[0, 10, 10, 0]} />
+                </BarChart>
             );
         case 'composed':
             return (
                 <ComposedChart data={data}>
-                    <CartesianGrid stroke="#E2E8F0" />
-                    <XAxis dataKey="name" fontSize={11} />
-                    <YAxis fontSize={11} />
-                    <Tooltip />
+                    <CartesianGrid stroke="#E2E8F0" vertical={false} />
+                    <XAxis dataKey="name" fontSize={11} stroke="#64748B" />
+                    <YAxis fontSize={11} stroke="#64748B" />
+                    <Tooltip contentStyle={{ borderRadius: '12px', border: 'none' }} />
                     <Legend />
-                    <Bar dataKey="value" barSize={40} fill="#3B82F6" opacity={0.3} />
-                    <Line type="monotone" dataKey="value" stroke="#3B82F6" strokeWidth={3} />
+                    <Bar dataKey={primaryKey} barSize={40} fill="#3B82F6" opacity={0.3} radius={[4, 4, 0, 0]} />
+                    <Line type="monotone" dataKey={primaryKey} stroke="#3B82F6" strokeWidth={3} dot={{r: 6}} />
                 </ComposedChart>
             );
         default: return null;

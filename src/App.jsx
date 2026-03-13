@@ -130,8 +130,6 @@ function App() {
           <Route path="/auth/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/analisis-multidimensional" element={<AnalysisSandbox />} />
 
-          <Route path="/auth/login" element={<Login onLogin={handleLogin} />} />
-
           {/* Technical Routes (Protected) */}
           <Route path="/technical/dashboard" element={
             <ProtectedRoute user={user}>

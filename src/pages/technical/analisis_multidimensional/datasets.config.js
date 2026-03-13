@@ -11,8 +11,8 @@ export const DATASETS_CONFIG = [
             { id: 'Zona de Vida', name: 'Zona de Vida' },
             { id: 'Suelo IPCC', name: 'Suelo IPCC' },
             { id: 'Area Protegida', name: 'Área Protegida' },
-            { id: 'Zona Climática', name: 'Zona Climática' },
-            { id: 'División Administrativa', name: 'División Administrativa' }
+            { id: 'Zona Climatica', name: 'Zona Climática' },
+            { id: 'Division Administrativa', name: 'División Administrativa' }
         ],
         metrics: [
             { id: 'Vol (m3/ha)', name: 'Volumen (m³/ha)' },

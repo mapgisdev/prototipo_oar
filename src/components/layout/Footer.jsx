@@ -1,10 +1,13 @@
-import React from 'react';
-
-import { Facebook, Twitter, Instagram, Mail } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Mail, Layout } from 'lucide-react';
+import { SitemapModal } from './SitemapModal';
+import { useState } from 'react';
 
 export const Footer = () => {
+    const [isSitemapOpen, setIsSitemapOpen] = useState(false);
+
     return (
-        <footer className="bg-emerald-950 text-white py-16 border-t-4 border-emerald-500">
+        <footer className="footer-root">
+            <div className="bg-emerald-950 text-white py-16 border-t-4 border-emerald-500">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
                     <div className="col-span-1 md:col-span-2">
@@ -21,8 +24,9 @@ export const Footer = () => {
                     </div>
 
                     <div>
-                        <h4 className="font-bold mb-6 text-emerald-400 uppercase tracking-widest text-xs">Enlaces Institucionales</h4>
+                        <h4 className="font-bold mb-6 text-emerald-400 uppercase tracking-widest text-xs">Navegación</h4>
                         <ul className="space-y-3 text-sm text-emerald-100/80">
+                            <li><button onClick={() => setIsSitemapOpen(true)} className="hover:text-emerald-400 transition-colors flex items-center gap-2 cursor-pointer text-left w-full"><Layout className="h-4 w-4" /> Mapa del Sitio Esquemático</button></li>
                             <li><a href="https://www.sica.int" target="_blank" rel="noreferrer" className="hover:text-emerald-400 transition-colors flex items-center gap-2">SICA</a></li>
                             <li><a href="https://www.sica.int/ccad" target="_blank" rel="noreferrer" className="hover:text-emerald-400 transition-colors flex items-center gap-2">CCAD</a></li>
                         </ul>
@@ -43,6 +47,8 @@ export const Footer = () => {
                     <p>© {new Date().getFullYear()} Observatorio Ambiental Regional · CCAD · Integración de Datos para la Acción Climática</p>
                 </div>
             </div>
+            </div>
+            <SitemapModal isOpen={isSitemapOpen} onClose={() => setIsSitemapOpen(false)} />
         </footer>
     );
 };

@@ -110,8 +110,8 @@ export const ForestStoryDetail = () => {
                     {/* Header Section */}
                     <div className="space-y-6">
                         <div className="flex flex-wrap items-center gap-4">
-                            <Link to="/stories" className="text-emerald-600 hover:text-emerald-700 text-sm font-bold flex items-center gap-1 group">
-                                <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" /> Volver a Historias
+                            <Link to="/grandes-bosques" className="text-emerald-600 hover:text-emerald-700 text-sm font-bold flex items-center gap-1 group">
+                                <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" /> Volver a los Grandes Bosques
                             </Link>
                         </div>
                         

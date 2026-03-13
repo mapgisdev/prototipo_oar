@@ -1,5 +1,5 @@
 import { 
-    Trees, Shield, Flame, Footprints, CloudRain, Anchor, Droplet, Map as MapIcon
+    Trees, Shield, Flame, Footprints, CloudRain, Anchor, Droplet, Map as MapIcon, Database
 } from 'lucide-react';
 
 export const QUESTIONS_DATA = [
@@ -101,5 +101,16 @@ export const QUESTIONS_DATA = [
         path: "/preguntas/areas-protegidas",
         color: "#10B981",
         category: "Biodiversidad"
+    },
+    {
+        id: 'analisis-multidimensional',
+        icon: Database,
+        question: "¿Cómo puedo realizar cruces de variables personalizados?",
+        shortQuestion: "Análisis Multidimensional (BI)",
+        description: "Explore y cruce variables de múltiples bases de datos oficiales en un entorno sandbox.",
+        highlight: "Sandbox Experimental",
+        path: "/analisis-multidimensional",
+        color: "#1E293B",
+        category: "Herramientas"
     }
 ];
