@@ -35,7 +35,7 @@ export const Home = () => {
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1516214104703-d870798883c5')] bg-cover bg-center"></div>
 
                 <div className="relative z-30 container mx-auto px-4 text-center space-y-8 pt-24">
-                    <span className="inline-block px-6 py-2 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-emerald-300 text-sm md:text-base font-bold tracking-wider uppercase">
+                    <span className="inline-block px-8 py-3 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-emerald-300 text-2xl md:text-4xl font-black tracking-widest uppercase">
                         Observatorio Ambiental Regional (OAR)
                     </span>
                 </div>
@@ -53,7 +53,7 @@ export const Home = () => {
                     {homeQuestions.map((q) => (
                         <Card
                             key={q.id}
-                            className="flex flex-col h-full hover:shadow-2xl transition-all duration-500 border-t-4 group cursor-pointer bg-white rounded-xl overflow-hidden shadow-md hover:-translate-y-2"
+                            className="flex flex-col h-full hover:shadow-2xl transition-all duration-500 border-t-4 group cursor-pointer bg-white/50 backdrop-blur-xl border-white/20 rounded-xl overflow-hidden shadow-md hover:-translate-y-2"
                             style={{ borderTopColor: q.color }}
                             onClick={() => navigate(q.path)}
                         >
@@ -145,6 +145,83 @@ export const Home = () => {
             </section>
 
 
+            {/* --- SECCIÓN 2.5: Explorar por ejes ERAM (Versión Lista Premium) --- */}
+            <section className="py-24 bg-white">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-8">
+                        <div className="max-w-3xl">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest mb-6 border border-emerald-100/50">
+                                <Globe className="h-3 w-3" /> Marco Estratégico
+                            </div>
+                            <h2 className="text-4xl md:text-5xl font-serif font-black text-slate-900 leading-tight mb-8">
+                                Explorar por <span className="bg-blue-600/10 text-blue-600 px-4 py-1 rounded-lg">ejes ERAM</span>
+                            </h2>
+                            <p className="text-slate-500 text-lg md:text-xl font-light leading-relaxed">
+                                Seleccione un eje estratégico para acceder a sus tableros, mapas y reportes especializados orientados a la resiliencia regional.
+                            </p>
+                        </div>
+                        <Button
+                            variant="outline"
+                            className="rounded-full px-8 py-3 border-emerald-200 text-emerald-600 hover:bg-emerald-50 font-bold h-auto hidden md:flex"
+                            onClick={() => navigate('/strategic-axis')}
+                        >
+                            Ver todos los ejes
+                        </Button>
+                    </div>
+
+                    <div className="space-y-4 max-w-5xl">
+                        {[
+                            { 
+                                title: "Calidad Ambiental", 
+                                description: "Calidad de aire/agua, presión antrópica y variables de seguimiento ambiental.", 
+                                icon: Wind, 
+                                color: "text-blue-500", 
+                                bgColor: "bg-blue-50",
+                                path: "/strategic-axis/calidad"
+                            },
+                            { 
+                                title: "Mares y Biodiversidad", 
+                                description: "Biodiversidad, ecosistemas marino-costeros y conectividad ecológica.", 
+                                icon: Waves, 
+                                color: "text-cyan-500", 
+                                bgColor: "bg-cyan-50",
+                                path: "/strategic-axis/mares"
+                            },
+                            { 
+                                title: "Gestión Integral del Recurso Hídrico", 
+                                description: "Cuencas, disponibilidad hídrica, presión y riesgos asociados al agua.", 
+                                icon: Droplets, 
+                                color: "text-blue-600", 
+                                bgColor: "bg-blue-50/50",
+                                path: "/strategic-axis/agua"
+                            }
+                        ].map((axis, idx) => (
+                            <div 
+                                key={idx}
+                                onClick={() => navigate(axis.path)}
+                                className="group flex items-center justify-between p-6 md:p-8 bg-white border border-slate-100 rounded-[2rem] hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-500 cursor-pointer"
+                            >
+                                <div className="flex items-center gap-6 md:gap-10">
+                                    <div className={cn("w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 duration-500", axis.bgColor)}>
+                                        <axis.icon className={cn("h-8 w-8 md:h-10 md:w-10", axis.color)} />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <h3 className="text-xl md:text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+                                            {axis.title}
+                                        </h3>
+                                        <p className="text-slate-500 text-sm md:text-base font-light max-w-2xl">
+                                            {axis.description}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div className="hidden md:flex items-center gap-2 text-slate-400 group-hover:text-blue-600 transition-all font-bold text-sm uppercase tracking-widest">
+                                    Explorar <ArrowRight className="h-5 w-5 transform group-hover:translate-x-2 transition-transform" />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
 
             {/* --- SECCIÓN 3: Ejes Estratégicos ERAM (Explorar por ejes) --- */}
