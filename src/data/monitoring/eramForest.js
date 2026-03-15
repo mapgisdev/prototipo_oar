@@ -158,5 +158,23 @@ export const eramForestData = [
     countries: [
       { name: "SICA Regional", value: 60 }
     ]
+  },
+  {
+    id: "IND-4.4.4",
+    type: "gestion",
+    resultado: "4.4: Instrumentos para el Uso Sostenible",
+    line: "Fondos de Crédito",
+    accionEstrategica: "Creación de un fondo regional de garantías para el sector forestal.",
+    indicator: "Porcentaje de constitución del fondo regional de garantías forestales.",
+    targetText: "Fondo regional constituido y operativo al 100%.",
+    unit: "% de Constitución",
+    targetValue: 100,
+    verificationMeans: [
+      { name: "Decreto de creación del fondo", type: "pdf", uploaded: 0, required: 1 },
+      { name: "Convenio con bancos regionales", type: "doc", uploaded: 0, required: 5 }
+    ],
+    countries: [
+      { name: "SICA Regional", value: 10 }
+    ]
   }
 ];
