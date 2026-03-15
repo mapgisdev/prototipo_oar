@@ -1,6 +1,6 @@
 
-import React, { useState, useMemo } from 'react';
-import { Search, Trees, LayoutDashboard, BarChart3, AlertCircle, Target, ClipboardList, Zap, CheckCircle, Clock, AlertTriangle, FileText, Link as LinkIcon, Map as MapIcon, Database, File, X, MapPin, FolderCheck, ChevronRight } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Search, Trees, LayoutDashboard, BarChart3, AlertCircle, Target, ClipboardList, Zap, CheckCircle, Clock, AlertTriangle, FileText, Link as LinkIcon, Map as MapIcon, Database, File, X, MapPin, FolderCheck, ChevronRight, HelpCircle } from 'lucide-react';
 import { eramForestData } from '../../data/monitoring/eramForest';
 import { Card, Button, Badge, Input } from '../../components/ui/Shared';
 
@@ -127,6 +127,20 @@ export const OperationalMonitoring = () => {
     const [selectedType, setSelectedType] = useState('Todos');
 
 
+    const availableResults = useMemo(() => {
+        const filteredByTipologia = selectedType === 'Todos' 
+            ? eramForestData 
+            : eramForestData.filter(item => item.type === selectedType);
+        return ['Todos', ...new Set(filteredByTipologia.map(item => item.resultado))].sort();
+    }, [selectedType]);
+
+    // Reset result filter if it's no longer available in the current typology
+    useEffect(() => {
+        if (!availableResults.includes(selectedResultado)) {
+            setSelectedResultado('Todos');
+        }
+    }, [availableResults, selectedResultado]);
+
     const processedData = useMemo(() => {
         return eramForestData
             .map(item => {
@@ -162,6 +176,10 @@ export const OperationalMonitoring = () => {
         ? Math.round(processedData.reduce((acc, curr) => acc + curr.progress, 0) / processedData.length)
         : 0;
     const criticalItems = processedData.filter(d => d.progress < 40).length;
+    const totalIndicators = processedData.length;
+    const activeActions = [...new Set(processedData.map(item => item.accionEstrategica))].length;
+    const rezagoRatio = totalIndicators > 0 ? Math.round((criticalItems / totalIndicators) * 100) : 0;
+    const alertLevel = rezagoRatio > 25 ? "Crítico" : rezagoRatio > 10 ? "Advertencia" : "Normal";
 
     return (
         <div className="min-h-screen bg-slate-50 pb-20">
@@ -212,7 +230,7 @@ export const OperationalMonitoring = () => {
                     <div className="flex flex-col gap-4 flex-1">
                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest text-left">Filtro por Resultado ERAM</span>
                         <div className="flex flex-wrap gap-2">
-                            {['Todos', ...new Set(eramForestData.map(item => item.resultado))].sort().map(res => (
+                            {availableResults.map(res => (
                                 <button
                                     key={res}
                                     onClick={() => setSelectedResultado(res)}
@@ -230,7 +248,7 @@ export const OperationalMonitoring = () => {
                     </div>
 
                     {/* KPI SUMMARY */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-slate-50">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-8 border-t border-slate-50">
                         <div className="flex items-center gap-4 group">
                             <div className="bg-emerald-100 p-4 rounded-2xl group-hover:scale-110 transition-transform">
                                 <BarChart3 className="w-6 h-6 text-emerald-600" />
@@ -246,16 +264,49 @@ export const OperationalMonitoring = () => {
                             </div>
                             <div className="text-left">
                                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Acciones Activas</p>
-                                <h3 className="text-3xl font-black text-slate-800">{processedData.length}</h3>
+                                <h3 className="text-3xl font-black text-slate-800">{activeActions}</h3>
                             </div>
                         </div>
                         <div className="flex items-center gap-4 group">
+                            <div className="bg-indigo-100 p-4 rounded-2xl group-hover:scale-110 transition-transform">
+                                <ClipboardList className="w-6 h-6 text-indigo-600" />
+                            </div>
+                            <div className="text-left">
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">N° Indicadores</p>
+                                <h3 className="text-3xl font-black text-slate-800">{totalIndicators}</h3>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-4 group relative">
                             <div className="bg-rose-100 p-4 rounded-2xl group-hover:scale-110 transition-transform">
                                 <AlertCircle className="w-6 h-6 text-rose-600" />
                             </div>
                             <div className="text-left">
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Alertas Rezago</p>
-                                <h3 className="text-3xl font-black text-rose-600">{criticalItems}</h3>
+                                <div className="flex items-center gap-2">
+                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Alertas Rezago</p>
+                                    <div className="relative group/tooltip">
+                                        <HelpCircle className="w-3.5 h-3.5 text-slate-300 cursor-help hover:text-slate-500 transition-colors" />
+                                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-4 bg-slate-900 text-white text-[11px] rounded-xl opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all z-50 shadow-2xl pointer-events-none">
+                                            <p className="font-bold border-b border-white/10 pb-2 mb-2 uppercase tracking-widest text-[9px] text-rose-400">Lógica de Estimación</p>
+                                            <p className="font-light leading-relaxed">
+                                                Un indicador se considera en <span className="text-rose-400 font-bold">rezago crítico</span> si su avance es inferior al 40% respecto a la meta 2025. 
+                                                La alerta se calcula como la proporción de items críticos sobre el total: 
+                                                <span className="block mt-2 font-mono text-emerald-400 bg-emerald-500/10 p-1.5 rounded text-center">
+                                                    (Items &lt; 40% / Total) × 100
+                                                </span>
+                                            </p>
+                                            <div className="absolute top-full left-1/2 -translate-x-1/2 border-8 border-transparent border-t-slate-900"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex items-baseline gap-2">
+                                    <h3 className="text-3xl font-black text-rose-600">{criticalItems}</h3>
+                                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${
+                                        alertLevel === 'Crítico' ? 'bg-rose-100 text-rose-600' : 
+                                        alertLevel === 'Advertencia' ? 'bg-amber-100 text-amber-600' : 'bg-slate-100 text-slate-500'
+                                    }`}>
+                                        {alertLevel}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
