@@ -180,7 +180,7 @@ export const OperationalMonitoring = () => {
         : 0;
     const criticalItems = processedData.filter(d => d.progress < 40).length;
     const totalIndicators = processedData.length;
-    const activeActions = [...new Set(processedData.map(item => item.accionEstrategica))].length;
+    const activeResults = [...new Set(processedData.map(item => item.resultado))].length;
     const rezagoRatio = totalIndicators > 0 ? Math.round((criticalItems / totalIndicators) * 100) : 0;
     const alertLevel = rezagoRatio > 25 ? "Crítico" : rezagoRatio > 10 ? "Advertencia" : "Normal";
 
@@ -269,8 +269,8 @@ export const OperationalMonitoring = () => {
                                 <Target className="w-6 h-6 text-blue-600" />
                             </div>
                             <div className="text-left">
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Acciones Activas</p>
-                                <h3 className="text-3xl font-black text-slate-800">{activeActions}</h3>
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Resultados ERAM</p>
+                                <h3 className="text-3xl font-black text-slate-800">{activeResults}</h3>
                             </div>
                         </div>
                         <div className="flex items-center gap-4 group cursor-default p-2">
