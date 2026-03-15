@@ -219,7 +219,6 @@ export const StrategicMonitoring = () => {
                                 <p className="text-[10px] font-black text-indigo-400 uppercase tracking-widest">Total Indicadores</p>
                                 <div className="flex items-baseline gap-2">
                                     <h3 className="text-3xl font-black text-indigo-900">{counts.total}</h3>
-                                    <span className="text-[10px] font-bold text-indigo-400 uppercase">Reseteo</span>
                                 </div>
                             </div>
                         </div>
