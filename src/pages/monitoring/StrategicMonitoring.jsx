@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Globe, ShieldAlert, Leaf, BookOpen, Target, BarChart3, Info, X, MapPin, Activity, CalendarDays, TrendingUp, TableProperties, Database, Scale, ClipboardList } from 'lucide-react';
+import { Search, Globe, ShieldAlert, Leaf, BookOpen, Target, BarChart3, Info, X, MapPin, Activity, CalendarDays, TrendingUp, TableProperties, Database, Scale, ClipboardList, Trees } from 'lucide-react';
 import { indicatorsData } from '../../data/monitoring/indicators';
 import { RegionalEvolutionChart } from '../../components/monitoring/RegionalChart';
 import { Card, Button, Badge, Input } from '../../components/ui/Shared';
