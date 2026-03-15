@@ -296,6 +296,9 @@ function App() {
 
 
           <Route path="/mapa_sitio_independiente" element={<SitemapIndependent />} />
+          
+          {/* Fallback 404 - Redirect to Home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </Router>

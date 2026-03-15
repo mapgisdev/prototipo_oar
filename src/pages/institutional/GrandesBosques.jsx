@@ -339,10 +339,19 @@ export const GrandesBosques = () => {
                         Acceda a los datos abiertos del Observatorio Ambiental para colaborar en la preservación de Mesoamérica y República Dominicana.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                        <Button size="lg" className="bg-white text-emerald-950 hover:bg-emerald-50 px-10 rounded-full font-bold">
+                        <Button 
+                            size="lg" 
+                            className="bg-white text-emerald-950 hover:bg-emerald-50 px-10 rounded-full font-bold"
+                            onClick={() => navigate('/technical/maps')}
+                        >
                             Explorar Visor de Mapas
                         </Button>
-                        <Button size="lg" variant="outline" className="border-emerald-500 text-emerald-300 hover:bg-emerald-900/50 px-10 rounded-full font-bold">
+                        <Button 
+                            size="lg" 
+                            variant="outline" 
+                            className="border-emerald-500 text-emerald-300 hover:bg-emerald-900/50 px-10 rounded-full font-bold"
+                            onClick={() => window.location.href = 'mailto:info@sica.int'}
+                        >
                             Contáctenos
                         </Button>
                     </div>

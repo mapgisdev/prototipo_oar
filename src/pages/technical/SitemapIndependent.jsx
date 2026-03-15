@@ -5,7 +5,8 @@ import {
     ShieldCheck, Activity, Globe, LayoutDashboard,
     ChevronRight, ChevronDown, ExternalLink, Search,
     Filter, Info, Trees, X, Eye, MousePointer2, Layers,
-    Maximize, FileText, Folder, Lock
+    Maximize, FileText, Folder, Lock, Wind, Waves, Droplet,
+    Target, Settings, Droplets, CloudRain
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { QUESTIONS_DATA } from '../questions/questions';
@@ -276,89 +277,137 @@ export const SitemapIndependent = () => {
 
     // Tree Structure Data
     const sitemapData = {
-        id: 'root',
-        name: "OAR Portal Principal",
+        id: "root", 
+        name: "OAR Home", 
+        path: "/", 
+        depth: 1, 
         icon: Home,
-        path: "/",
-        depth: 1,
         children: [
-            {
-                id: 'ejes',
-                name: "Ejes Estratégicos ERAM",
-                icon: Globe,
-                depth: 2,
-                children: getEramAxes().map(axis => ({
-                    id: axis.id,
-                    name: axis.text,
-                    icon: axis.iconComponent,
-                    path: axis.ruta,
-                    depth: 3,
-                    children: [
-                        {
-                            id: `preguntas_${axis.id}`,
-                            name: `Sección: Preguntas Estratégicas`,
-                            path: "/strategic-questions",
-                            icon: HelpCircle,
-                            depth: 4,
-                            children: QUESTIONS_DATA.filter(q => q.category.toLowerCase() === axis.id.toLowerCase() || 
-                               (axis.id === 'mares' && q.category === 'Biodiversidad') ||
-                               (axis.id === 'bosques' && q.category === 'Incendios')
-                            ).map(q => ({
-                                id: q.id,
-                                name: q.shortQuestion || q.question,
-                                path: q.path,
-                                depth: 5,
-                                icon: HelpCircle
-                            }))
-                        },
-                        ...(axis.id === 'bosques' ? [{
-                            id: 'historias_bosques',
-                            name: "Grandes Bosques",
-                            icon: Folder,
-                            path: "/grandes-bosques",
-                            depth: 4,
-                            children: [
-                                { id: 'mm', name: "Montañas Mayas", path: "/grandes-bosques/historias/montanas-mayas", depth: 5, icon: MapIcon },
-                                { id: 'bm', name: "Biosfera Maya", path: "/grandes-bosques/historias/reserva-de-la-biosfera-maya", depth: 5, icon: MapIcon },
-                                { id: 'da', name: "Darién", path: "/grandes-bosques/historias/parque-nacional-darien", depth: 5, icon: MapIcon }
-                            ]
-                        }] : [])
-                    ]
-                }))
+            { 
+              id: "hero-preguntas", name: "Sección: Preguntas Estratégicas", depth: 2, icon: Layers,
+              children: [
+                { id: "hp-1-card", name: "Clic en: ¿Cómo vamos con la meta 30x30?", depth: 3, icon: HelpCircle, children: [{ id: "hp-1-visor", name: "Visor Final: Meta 30x30", path: "/preguntas/meta-30x30", depth: 4, icon: LayoutDashboard }] },
+                { id: "hp-2-card", name: "Clic en: ¿Qué especies hay registradas?", depth: 3, icon: HelpCircle, children: [{ id: "hp-2-visor", name: "Visor Final: Registros de Especies", path: "/preguntas/registros-especies", depth: 4, icon: LayoutDashboard }] },
+                { id: "hp-3-card", name: "Clic en: ¿Qué áreas están protegidas?", depth: 3, icon: HelpCircle, children: [{ id: "hp-3-visor", name: "Visor Final: Áreas Protegidas", path: "/preguntas/areas-protegidas", depth: 4, icon: LayoutDashboard }] },
+                { id: "hp-4-card", name: "Clic en: ¿Nuestros océanos se calientan?", depth: 3, icon: HelpCircle, children: [{ id: "hp-4-visor", name: "Visor Final: Salud de Océanos", path: "/preguntas/salud-oceanos", depth: 4, icon: LayoutDashboard }] },
+                { id: "hp-5-card", name: "Clic en: ¿Qué tan segura es nuestra agua?", depth: 3, icon: HelpCircle, children: [{ id: "hp-5-visor", name: "Visor Final: Seguridad Hídrica", path: "/preguntas/seguridad-hidrica", depth: 4, icon: LayoutDashboard }] },
+                { id: "hp-6-card", name: "Clic en: ¿Cómo están los bosques?", depth: 3, icon: HelpCircle, children: [{ id: "hp-6-visor", name: "Visor Final: Estado de Bosques", path: "/preguntas/estado-bosques", depth: 4, icon: LayoutDashboard }] },
+                { id: "hp-7-card", name: "Clic en: ¿Dónde y cuánto bosque perdemos?", depth: 3, icon: HelpCircle, children: [{ id: "hp-7-visor", name: "Visor Final: Pérdida de Bosque", path: "/preguntas/perdida-bosque", depth: 4, icon: LayoutDashboard }] },
+                { id: "hp-8-card", name: "Clic en: ¿Donde hay incendios activos?", depth: 3, icon: HelpCircle, children: [{ id: "hp-8-visor", name: "Visor Final: Incendios Activos", path: "/preguntas/incendios-activos", depth: 4, icon: LayoutDashboard }] },
+                { id: "hp-9-card", name: "Clic en: ¿Riesgo de sequía en Corredor Seco?", depth: 3, icon: HelpCircle, children: [{ id: "hp-9-visor", name: "Visor Final: Riesgo de Sequía", path: "/preguntas/riesgo-sequia", depth: 4, icon: LayoutDashboard }] }
+              ]
+            },
+            { 
+              id: "cifras", name: "Sección: Cifras Regionales", depth: 2, icon: Layers,
+              children: [{ id: "cifras-visor", name: "Visor Final: Dashboard de Cifras", path: "/data/cifras", depth: 3, icon: LayoutDashboard }]
             },
             {
-                id: 'intel',
-                name: "Intelligence Center",
-                icon: Activity,
-                depth: 2,
-                children: [
-                    { id: 'cifras', name: "Centro de Cifras", path: "/data/cifras", icon: Database, depth: 3 },
-                    { id: 'questions', name: "Preguntas de Gestión", path: "/preguntas", icon: HelpCircle, depth: 3 },
-                    { 
-                        id: 'monitoring', 
-                        name: "Monitoreo SICA", 
-                        path: "/monitoring", 
-                        icon: LayoutDashboard,
-                        depth: 3,
-                        children: [
-                            { id: 'mon_strat', name: "Nivel Estratégico", path: "/monitoring/strategic", depth: 4, icon: ShieldCheck },
-                            { id: 'mon_oper', name: "Nivel Operativo ERAM", path: "/monitoring/operational", depth: 4, icon: Activity }
-                        ]
+              id: "ejes", name: "Explorar por ejes ERAM", depth: 2, icon: Layers,
+              children: [
+                { id: "l1", name: "Landing Eje 1: Calidad Ambiental", path: "/strategic-axis/calidad", depth: 3, icon: Target },
+                {
+                  id: "l2", name: "Landing Eje 2: Mares y Biodiversidad", path: "/strategic-axis/mares", depth: 3, icon: Globe,
+                  children: [
+                    {
+                      id: "l2-preg", name: "Sección: Preguntas Críticas", path: "/strategic-questions", depth: 4, icon: HelpCircle,
+                      children: [
+                        { id: "l2-p1", name: "Visor Final: Meta 30x30", path: "/preguntas/meta-30x30", depth: 5, icon: LayoutDashboard },
+                        { id: "l2-p2", name: "Visor Final: Especies Registradas", path: "/preguntas/registros-especies", depth: 5, icon: LayoutDashboard },
+                        { id: "l2-p3", name: "Visor Final: Áreas Protegidas", path: "/preguntas/areas-protegidas", depth: 5, icon: LayoutDashboard },
+                        { id: "l2-p4", name: "Visor Final: Salud de Océanos", path: "/preguntas/salud-oceanos", depth: 5, icon: LayoutDashboard },
+                      ]
+                    }
+                  ]
+                },
+                {
+                  id: "l3", name: "Landing Eje 3: Gestión Hídrica", path: "/strategic-axis/agua", depth: 3, icon: Droplets,
+                  children: [
+                    {
+                      id: "l3-preg", name: "Sección: Preguntas Críticas", path: "/strategic-questions", depth: 4, icon: HelpCircle,
+                      children: [{ id: "l3-p1", name: "Visor Final: Seguridad Hídrica", path: "/preguntas/seguridad-hidrica", depth: 5, icon: LayoutDashboard }]
+                    }
+                  ]
+                },
+                {
+                  id: "l4", name: "Landing Eje 4: Bosques y Paisajes", path: "/strategic-axis/bosques", depth: 3, icon: Trees,
+                  children: [
+                    {
+                      id: "l4-preg", name: "Sección: Preguntas Críticas", path: "/strategic-questions", depth: 4, icon: HelpCircle,
+                      children: [
+                        { id: "l4-p1", name: "Visor Final: Estado de Bosques", path: "/preguntas/estado-bosques", depth: 5, icon: LayoutDashboard },
+                        { id: "l4-p2", name: "Visor Final: Pérdida de Bosque", path: "/preguntas/perdida-bosque", depth: 5, icon: LayoutDashboard },
+                        { id: "l4-p3", name: "Visor Final: Incendios Activos", path: "/preguntas/incendios-activos", depth: 5, icon: LayoutDashboard },
+                      ]
                     },
-                    { id: 'bi', name: "BI Sandbox", path: "/analisis-multidimensional", icon: Activity, depth: 3 }
-                ]
+                    {
+                      id: "l4-hist-landing", name: "Sección: Grandes Bosques de la Región", path: "/grandes-bosques", depth: 4, icon: Folder,
+                      children: [
+                        { id: "l4-h1-landing", name: "Visor Final: Montañas Mayas", path: "/grandes-bosques/historias/montanas-mayas", depth: 5, icon: LayoutDashboard },
+                        { id: "l4-h2-landing", name: "Visor Final: Biosfera Maya", path: "/grandes-bosques/historias/reserva-de-la-biosfera-maya", depth: 5, icon: LayoutDashboard },
+                        { id: "l4-h3-landing", name: "Visor Final: El Imposible", path: "/grandes-bosques/historias/parque-nacional-el-imposible", depth: 5, icon: LayoutDashboard },
+                        { id: "l4-h4-landing", name: "Visor Final: Río Plátano", path: "/grandes-bosques/historias/reserva-de-la-biosfera-del-rio-platano", depth: 5, icon: LayoutDashboard },
+                        { id: "l4-h5-landing", name: "Visor Final: Darién", path: "/grandes-bosques/historias/parque-nacional-darien", depth: 5, icon: LayoutDashboard },
+                      ]
+                    }
+                  ]
+                },
+                {
+                  id: "l5", name: "Landing Eje 5: Cambio Climático", path: "/strategic-axis/clima", depth: 3, icon: Wind,
+                  children: [
+                    {
+                      id: "l5-preg", name: "Sección: Preguntas Críticas", path: "/strategic-questions", depth: 4, icon: HelpCircle,
+                      children: [{ id: "l5-p1", name: "Visor Final: Riesgo de Sequía", path: "/preguntas/riesgo-sequia", depth: 5, icon: LayoutDashboard }]
+                    }
+                  ]
+                }
+              ]
             },
             {
-                id: 'tech',
-                name: "Herramientas Técnicas",
-                icon: MapIcon,
-                depth: 2,
-                children: [
-                    { id: 'explorer', name: "Visor Geoespacial", path: "/technical/maps", depth: 3, icon: MapIcon },
-                    { id: 'geo_lab', name: "Laboratorio de Análisis", path: "/technical/geo-analysis", depth: 3, icon: Activity },
-                    { id: 'docs', name: "Documentación Técnica", path: "/technical/docs", depth: 3, icon: FileText },
-                    { id: 'devs', name: "Developers Portal", path: "/technical/developers", depth: 3, icon: Lock }
-                ]
+              id: "reportes", name: "Sección: Reportes Temáticos", depth: 2, icon: Layers,
+              children: [
+                {
+                  id: "l4-hist", name: "Colección: Grandes Bosques", path: "/grandes-bosques", depth: 3, icon: Folder,
+                  children: [
+                    { id: "l4-h1", name: "Visor Final: Montañas Mayas", path: "/grandes-bosques/historias/montanas-mayas", depth: 4, icon: LayoutDashboard },
+                    { id: "l4-h2", name: "Visor Final: Biosfera Maya", path: "/grandes-bosques/historias/reserva-de-la-biosfera-maya", depth: 4, icon: LayoutDashboard },
+                    { id: "l4-h3", name: "Visor Final: El Imposible", path: "/grandes-bosques/historias/parque-nacional-el-imposible", depth: 4, icon: LayoutDashboard },
+                    { id: "l4-h4", name: "Visor Final: Río Plátano", path: "/grandes-bosques/historias/reserva-de-la-biosfera-del-rio-platano", depth: 4, icon: LayoutDashboard },
+                    { id: "l4-h5", name: "Visor Final: Darién", path: "/grandes-bosques/historias/parque-nacional-darien", depth: 4, icon: LayoutDashboard },
+                  ]
+                }
+              ]
+            },
+            { 
+              id: "bi", name: "Sección: Análisis Multidimensional", depth: 2, icon: Layers,
+              children: [{ id: "bi-visor", name: "Visor Final: Dashboard BI", path: "/analisis-multidimensional", depth: 3, icon: LayoutDashboard }]
+            },
+            { 
+              id: "geo", name: "Sección: Análisis Geoespacial Avanzado", depth: 2, icon: Layers,
+              children: [{ id: "geo-visor", name: "Visor Final: Laboratorio", path: "/technical/geo-analysis", depth: 3, icon: LayoutDashboard }]
+            },
+            { 
+              id: "visor", name: "Sección: Visor Geoespacial Regional", depth: 2, icon: Layers,
+              children: [{ id: "mapas-visor", name: "Visor Final: Explorador Mapas", path: "/technical/maps", depth: 3, icon: LayoutDashboard }]
+            },
+            {
+              id: "plataforma", name: "Plataforma Adaptativa", depth: 2, icon: Settings,
+              children: [
+                {
+                  id: "ic3", name: "Módulo: Monitoreo Regional", path: "/monitoring", depth: 3, icon: Activity,
+                  children: [
+                    { id: "ic3-1", name: "Visor Final: Monitoreo Estratégico", path: "/monitoring/strategic", depth: 4, icon: LayoutDashboard },
+                    { id: "ic3-2", name: "Visor Final: Monitoreo Operativo", path: "/monitoring/operational", depth: 4, icon: LayoutDashboard },
+                  ]
+                },
+                { id: "in1", name: "Portal: Acceso Funcionarios", path: "/auth/login", depth: 3, icon: Lock }
+              ]
+            },
+            {
+              id: "otros", name: "Otros Recursos Técnicos", depth: 2, icon: Folder,
+              children: [
+                { id: "t3", name: "Portal: Centro de Documentación", path: "/technical/docs", depth: 3, icon: Folder },
+                { id: "t4", name: "Portal: Desarrolladores", path: "/technical/developers", depth: 3, icon: Settings },
+              ]
             }
         ]
     };
