@@ -140,88 +140,21 @@ export const Home = () => {
                             );
                         })}
                     </div>
-                </div>
-            </section>
 
-
-            {/* --- SECCIÓN 2.5: Explorar por ejes ERAM (Versión Lista Premium) --- */}
-            <section className="py-24 bg-white">
-                <div className="container mx-auto px-4">
-                    <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-8">
-                        <div className="max-w-3xl">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest mb-6 border border-emerald-100/50">
-                                <Globe className="h-3 w-3" /> Marco Estratégico
-                            </div>
-                            <h2 className="text-4xl md:text-5xl font-serif font-black text-slate-900 leading-tight mb-8">
-                                Explorar por <span className="bg-blue-600/10 text-blue-600 px-4 py-1 rounded-lg">ejes ERAM</span>
-                            </h2>
-                            <p className="text-slate-500 text-lg md:text-xl font-light leading-relaxed">
-                                Seleccione un eje estratégico para acceder a sus tableros, mapas y reportes especializados orientados a la resiliencia regional.
-                            </p>
-                        </div>
+                    <div className="mt-16 flex justify-center">
                         <Button
-                            variant="outline"
-                            className="rounded-full px-8 py-3 border-emerald-200 text-emerald-600 hover:bg-emerald-50 font-bold h-auto hidden md:flex"
-                            onClick={() => navigate('/strategic-axis')}
+                            className="bg-slate-900 text-white hover:bg-slate-800 rounded-full px-12 py-7 h-auto font-black text-lg shadow-2xl shadow-slate-900/20 transform hover:scale-105 active:scale-95 transition-all group"
+                            onClick={() => navigate('/data/cifras')}
                         >
-                            Ver todos los ejes
+                            <span className="flex items-center gap-3">
+                                <Activity className="h-5 w-5 text-emerald-400" />
+                                Ir al Centro de Cifras
+                                <ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform" />
+                            </span>
                         </Button>
                     </div>
-
-                    <div className="space-y-4 max-w-5xl">
-                        {[
-                            {
-                                title: "Calidad Ambiental",
-                                description: "Calidad de aire/agua, presión antrópica y variables de seguimiento ambiental.",
-                                icon: Wind,
-                                color: "text-blue-500",
-                                bgColor: "bg-blue-50",
-                                path: "/strategic-axis/calidad"
-                            },
-                            {
-                                title: "Mares y Biodiversidad",
-                                description: "Biodiversidad, ecosistemas marino-costeros y conectividad ecológica.",
-                                icon: Waves,
-                                color: "text-cyan-500",
-                                bgColor: "bg-cyan-50",
-                                path: "/strategic-axis/mares"
-                            },
-                            {
-                                title: "Gestión Integral del Recurso Hídrico",
-                                description: "Cuencas, disponibilidad hídrica, presión y riesgos asociados al agua.",
-                                icon: Droplets,
-                                color: "text-blue-600",
-                                bgColor: "bg-blue-50/50",
-                                path: "/strategic-axis/agua"
-                            }
-                        ].map((axis, idx) => (
-                            <div
-                                key={idx}
-                                onClick={() => navigate(axis.path)}
-                                className="group flex items-center justify-between p-6 md:p-8 bg-white border border-slate-100 rounded-[2rem] hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-500 cursor-pointer"
-                            >
-                                <div className="flex items-center gap-6 md:gap-10">
-                                    <div className={cn("w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 duration-500", axis.bgColor)}>
-                                        <axis.icon className={cn("h-8 w-8 md:h-10 md:w-10", axis.color)} />
-                                    </div>
-                                    <div className="space-y-1">
-                                        <h3 className="text-xl md:text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
-                                            {axis.title}
-                                        </h3>
-                                        <p className="text-slate-500 text-sm md:text-base font-light max-w-2xl">
-                                            {axis.description}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="hidden md:flex items-center gap-2 text-slate-400 group-hover:text-blue-600 transition-all font-bold text-sm uppercase tracking-widest">
-                                    Explorar <ArrowRight className="h-5 w-5 transform group-hover:translate-x-2 transition-transform" />
-                                </div>
-                            </div>
-                        ))}
-                    </div>
                 </div>
             </section>
-
 
             {/* --- SECCIÓN 3: Ejes Estratégicos ERAM (Explorar por ejes) --- */}
             <section className="py-24 bg-white border-t border-slate-100">
@@ -269,6 +202,185 @@ export const Home = () => {
                                 </div>
                             </Card>
                         ))}
+                    </div>
+                </div>
+            </section>
+
+
+
+
+
+            {/* Reportes Temáticos - Premium Edition */}
+            <section className="py-24 bg-gradient-to-b from-white to-slate-50">
+                <div className="container mx-auto px-4">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+                        <div className="max-w-4xl text-left">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-black uppercase tracking-[0.2em] mb-6 border border-emerald-100/50">
+                                <FileText className="h-3.5 w-3.5" /> Conocimiento Estratégico
+                            </div>
+                            <h2 className="text-3xl md:text-5xl font-serif font-black text-slate-900 leading-[1.1] mb-6">
+                                Reportes <span className="text-emerald-600 block md:inline italic">Temáticos de Estado</span>
+                            </h2>
+                            <p className="text-slate-600 text-lg md:text-xl font-light leading-relaxed max-w-3xl">
+                                Análisis científicos exhaustivos que transforman datos complejos en narrativas procesables para la resiliencia regional.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                        {/* Report 1: Forest - ACTIVE & PREMIUM */}
+                        <div
+                            className="group relative flex flex-col h-full bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-700 cursor-pointer overflow-hidden border-b-8 border-b-emerald-500"
+                            onClick={() => navigate('/technical/reports/fra-2024')}
+                        >
+                            <div className="h-64 relative overflow-hidden">
+                                <img
+                                    src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=1200"
+                                    alt="Forest Report"
+                                    className="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/80 via-transparent to-transparent"></div>
+                                <div className="absolute top-6 left-6">
+                                    <Badge className="bg-emerald-500 text-white border-none px-4 py-1 shadow-lg shadow-emerald-500/30 text-[10px] uppercase font-black tracking-widest">
+                                        Publicado 2024
+                                    </Badge>
+                                </div>
+                            </div>
+
+                            <div className="p-10 flex flex-col flex-1 relative bg-white">
+                                <div className="bg-emerald-50 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 -mt-16 relative z-10 shadow-lg group-hover:bg-emerald-500 transition-colors duration-500">
+                                    <Trees className="h-7 w-7 text-emerald-600 group-hover:text-white transition-colors" />
+                                </div>
+                                <h3 className="text-3xl font-serif font-bold text-slate-900 mb-4 group-hover:text-emerald-700 transition-colors">Estado de los Bosques</h3>
+                                <p className="text-slate-500 text-base leading-relaxed mb-10 flex-1 font-light">
+                                    El análisis más robusto de la década sobre la salud forestal del SICA, integrando datos del FRA-2020/2025 y alertas satelitales en tiempo real.
+                                </p>
+                                <div className="grid grid-cols-2 gap-4 border-t border-slate-50 pt-8 mt-auto">
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); navigate('/technical/reports/fra-2024'); }}
+                                        className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all duration-300 group/btn"
+                                    >
+                                        <FileText className="h-5 w-5" />
+                                        <span className="text-[10px] font-black uppercase tracking-tighter">Explorar Reporte</span>
+                                    </button>
+                                    <button
+                                        onClick={(e) => { e.stopPropagation(); navigate('/technical/dashboard'); }}
+                                        className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white transition-all duration-300 group/btn"
+                                    >
+                                        <BarChart3 className="h-5 w-5 rotate-0 group-hover/btn:rotate-12 transition-transform" />
+                                        <span className="text-[10px] font-black uppercase tracking-tighter">Explorar Dashboard</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Report 2: Biodiversity - COMING SOON */}
+                        <div className="group flex flex-col h-full bg-slate-50/50 rounded-[2.5rem] border border-dashed border-slate-200 opacity-80 cursor-not-allowed overflow-hidden">
+                            <div className="h-64 relative overflow-hidden grayscale opacity-40">
+                                <img
+                                    src="https://images.unsplash.com/photo-1452570053594-1b985d6ea890?auto=format&fit=crop&q=80&w=1200"
+                                    alt="Bio Report"
+                                    className="w-full h-full object-cover"
+                                />
+                                <div className="absolute inset-0 bg-slate-200/20"></div>
+                            </div>
+                            <div className="p-10 flex flex-col flex-1">
+                                <div className="bg-slate-100 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 -mt-16 relative z-10 shadow-sm">
+                                    <Shield className="h-7 w-7 text-slate-400" />
+                                </div>
+                                <h3 className="text-2xl font-serif font-bold text-slate-400 mb-4 tracking-tight">Estado de la Biodiversidad</h3>
+                                <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-1 font-light italic">
+                                    En desarrollo: Monitoreo regional de especies clave y efectividad de zonas protegidas 30x30.
+                                </p>
+                                <div className="grid grid-cols-2 gap-4 border-t border-slate-100/50 pt-8 mt-auto opacity-40">
+                                    <div className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-slate-100 text-slate-400">
+                                        <FileText className="h-5 w-5" />
+                                        <span className="text-[10px] font-black uppercase tracking-tighter">Reporte</span>
+                                    </div>
+                                    <div className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-slate-100 text-slate-400">
+                                        <BarChart3 className="h-5 w-5" />
+                                        <span className="text-[10px] font-black uppercase tracking-tighter">Dashboard</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Report 3: Oceans - COMING SOON */}
+                        <div className="group flex flex-col h-full bg-slate-50/50 rounded-[2.5rem] border border-dashed border-slate-200 opacity-80 cursor-not-allowed overflow-hidden">
+                            <div className="h-64 relative overflow-hidden grayscale opacity-40">
+                                <img
+                                    src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200"
+                                    alt="Ocean Report"
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            <div className="p-10 flex flex-col flex-1">
+                                <div className="bg-slate-100 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 -mt-16 relative z-10 shadow-sm">
+                                    <Waves className="h-7 w-7 text-slate-400" />
+                                </div>
+                                <h3 className="text-2xl font-serif font-bold text-slate-400 mb-4 tracking-tight">Estado de los Mares</h3>
+                                <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-1 font-light italic">
+                                    En desarrollo: Evaluación de la salud de arrecifes y estrés térmico en las costas del SICA.
+                                </p>
+                                <div className="grid grid-cols-2 gap-4 border-t border-slate-100/50 pt-8 mt-auto opacity-40">
+                                    <div className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-slate-100 text-slate-400">
+                                        <FileText className="h-5 w-5" />
+                                        <span className="text-[10px] font-black uppercase tracking-tighter">Reporte</span>
+                                    </div>
+                                    <div className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-slate-100 text-slate-400">
+                                        <BarChart3 className="h-5 w-5" />
+                                        <span className="text-[10px] font-black uppercase tracking-tighter">Dashboard</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* INDICADORES */}
+
+            {/* --- SECCIÓN 2: Intelligence & Analytics (Análisis Multidimensional) --- */}
+            <section className="mt-32 py-24 bg-gradient-to-b from-white via-slate-50 to-slate-100 overflow-hidden relative border-t border-slate-100">
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-primary/5 blur-[120px] rounded-full"></div>
+
+                <div className="container mx-auto px-4 relative z-10">
+                    <div className="flex flex-col lg:flex-row items-center gap-16">
+                        <div className="flex-1 space-y-8">
+                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary text-[10px] font-black uppercase tracking-[0.2em] border border-brand-primary/20">
+                                <Database className="h-3.5 w-3.5" /> Intelligence Center
+                            </div>
+                            <h2 className="text-4xl md:text-6xl font-serif font-black leading-tight text-slate-900">
+                                Análisis <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-emerald-600">Multidimensional</span>
+                            </h2>
+                            <p className="text-slate-600 text-lg md:text-xl font-light leading-relaxed max-w-xl">
+                                Explore nuestras bases de datos mediante cruces dinámicos de variables. Herramienta global disponible para todos los ejes estratégicos.
+                            </p>
+                            <div className="flex flex-wrap gap-6 pt-4">
+                                <Button
+                                    className="bg-brand-primary text-white hover:bg-brand-primary/90 rounded-full px-10 py-7 h-auto font-black text-base shadow-xl shadow-brand-primary/20 transition-all hover:scale-105 active:scale-95"
+                                    onClick={() => navigate('/analisis-multidimensional')}
+                                >
+                                    Iniciar Sandbox <ArrowRight className="ml-2 h-5 w-5" />
+                                </Button>
+                            </div>
+                        </div>
+
+                        <div className="flex-1 relative w-full lg:w-auto h-[400px] md:h-[500px]">
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="relative w-full max-w-md aspect-square">
+                                    <div className="absolute top-10 left-0 p-4 bg-white/60 backdrop-blur-xl rounded-2xl border border-white shadow-2xl rotate-[-6deg] hover:rotate-0 transition-transform duration-500 z-20">
+                                        <div className="h-20 w-40 flex items-end gap-1 pt-4">
+                                            <div className="flex-1 bg-brand-primary/60 rounded-t h-full animate-[pulse_3s_infinite]"></div>
+                                            <div className="flex-1 bg-brand-primary/30 rounded-t h-[60%] animate-[pulse_4s_infinite]"></div>
+                                            <div className="flex-1 bg-brand-primary/80 rounded-t h-[85%] animate-[pulse_2s_infinite]"></div>
+                                        </div>
+                                    </div>
+                                    <div className="absolute inset-0 bg-brand-primary/5 rounded-full blur-[100px]"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -399,179 +511,9 @@ export const Home = () => {
                 </div>
             </section>
 
-            {/* Reportes Temáticos - Premium Edition */}
-            <section className="py-24 bg-gradient-to-b from-white to-slate-50">
-                <div className="container mx-auto px-4">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
-                        <div className="max-w-4xl text-left">
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-black uppercase tracking-[0.2em] mb-6 border border-emerald-100/50">
-                                <FileText className="h-3.5 w-3.5" /> Conocimiento Estratégico
-                            </div>
-                            <h2 className="text-3xl md:text-5xl font-serif font-black text-slate-900 leading-[1.1] mb-6">
-                                Reportes <span className="text-emerald-600 block md:inline italic">Temáticos de Estado</span>
-                            </h2>
-                            <p className="text-slate-600 text-lg md:text-xl font-light leading-relaxed max-w-3xl">
-                                Análisis científicos exhaustivos que transforman datos complejos en narrativas procesables para la resiliencia regional.
-                            </p>
-                        </div>
-                    </div>
+            {/* CENTRO DE DOCUMENTACION */}
 
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                        {/* Report 1: Forest - ACTIVE & PREMIUM */}
-                        <div
-                            className="group relative flex flex-col h-full bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all duration-700 cursor-pointer overflow-hidden border-b-8 border-b-emerald-500"
-                            onClick={() => navigate('/technical/reports/fra-2024')}
-                        >
-                            <div className="h-64 relative overflow-hidden">
-                                <img
-                                    src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=1200"
-                                    alt="Forest Report"
-                                    className="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/80 via-transparent to-transparent"></div>
-                                <div className="absolute top-6 left-6">
-                                    <Badge className="bg-emerald-500 text-white border-none px-4 py-1 shadow-lg shadow-emerald-500/30 text-[10px] uppercase font-black tracking-widest">
-                                        Publicado 2024
-                                    </Badge>
-                                </div>
-                            </div>
-
-                            <div className="p-10 flex flex-col flex-1 relative bg-white">
-                                <div className="bg-emerald-50 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 -mt-16 relative z-10 shadow-lg group-hover:bg-emerald-500 transition-colors duration-500">
-                                    <Trees className="h-7 w-7 text-emerald-600 group-hover:text-white transition-colors" />
-                                </div>
-                                <h3 className="text-3xl font-serif font-bold text-slate-900 mb-4 group-hover:text-emerald-700 transition-colors">Estado de los Bosques</h3>
-                                <p className="text-slate-500 text-base leading-relaxed mb-10 flex-1 font-light">
-                                    El análisis más robusto de la década sobre la salud forestal del SICA, integrando datos del FRA-2020/2025 y alertas satelitales en tiempo real.
-                                </p>
-                                <div className="grid grid-cols-2 gap-4 border-t border-slate-50 pt-8 mt-auto">
-                                    <button
-                                        onClick={(e) => { e.stopPropagation(); navigate('/technical/reports/fra-2024'); }}
-                                        className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-emerald-50 text-emerald-700 hover:bg-emerald-600 hover:text-white transition-all duration-300 group/btn"
-                                    >
-                                        <FileText className="h-5 w-5" />
-                                        <span className="text-[10px] font-black uppercase tracking-tighter">Explorar Reporte</span>
-                                    </button>
-                                    <button
-                                        onClick={(e) => { e.stopPropagation(); navigate('/technical/dashboard'); }}
-                                        className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white transition-all duration-300 group/btn"
-                                    >
-                                        <BarChart3 className="h-5 w-5 rotate-0 group-hover/btn:rotate-12 transition-transform" />
-                                        <span className="text-[10px] font-black uppercase tracking-tighter">Explorar Dashboard</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Report 2: Biodiversity - COMING SOON */}
-                        <div className="group flex flex-col h-full bg-slate-50/50 rounded-[2.5rem] border border-dashed border-slate-200 opacity-80 cursor-not-allowed overflow-hidden">
-                            <div className="h-64 relative overflow-hidden grayscale opacity-40">
-                                <img
-                                    src="https://images.unsplash.com/photo-1452570053594-1b985d6ea890?auto=format&fit=crop&q=80&w=1200"
-                                    alt="Bio Report"
-                                    className="w-full h-full object-cover"
-                                />
-                                <div className="absolute inset-0 bg-slate-200/20"></div>
-                            </div>
-                            <div className="p-10 flex flex-col flex-1">
-                                <div className="bg-slate-100 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 -mt-16 relative z-10 shadow-sm">
-                                    <Shield className="h-7 w-7 text-slate-400" />
-                                </div>
-                                <h3 className="text-2xl font-serif font-bold text-slate-400 mb-4 tracking-tight">Estado de la Biodiversidad</h3>
-                                <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-1 font-light italic">
-                                    En desarrollo: Monitoreo regional de especies clave y efectividad de zonas protegidas 30x30.
-                                </p>
-                                <div className="grid grid-cols-2 gap-4 border-t border-slate-100/50 pt-8 mt-auto opacity-40">
-                                    <div className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-slate-100 text-slate-400">
-                                        <FileText className="h-5 w-5" />
-                                        <span className="text-[10px] font-black uppercase tracking-tighter">Reporte</span>
-                                    </div>
-                                    <div className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-slate-100 text-slate-400">
-                                        <BarChart3 className="h-5 w-5" />
-                                        <span className="text-[10px] font-black uppercase tracking-tighter">Dashboard</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Report 3: Oceans - COMING SOON */}
-                        <div className="group flex flex-col h-full bg-slate-50/50 rounded-[2.5rem] border border-dashed border-slate-200 opacity-80 cursor-not-allowed overflow-hidden">
-                            <div className="h-64 relative overflow-hidden grayscale opacity-40">
-                                <img
-                                    src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200"
-                                    alt="Ocean Report"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                            <div className="p-10 flex flex-col flex-1">
-                                <div className="bg-slate-100 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 -mt-16 relative z-10 shadow-sm">
-                                    <Waves className="h-7 w-7 text-slate-400" />
-                                </div>
-                                <h3 className="text-2xl font-serif font-bold text-slate-400 mb-4 tracking-tight">Estado de los Mares</h3>
-                                <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-1 font-light italic">
-                                    En desarrollo: Evaluación de la salud de arrecifes y estrés térmico en las costas del SICA.
-                                </p>
-                                <div className="grid grid-cols-2 gap-4 border-t border-slate-100/50 pt-8 mt-auto opacity-40">
-                                    <div className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-slate-100 text-slate-400">
-                                        <FileText className="h-5 w-5" />
-                                        <span className="text-[10px] font-black uppercase tracking-tighter">Reporte</span>
-                                    </div>
-                                    <div className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-slate-100 text-slate-400">
-                                        <BarChart3 className="h-5 w-5" />
-                                        <span className="text-[10px] font-black uppercase tracking-tighter">Dashboard</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* --- SECCIÓN 2: Intelligence & Analytics (Análisis Multidimensional) --- */}
-            <section className="mt-32 py-24 bg-gradient-to-b from-white via-slate-50 to-slate-100 overflow-hidden relative border-t border-slate-100">
-                <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-primary/5 blur-[120px] rounded-full"></div>
-
-                <div className="container mx-auto px-4 relative z-10">
-                    <div className="flex flex-col lg:flex-row items-center gap-16">
-                        <div className="flex-1 space-y-8">
-                            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary text-[10px] font-black uppercase tracking-[0.2em] border border-brand-primary/20">
-                                <Database className="h-3.5 w-3.5" /> Intelligence Center
-                            </div>
-                            <h2 className="text-4xl md:text-6xl font-serif font-black leading-tight text-slate-900">
-                                Análisis <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-emerald-600">Multidimensional</span>
-                            </h2>
-                            <p className="text-slate-600 text-lg md:text-xl font-light leading-relaxed max-w-xl">
-                                Explore nuestras bases de datos mediante cruces dinámicos de variables. Herramienta global disponible para todos los ejes estratégicos.
-                            </p>
-                            <div className="flex flex-wrap gap-6 pt-4">
-                                <Button
-                                    className="bg-brand-primary text-white hover:bg-brand-primary/90 rounded-full px-10 py-7 h-auto font-black text-base shadow-xl shadow-brand-primary/20 transition-all hover:scale-105 active:scale-95"
-                                    onClick={() => navigate('/analisis-multidimensional')}
-                                >
-                                    Iniciar Sandbox <ArrowRight className="ml-2 h-5 w-5" />
-                                </Button>
-                            </div>
-                        </div>
-
-                        <div className="flex-1 relative w-full lg:w-auto h-[400px] md:h-[500px]">
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="relative w-full max-w-md aspect-square">
-                                    <div className="absolute top-10 left-0 p-4 bg-white/60 backdrop-blur-xl rounded-2xl border border-white shadow-2xl rotate-[-6deg] hover:rotate-0 transition-transform duration-500 z-20">
-                                        <div className="h-20 w-40 flex items-end gap-1 pt-4">
-                                            <div className="flex-1 bg-brand-primary/60 rounded-t h-full animate-[pulse_3s_infinite]"></div>
-                                            <div className="flex-1 bg-brand-primary/30 rounded-t h-[60%] animate-[pulse_4s_infinite]"></div>
-                                            <div className="flex-1 bg-brand-primary/80 rounded-t h-[85%] animate-[pulse_2s_infinite]"></div>
-                                        </div>
-                                    </div>
-                                    <div className="absolute inset-0 bg-brand-primary/5 rounded-full blur-[100px]"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
+            {/**SIEMPRE FINAL */}
             {/* Audience Segmentation */}
             <section className="py-24 bg-slate-50 relative">
                 <div className="container mx-auto px-4">
@@ -674,6 +616,8 @@ export const Home = () => {
                     </div>
                 </div>
             </section>
+
+
 
 
             {/* Footer Divider / Context */}

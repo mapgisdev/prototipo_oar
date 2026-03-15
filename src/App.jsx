@@ -15,6 +15,7 @@ import { DocCenter } from './pages/technical/DocCenter';
 import { Developers } from './pages/technical/Developers';
 import { StrategicAxisHome } from './pages/institutional/StrategicAxisHome';
 import { StrategicAxisGeneric } from './pages/institutional/StrategicAxisGeneric';
+import { CifrasCenter } from './pages/data/CifrasCenter';
 import { StrategicConsultantLayout } from './pages/institutional/StrategicConsultantLayout';
 import { AnalysisSandbox } from './pages/technical/analisis_multidimensional/AnalysisSandbox';
 import { QuestionsIndex } from './pages/questions/QuestionsIndex';
@@ -129,6 +130,7 @@ function App() {
           <Route path="/grandes-bosques/historias/:slug" element={<ForestStoryDetail />} />
           <Route path="/auth/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/analisis-multidimensional" element={<AnalysisSandbox />} />
+          <Route path="/data/cifras" element={<CifrasCenter />} />
 
           {/* Technical Routes (Protected) */}
           <Route path="/technical/dashboard" element={
