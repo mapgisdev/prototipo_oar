@@ -6,7 +6,7 @@ import {
     ChevronRight, ChevronDown, ExternalLink, Search,
     Filter, Info, Trees, X, Eye, MousePointer2, Layers,
     Maximize, FileText, Folder, Lock, Wind, Waves, Droplet,
-    Target, Settings, Droplets, CloudRain
+    Target, Settings, Droplets, CloudRain, ShieldAlert, Briefcase
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import { QUESTIONS_DATA } from '../questions/questions';
@@ -396,11 +396,24 @@ export const SitemapIndependent = () => {
             },
             { 
               id: "geo", name: "Sección: Análisis Geoespacial Avanzado", depth: 2, icon: Layers,
-              children: [{ id: "geo-visor", name: "Visor Final: Laboratorio", path: "/technical/geo-analysis", depth: 3, icon: LayoutDashboard }]
+              children: [
+                { 
+                  id: "geo-visor", name: "Visor Final: Laboratorio", path: "/technical/geo-analysis", depth: 3, icon: LayoutDashboard,
+                  children: [
+                    { id: "geo-restr", name: "Análisis: Restricciones de Conservación", path: "/technical/geo-analysis/restrictions", depth: 4, icon: ShieldAlert },
+                    { id: "geo-defor", name: "Análisis: Detección de Deforestación", path: "/technical/geo-analysis/deforestation", depth: 4, icon: Activity },
+                    { id: "geo-ecosy", name: "Análisis: Composición de Ecosistemas", path: "/technical/geo-analysis/ecosystems", depth: 4, icon: Layers },
+                    { id: "geo-proy", name: "Análisis: Cruce de Proyectos", path: "/technical/geo-analysis/projects", depth: 4, icon: Briefcase }
+                  ]
+                }
+              ]
             },
             { 
               id: "visor", name: "Sección: Visor Geoespacial Regional", depth: 2, icon: Layers,
-              children: [{ id: "mapas-visor", name: "Visor Final: Explorador Mapas", path: "/technical/maps", depth: 3, icon: LayoutDashboard }]
+              children: [
+                { id: "mapas-visor", name: "Visor Final: Explorador Mapas", path: "/technical/maps", depth: 3, icon: LayoutDashboard },
+                { id: "comp-visor", name: "Visor Final: Comparador de Mapas", path: "/technical/map-comparator", depth: 3, icon: Activity }
+              ]
             },
             {
               id: "plataforma", name: "Plataforma Adaptativa", depth: 2, icon: Settings,

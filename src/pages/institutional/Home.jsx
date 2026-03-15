@@ -424,7 +424,7 @@ export const Home = () => {
                                     className="bg-brand-primary text-white hover:bg-brand-primary/90 rounded-full px-10 py-7 h-auto font-black text-base shadow-xl shadow-brand-primary/20 transition-all hover:scale-105 active:scale-95"
                                     onClick={() => navigate('/analisis-multidimensional')}
                                 >
-                                    Iniciar Sandbox <ArrowRight className="ml-2 h-5 w-5" />
+                                    Iniciar Análisis <ArrowRight className="ml-2 h-5 w-5" />
                                 </Button>
                             </div>
                         </div>
