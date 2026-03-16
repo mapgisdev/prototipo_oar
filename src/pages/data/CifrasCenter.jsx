@@ -40,8 +40,8 @@ const getCountryEmoji = (country) => {
 export const CifrasCenter = () => {
     // States
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedCountries, setSelectedCountries] = useState([]);
-    const [selectedAxes, setSelectedAxes] = useState([]);
+    const [selectedCountry, setSelectedCountry] = useState(null);
+    const [selectedAxis, setSelectedAxis] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     
     const ITEMS_PER_PAGE = 20;
@@ -61,22 +61,22 @@ export const CifrasCenter = () => {
                 item.titulo.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 item.bajada.toLowerCase().includes(searchTerm.toLowerCase());
             
-            // Default to Regional if no countries selected
-            const matchesCountry = selectedCountries.length === 0 
+            // Default to Regional if no country selected
+            const matchesCountry = !selectedCountry 
                 ? item.pais === 'Regional' 
-                : selectedCountries.includes(item.pais);
+                : item.pais === selectedCountry;
 
-            const matchesAxis = selectedAxes.length === 0 || selectedAxes.includes(item.eje_tematico);
+            const matchesAxis = !selectedAxis || item.eje_tematico === selectedAxis;
             
             return matchesSearch && matchesCountry && matchesAxis;
         });
-    }, [searchTerm, selectedCountries, selectedAxes]);
+    }, [searchTerm, selectedCountry, selectedAxis]);
 
     // Reset all
     const resetFilters = () => {
         setSearchTerm('');
-        setSelectedCountries([]);
-        setSelectedAxes([]);
+        setSelectedCountry(null);
+        setSelectedAxis(null);
         setCurrentPage(1);
     };
 
@@ -179,15 +179,18 @@ export const CifrasCenter = () => {
 
                                 {/* Countries */}
                                 <div>
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-3">Países ({selectedCountries.length})</label>
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-3">Filtrar por País</label>
                                     <div className="flex flex-wrap gap-2">
                                         {countries.map(country => (
                                             <button
                                                 key={country}
-                                                onClick={() => toggleSelection(selectedCountries, setSelectedCountries, country)}
+                                                onClick={() => {
+                                                    setSelectedCountry(selectedCountry === country ? null : country);
+                                                    setCurrentPage(1);
+                                                }}
                                                 className={cn(
                                                     "px-3 py-1.5 rounded-lg text-xs font-bold transition-all border",
-                                                    selectedCountries.includes(country)
+                                                    selectedCountry === country
                                                         ? "bg-emerald-600 border-emerald-600 text-white shadow-md shadow-emerald-600/20 scale-105"
                                                         : "bg-white border-slate-200 text-slate-600 hover:border-emerald-200 hover:bg-emerald-50/30"
                                                 )}
@@ -200,15 +203,18 @@ export const CifrasCenter = () => {
 
                                 {/* Axes */}
                                 <div>
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-3">Ejes Estratégicos ({selectedAxes.length})</label>
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-3">Eje Estratégico</label>
                                     <div className="space-y-2">
                                         {axes.map(axis => (
                                             <button
                                                 key={axis}
-                                                onClick={() => toggleSelection(selectedAxes, setSelectedAxes, axis)}
+                                                onClick={() => {
+                                                    setSelectedAxis(selectedAxis === axis ? null : axis);
+                                                    setCurrentPage(1);
+                                                }}
                                                 className={cn(
                                                     "w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold transition-all border group",
-                                                    selectedAxes.includes(axis)
+                                                    selectedAxis === axis
                                                         ? "bg-slate-900 border-slate-900 text-white"
                                                         : "bg-white border-slate-200 text-slate-600 hover:bg-slate-50"
                                                 )}
@@ -222,7 +228,7 @@ export const CifrasCenter = () => {
                                                 </div>
                                                 <div className={cn(
                                                     "h-1.5 w-1.5 rounded-full transition-all",
-                                                    selectedAxes.includes(axis) ? "bg-emerald-400 scale-125 shadow-[0_0_8px_rgba(52,211,153,0.8)]" : "bg-slate-200 group-hover:bg-slate-300"
+                                                    selectedAxis === axis ? "bg-emerald-400 scale-125 shadow-[0_0_8px_rgba(52,211,153,0.8)]" : "bg-slate-200 group-hover:bg-slate-300"
                                                 )} />
                                             </button>
                                         ))}
@@ -242,7 +248,7 @@ export const CifrasCenter = () => {
                                 </div>
                                 <div>
                                     <p className="text-xs text-slate-400 font-bold uppercase tracking-widest">
-                                        {selectedCountries.length === 0 ? 'Cifras Regionales' : 'Resultados del filtro'}
+                                        {!selectedCountry ? 'Cifras Regionales' : 'Resultados del filtro'}
                                     </p>
                                     <p className="text-slate-900 font-black">
                                         {filteredData.length} registros encontrados
