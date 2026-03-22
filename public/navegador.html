@@ -850,6 +850,13 @@
                         goToPrev();
                         // Signal parent to scroll to top
                         window.parent.postMessage('oar-scroll-up', '*');
+                        // Reset to Bosques after a short delay so it's ready for the next visit
+                        if (!resetTimeout) {
+                            resetTimeout = setTimeout(() => {
+                                scrollProgress = 0; logicalIndex = 0; targetRotation = 0; updateUI(0);
+                                resetTimeout = null;
+                            }, 800);
+                        }
                     }
                 }
             }
