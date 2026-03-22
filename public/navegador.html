@@ -283,6 +283,28 @@
         }
 
 
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+            .core-title {
+                font-size: 28px;
+            }
+            .core-desc {
+                font-size: 13px;
+                max-width: 280px;
+            }
+            .nav-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            .nav-arrow-left { left: 5% !important; }
+            .nav-arrow-right { right: 5% !important; }
+        }
+
         #modal-opciones {
             position: fixed;
             top: 0;
@@ -600,8 +622,30 @@
         const labelsContainer = document.getElementById('labels-container');
         const scene = new THREE.Scene();
         scene.fog = new THREE.Fog(0x133e36, 100, 220);
+        window.addEventListener('resize', () => {
+            adjustCamera();
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 35, 130); camera.lookAt(0, -10, 0);
+        function adjustCamera() {
+            const aspect = window.innerWidth / window.innerHeight;
+            if (aspect < 1) {
+                camera.position.z = Math.max(130, 80 / aspect); // Zoom out on mobile
+                camera.position.y = 35 + (35 / aspect) * 0.2; // Adjust height too
+            } else {
+                camera.position.z = 130;
+                camera.position.y = 35;
+            }
+            // Scale fog to match camera distance
+            if (scene.fog) {
+                scene.fog.near = camera.position.z * 0.8;
+                scene.fog.far = camera.position.z + 150;
+            }
+        }
+        adjustCamera();
+        camera.lookAt(0, -10, 0);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
