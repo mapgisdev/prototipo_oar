@@ -795,6 +795,7 @@
 
         let scrollProgress = 0; // Tracks progress through the spheres [0 to totalNodes-1]
         
+        let resetTimeout = null;
         window.addEventListener('wheel', (e) => {
             if (isDashboardOpen) return;
             if (Math.abs(e.deltaY) > 10) {
@@ -802,34 +803,44 @@
                     // Scrolling down: Move through the sequence
                     if (scrollProgress < totalNodes - 1) {
                         e.preventDefault();
+                        if (resetTimeout) clearTimeout(resetTimeout);
                         scrollProgress++;
-                        // Sync logicalIndex with our progress to keep the orbit aligned
-                        // If current index is different (e.g. from a click), we jump from there
                         const currentActive = getActiveIndex();
                         if (currentActive !== scrollProgress) {
-                            // Calculate shortest path to next progress point
                             let diff = scrollProgress - currentActive;
                             if (diff > totalNodes / 2) diff -= totalNodes;
                             if (diff < -totalNodes / 2) diff += totalNodes;
-                            logicalIndex += diff; targetRotation = logicalIndex * angleStep; updateUI(getActiveIndex());
+                            logicalIndex += diff; targetRotation = logicalIndex * angleStep; 
+                            playSound('tick');
+                            updateUI(getActiveIndex());
                         } else {
                             goToNext();
                         }
                     } else {
                         // Reached the end of the sequence: release to parent
                         window.parent.postMessage('oar-scroll-down', '*');
+                        // Reset to Bosques after a short delay so it's ready for the next visit
+                        if (!resetTimeout) {
+                            resetTimeout = setTimeout(() => {
+                                scrollProgress = 0; logicalIndex = 0; targetRotation = 0; updateUI(0);
+                                resetTimeout = null;
+                            }, 800);
+                        }
                     }
                 } else {
                     // Scrolling up: Move backwards through the sequence
                     if (scrollProgress > 0) {
                         e.preventDefault();
+                        if (resetTimeout) clearTimeout(resetTimeout);
                         scrollProgress--;
                         const currentActive = getActiveIndex();
                         if (currentActive !== scrollProgress) {
                             let diff = scrollProgress - currentActive;
                             if (diff > totalNodes / 2) diff -= totalNodes;
                             if (diff < -totalNodes / 2) diff += totalNodes;
-                            logicalIndex += diff; targetRotation = logicalIndex * angleStep; updateUI(getActiveIndex());
+                            logicalIndex += diff; targetRotation = logicalIndex * angleStep; 
+                            playSound('tick');
+                            updateUI(getActiveIndex());
                         } else {
                             goToPrev();
                         }
