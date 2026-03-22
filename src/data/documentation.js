@@ -84,7 +84,7 @@ export const DOCUMENTATION_DATA = [
     {
         id: "DOC-006",
         name: "Plan Maestro de Manejo de la Reserva de la Biosfera Maya",
-        description: "Instrumento de gestión integral para la conservación de la mayor selva tropical de Mesoamérica.",
+        description: "Instrumento de gestión integral para la conservación de la mayor selva tropical de Centro América y República Dominicana.",
         source: "CONAP",
         ejes: ["Bosques", "Gobernanza"],
         type: "Plan",

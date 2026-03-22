@@ -160,6 +160,20 @@ export const Chatbot = () => {
                 </button>
             </div>
 
+            {/* FAB Left: Guía de esta Vista */}
+            <div className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-[950] flex flex-col items-start gap-3">
+                <button
+                    onClick={() => setIsGuideOpen(true)}
+                    className="p-4 bg-amber-500 text-white rounded-full shadow-2xl transition-all hover:scale-110 flex items-center justify-center group"
+                    title="Guía de esta Vista"
+                >
+                    <Lightbulb className="h-6 w-6" />
+                    <span className="absolute left-16 bg-white px-3 py-1.5 rounded-lg shadow-xl text-xs font-bold text-slate-700 border border-slate-100 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                        Guía de esta Vista
+                    </span>
+                </button>
+            </div>
+
             {/* Chat Window */}
             {isChatOpen && (
                 <div className="fixed bottom-24 right-4 w-[90vw] max-w-sm h-[70vh] md:h-[500px] z-[900] flex flex-col font-sans transition-all duration-300 animate-in fade-in slide-in-from-bottom-8">

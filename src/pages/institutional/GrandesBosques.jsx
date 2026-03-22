@@ -24,7 +24,7 @@ export const GrandesBosques = () => {
         {
             type: "bridge",
             name: "Selva Maya",
-            desc: "Bloque forestal transfronterizo que une a México, Guatemala y Belice, formando el macizo de selva tropical más grande de Mesoamérica. Un ecosistema único de selva tropical húmeda que sustenta especies icónicas como el jaguar.",
+            desc: "Bloque forestal transfronterizo que une a México, Guatemala y Belice, formando el macizo de selva tropical más grande de Centro América y República Dominicana. Un ecosistema único de selva tropical húmeda que sustenta especies icónicas como el jaguar.",
             countries: ["Belice", "Guatemala"],
             img: "/forests/bridge_selva_maya.png"
         },
@@ -204,7 +204,7 @@ export const GrandesBosques = () => {
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-slate-100">
                     <div className="space-y-2">
                         <h1 className="text-3xl md:text-4xl font-serif font-black text-slate-900 leading-tight mt-2">
-                            Grandes Bosques de Mesoamérica y República Dominicana
+                            Grandes Bosques de Centro América y República Dominicana
                         </h1>
                         <p className="text-lg text-slate-600 max-w-3xl leading-relaxed">
                             Una iniciativa para proteger los pulmones verdes de los países de la Región SICA, monitoreando la conectividad y la salud forestal.
@@ -251,9 +251,9 @@ export const GrandesBosques = () => {
                         {regions.map((item, i) => (
                             item.type === 'country' ? (
                                 <div key={i} id={getSlug(item.name)} className={cn(
-                                    "flex flex-col md:flex-row gap-12 items-center p-8 bg-white rounded-[2.5rem] border border-slate-100 shadow-sm transition-all duration-500 hover:shadow-xl scroll-mt-24",
+                                    "flex flex-col md:flex-row gap-12 items-center p-8 bg-white rounded-[2.5rem] border border-slate-100 shadow-sm transition-all duration-500 hover:shadow-xl scroll-mt-24 hover-lift animate-reveal",
                                     i % 4 > 1 ? "md:flex-row-reverse" : ""
-                                )}>
+                                )} style={{ animationDelay: `${i * 100}ms` }}>
                                     <div className="flex-1 space-y-6">
                                         <div className="flex items-center gap-3">
                                             <span className="w-8 h-1 bg-emerald-500 rounded-full"></span>
@@ -285,11 +285,11 @@ export const GrandesBosques = () => {
                                     </div>
                                     
                                     <div className="flex-1 w-full max-w-md">
-                                        <div className="relative aspect-square rounded-3xl overflow-hidden shadow-lg group">
+                                        <div className="relative aspect-square rounded-3xl overflow-hidden shadow-lg group parallax-container">
                                             <img 
                                                 src={item.img} 
                                                 alt={item.name} 
-                                                className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110" 
+                                                className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110 parallax-image" 
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                                         </div>
@@ -300,7 +300,8 @@ export const GrandesBosques = () => {
                                     <div className="absolute left-1/2 top-0 bottom-0 w-px bg-slate-200 -z-10 bg-dashed"></div>
                                     <button 
                                         onClick={() => setSelectedBridge(item)}
-                                        className="bg-emerald-50 block p-6 rounded-2xl border border-emerald-100 max-w-xl shadow-sm relative group hover:bg-emerald-100 hover:shadow-md transition-all cursor-pointer text-center w-full"
+                                        className="bg-emerald-50 block p-6 rounded-2xl border border-emerald-100 max-w-xl shadow-sm relative group hover:bg-emerald-100 hover:shadow-md transition-all cursor-pointer text-center w-full hover-lift animate-reveal"
+                                        style={{ animationDelay: `${i * 100}ms` }}
                                     >
                                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-emerald-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">
                                             {item.countries.length > 2 ? 'Iniciativa Multinacional' : 'Vínculo Transfronterizo'}
@@ -336,7 +337,7 @@ export const GrandesBosques = () => {
                 <div className="relative z-10 max-w-3xl mx-auto space-y-10">
                     <h2 className="text-4xl md:text-5xl font-serif font-black leading-tight">Sea parte de la protección de nuestros pulmones</h2>
                     <p className="text-emerald-200 text-xl font-light">
-                        Acceda a los datos abiertos del Observatorio Ambiental para colaborar en la preservación de Mesoamérica y República Dominicana.
+                        Acceda a los datos abiertos del Observatorio Ambiental para colaborar en la preservación de Centro América y República Dominicana.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                         <Button 

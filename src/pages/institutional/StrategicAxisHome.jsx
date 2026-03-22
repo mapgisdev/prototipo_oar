@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-    BookOpen, 
-    HelpCircle, 
-    LayoutDashboard, 
-    Map as MapIcon, 
-    Trees, 
-    Info, 
+import {
+    BookOpen,
+    HelpCircle,
+    LayoutDashboard,
+    Map as MapIcon,
+    Trees,
+    Info,
     ArrowRight,
     Search,
     RefreshCw,
@@ -20,7 +20,7 @@ const SICA_FACTS = [
     "La región SICA cuenta con 18.1 millones de hectáreas de bosque, de las cuales el 45% se encuentran bajo protección oficial.",
     "Tres países de la región han logrado revertir la tendencia regional y ahora muestran una ganancia neta de cobertura boscosa en 2024.",
     "El stock total de carbono en los bosques de la región SICA alcanza las 3.2 Gigatoneladas, un pilar crítico para la resiliencia climática.",
-    "La 'Selva Maya' es el bosque tropical más extenso de Mesoamérica, albergando una biodiversidad única en el mundo.",
+    "La 'Selva Maya' es el bosque tropical más extenso de Centro América y República Dominicana, albergando una biodiversidad única en el mundo.",
     "El carbono orgánico del suelo representa más del 50% del total almacenado en nuestros ecosistemas forestales regionales.",
     "Los sistemas agroforestales de café y cacao en el SICA capturan hasta 40 toneladas de carbono por hectárea anualmente.",
     "La región alberga el 7% de la biodiversidad mundial en apenas el 0.5% de la superficie terrestre del planeta.",
@@ -30,7 +30,7 @@ const SICA_FACTS = [
 const ModuleCard = ({ icon: Icon, title, description, path, colorClass, delay }) => {
     const navigate = useNavigate();
     return (
-        <div 
+        <div
             onClick={() => navigate(path)}
             className={`group relative p-8 bg-white rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer overflow-hidden animate-in fade-in slide-in-from-bottom-4 fill-mode-both`}
             style={{ animationDelay: `${delay}ms` }}
@@ -38,19 +38,19 @@ const ModuleCard = ({ icon: Icon, title, description, path, colorClass, delay })
             <div className={`absolute top-0 right-0 w-32 h-32 -mr-8 -mt-8 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity`}>
                 <Icon size={128} />
             </div>
-            
+
             <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 duration-500 ${colorClass}`}>
                 <Icon className="h-7 w-7 text-white" />
             </div>
-            
+
             <h3 className="text-2xl font-serif font-bold text-slate-900 mb-3 group-hover:text-brand-primary transition-colors">
                 {title}
             </h3>
-            
+
             <p className="text-slate-500 leading-relaxed mb-6 font-light">
                 {description}
             </p>
-            
+
             <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-slate-400 group-hover:text-brand-primary transition-colors">
                 Ingresar al módulo <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
             </div>
@@ -83,7 +83,7 @@ export const StrategicAxisHome = ({ axisLine }) => {
             {/* Hero Section */}
             <div className="relative pt-16 pb-24 px-8 overflow-hidden">
                 <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-emerald-50/50 to-transparent -z-10"></div>
-                
+
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col lg:flex-row gap-12 items-center">
                         <div className="flex-1 space-y-6">
@@ -101,9 +101,9 @@ export const StrategicAxisHome = ({ axisLine }) => {
                             <div className="max-w-2xl mt-8">
                                 <div className="relative group">
                                     <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-emerald-500 transition-colors group-focus-within:text-emerald-600" />
-                                    <input 
-                                        type="text" 
-                                        placeholder="¿Qué información busca sobre este eje?" 
+                                    <input
+                                        type="text"
+                                        placeholder="¿Qué información busca sobre este eje?"
                                         className="w-full bg-white border border-slate-200 rounded-2xl py-5 pl-16 pr-6 shadow-sm focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500/50 text-lg transition-all"
                                     />
                                     <div className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -117,7 +117,7 @@ export const StrategicAxisHome = ({ axisLine }) => {
                                 </p>
                             </div>
                         </div>
-                        
+
                         {/* Dato del día Card */}
                         <div className="w-full lg:w-96 shrink-0">
                             <div className="bg-emerald-950 text-white p-8 rounded-[2.5rem] shadow-2xl shadow-emerald-950/20 relative overflow-hidden group min-h-[300px] flex flex-col justify-between">
@@ -138,9 +138,9 @@ export const StrategicAxisHome = ({ axisLine }) => {
                                             <div className="h-1 w-12 bg-emerald-500 rounded-full"></div>
                                             <p className="mt-4 text-[10px] text-emerald-300/60 uppercase tracking-widest font-bold">Observatorio Ambiental Regional (OAR)</p>
                                         </div>
-                                        <Button 
-                                            variant="ghost" 
-                                            size="sm" 
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
                                             onClick={handleShuffle}
                                             className="h-10 w-10 p-0 rounded-full bg-white/5 hover:bg-emerald-500 hover:text-white text-emerald-400 border-none transition-all duration-300 shadow-lg"
                                         >
@@ -157,18 +157,18 @@ export const StrategicAxisHome = ({ axisLine }) => {
             {/* Axis Content Inventory - EDUCATIVO/INFORMATIVO */}
             <div className="max-w-7xl mx-auto px-8 py-16">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                    
+
                     {/* Main Content Column */}
                     <div className="lg:col-span-2 space-y-16">
-                        
+
                         {/* Section 1: Grandes Bosques de la Región */}
                         <section className="space-y-8">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-3xl font-serif font-black text-slate-800">
                                     Grandes Bosques de la <span className="text-emerald-600 italic">Región SICA</span>
                                 </h2>
-                                <Button 
-                                    variant="link" 
+                                <Button
+                                    variant="link"
                                     className="text-emerald-600 font-bold p-0 flex items-center gap-2"
                                     onClick={() => navigate('/grandes-bosques')}
                                 >
@@ -207,7 +207,7 @@ export const StrategicAxisHome = ({ axisLine }) => {
                                 ))}
                             </div>
 
-                            <div 
+                            <div
                                 onClick={() => navigate('/grandes-bosques')}
                                 className="p-6 bg-emerald-50 border border-emerald-100 rounded-3xl shadow-sm hover:shadow-md transition-all cursor-pointer group flex items-center gap-6"
                             >
@@ -229,7 +229,7 @@ export const StrategicAxisHome = ({ axisLine }) => {
                                 Herramientas de <span className="text-emerald-600 italic">Gestión Forestal</span>
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <ModuleCard 
+                                <ModuleCard
                                     icon={Activity}
                                     title="Análisis Geoespacial"
                                     description="Herramientas de cruce espacial para la detección de cambios."
@@ -237,7 +237,7 @@ export const StrategicAxisHome = ({ axisLine }) => {
                                     colorClass="bg-emerald-600 shadow-lg shadow-emerald-900/10"
                                     delay={100}
                                 />
-                                <ModuleCard 
+                                <ModuleCard
                                     icon={LayoutDashboard}
                                     title="Tablero de KPIs"
                                     description="Seguimiento dinámico de metas ERAM y AFOLU."
@@ -253,7 +253,7 @@ export const StrategicAxisHome = ({ axisLine }) => {
                     <div className="space-y-10">
                         <Card className="p-8 bg-slate-900 text-white rounded-[2.5rem] border-0 shadow-2xl relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 blur-[50px] rounded-full"></div>
-                            
+
                             <h3 className="text-2xl font-serif font-black mb-6 relative z-10 flex items-center gap-3">
                                 <HelpCircle className="text-emerald-400" /> Preguntas <span className="text-emerald-400">Críticas</span>
                             </h3>
@@ -265,7 +265,7 @@ export const StrategicAxisHome = ({ axisLine }) => {
                                     { q: "¿Cómo van las metas de conservación 30x30?", path: "/preguntas/meta-30x30" },
                                     { q: "¿Cuántos incendios están activos?", path: "/preguntas/incendios-activos" }
                                 ].map((item, i) => (
-                                    <div 
+                                    <div
                                         key={i}
                                         onClick={() => navigate(item.path)}
                                         className="group p-4 bg-white/5 border border-white/10 rounded-2xl hover:bg-emerald-500 hover:border-emerald-400 transition-all cursor-pointer"
@@ -275,7 +275,7 @@ export const StrategicAxisHome = ({ axisLine }) => {
                                 ))}
                             </div>
 
-                            <Button 
+                            <Button
                                 className="w-full mt-8 bg-emerald-600 hover:bg-emerald-700 rounded-xl"
                                 onClick={() => navigate('/strategic-questions')}
                             >

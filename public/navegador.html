@@ -282,6 +282,40 @@
             right: 15%;
         }
 
+        #btn-guia {
+            padding: 12px 35px;
+            background: var(--ocean-blue);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            pointer-events: auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: max-content;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #btn-guia:hover {
+            background: #fff;
+            color: var(--ocean-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        #btn-guia i {
+            font-size: 16px;
+        }
+
         #modal-opciones {
             position: fixed;
             top: 0;
@@ -494,6 +528,7 @@
             <div id="btn-opciones">MÁS OPCIONES</div>
         </div>
         <div id="btn-mute"><i class="ph ph-speaker-high"></i></div>
+
         <div id="nav-arrow-left" class="nav-arrow"><i class="ph ph-caret-left"></i></div>
         <div id="nav-arrow-right" class="nav-arrow"><i class="ph ph-caret-right"></i></div>
         <div id="labels-container"></div>
@@ -821,6 +856,10 @@
 
         document.getElementById('btn-opciones').onclick = () => { document.getElementById('modal-opciones').classList.add('visible'); playSound('tick'); };
         document.getElementById('btn-close-modal').onclick = () => document.getElementById('modal-opciones').classList.remove('visible');
+        document.getElementById('btn-guia').onclick = () => {
+            window.parent.postMessage('oar-open-guide', '*');
+            playSound('tick');
+        };
         document.getElementById('nav-arrow-left').onclick = goToPrev;
         document.getElementById('nav-arrow-right').onclick = goToNext;
 

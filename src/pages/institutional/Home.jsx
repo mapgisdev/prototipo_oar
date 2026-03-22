@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Card, Badge, Input } from '../../components/ui/Shared';
+import { Button, Card, Badge, Input, ViewGuideModal } from '../../components/ui/Shared';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Globe, Trees, Users, ChevronRight, BarChart3, Map, FileText, ExternalLink, HelpCircle, Flame, CloudRain, Wind, Waves, Droplets, Shield, Activity, ShieldAlert, Layers, Briefcase, Database, PieChart as PieIcon, LayoutDashboard, Clock, Search } from 'lucide-react';
 import { getEramAxes } from '../../lib/eram';
@@ -22,11 +22,24 @@ export const Home = () => {
         ['forest-loss', 'active-fires', 'drought-risk', 'conservation-30x30', 'water-security', 'ocean-health'].includes(q.id)
     );
 
+    const [isGuideOpen, setIsGuideOpen] = useState(false);
+
     // Get 6 random figures from the data
     const randomCifras = React.useMemo(() => {
         return [...CIFRAS_DATA]
             .sort(() => 0.5 - Math.random())
             .slice(0, 6);
+    }, []);
+
+    // Listen for messages from the Navigator Iframe
+    React.useEffect(() => {
+        const handleMessage = (event) => {
+            if (event.data === 'oar-open-guide') {
+                setIsGuideOpen(true);
+            }
+        };
+        window.addEventListener('message', handleMessage);
+        return () => window.removeEventListener('message', handleMessage);
     }, []);
 
     const handleStartConnection = () => {
@@ -91,8 +104,11 @@ export const Home = () => {
                                 onClick={() => navigate(q.path)}
                             >
                                 <Card
-                                    className="relative h-full w-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] cursor-pointer bg-white/85 backdrop-blur-xl border-white/20 rounded-xl overflow-hidden shadow-md flex flex-col"
-                                    style={{ borderTop: `4px solid ${q.color}` }}
+                                    className="relative h-full w-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] cursor-pointer bg-white/85 backdrop-blur-xl border-white/20 rounded-xl overflow-hidden shadow-md flex flex-col hover-lift animate-reveal opacity-0"
+                                    style={{ 
+                                        borderTop: `4px solid ${q.color}`, 
+                                        animationDelay: `${homeQuestions.indexOf(q) * 150 + 400}ms` 
+                                    }}
                                 >
                                     {/* Front */}
                                     <div className="absolute inset-0 [backface-visibility:hidden] p-6 flex flex-col h-full">
@@ -163,7 +179,7 @@ export const Home = () => {
                             const color = axisColors[item.eje_tematico] || '#10B981';
 
                             return (
-                                <Card key={idx} className="bg-white border-t-4 rounded-none shadow-sm p-8" style={{ borderTopColor: color }}>
+                                <Card key={idx} className="bg-white border-t-4 rounded-none shadow-sm p-8 hover-lift animate-reveal" style={{ borderTopColor: color, animationDelay: `${idx * 150}ms` }}>
                                     <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 block mb-6">
                                         {item.titulo}
                                     </span>
@@ -223,7 +239,7 @@ export const Home = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {/* Card Estratégico */}
                         <div
-                            className="bg-slate-800/50 border border-slate-700 p-8 rounded-[2rem] hover:bg-slate-800 transition-all border-t-4 border-t-blue-500 group cursor-pointer"
+                            className="bg-slate-800/50 border border-slate-700 p-8 rounded-[2rem] hover:bg-slate-800 transition-all border-t-4 border-t-blue-500 group cursor-pointer hover-lift animate-reveal shadow-2xl shadow-blue-500/10"
                             onClick={() => navigate('/monitoring?level=estrategico')}
                         >
                             <div className="flex justify-between items-start mb-6">
@@ -811,6 +827,8 @@ export const Home = () => {
                     Observatorio Ambiental Regional (OAR) • Estrategia Regional Ambiental de Centroamérica y República Dominicana
                 </div>
             </div>
+
+            <ViewGuideModal isOpen={isGuideOpen} onClose={() => setIsGuideOpen(false)} />
         </div>
     );
 };

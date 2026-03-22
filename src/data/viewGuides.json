@@ -1,12 +1,12 @@
 {
   "/": {
     "title": "Portal Principal OAR",
-    "description": "Bienvenido al Observatorio Ambiental Regional. Esta vista central conecta todas las herramientas estratégicas del SICA.",
+    "description": "Usted se encuentra en la Puerta de Entrada al OAR. Desde aquí podrá conectar con los cinco ejes estratégicos de Centro América y República Dominicana, acceder a consultas rápidas mediante el buscador global y dirigirse a los ecosistemas forestales más importantes de la región.",
     "features": [
-        "Acceso a Preguntas Estratégicas y respuestas basadas en datos.",
-        "Visualización de Cifras Regionales clave por eje temático.",
-        "Monitoreo de compromisos internacionales y metas ERAM.",
-        "Laboratorio de Análisis Geoespacial e Inteligencia de Negocios."
+      "Acceso a Preguntas Estratégicas y respuestas basadas en datos.",
+      "Visualización de Cifras Regionales clave por eje temático.",
+      "Monitoreo de compromisos internacionales y metas ERAM.",
+      "Laboratorio de Análisis Geoespacial e Inteligencia de Negocios."
     ],
     "source": "Sistemas integrados de CCAD, NASA, GFW y fuentes nacionales SICA.",
     "learnMore": "/technical/docs",
@@ -14,12 +14,12 @@
   },
   "/data/cifras": {
     "title": "Centro de Cifras Regionales",
-    "description": "Inventario completo de indicadores ambientales estratégicos del SICA.",
+    "description": "Esta vista presenta el Inventario Regional de Cifras. Aquí podrá explorar estadísticas normalizadas de todos los países del SICA, filtrando por temas de interés para obtener datos precisos listos para su exportación técnica.",
     "features": [
-        "Filtrado multiselect por país y eje estratégico.",
-        "Búsqueda por palabras clave en títulos y descripciones.",
-        "Exportación de datos filtrados en formatos CSV y PDF.",
-        "Visualización aleatoria de cifras destacadas."
+      "Filtrado multiselect por país y eje estratégico.",
+      "Búsqueda por palabras clave en títulos y descripciones.",
+      "Exportación de datos filtrados en formatos CSV y PDF.",
+      "Visualización aleatoria de cifras destacadas."
     ],
     "source": "Global Forest Watch, IUCN, FAO, WDPA y Ministerios de Ambiente regionales.",
     "learnMore": "/technical/docs",
@@ -27,12 +27,12 @@
   },
   "/monitoring/operational": {
     "title": "Monitoreo Operativo ERAM",
-    "description": "Seguimiento técnico del avance de la Estrategia Regional Ambiental.",
+    "description": "Usted está visualizando el Panel de Cumplimiento Técnico (ERAM). En esta sección se audita el avance físico de las metas regionales, permitiendo verificar evidencias de ejecución y detectar áreas que requieren atención inmediata por país.",
     "features": [
-        "Identificación de alertas de rezago en acciones estratégicas.",
-        "Análisis de evidencia y medios de verificación por país.",
-        "Seguimiento de metas operativas y gestión institucional.",
-        "Desglose de contribución nacional al cumplimiento regional."
+      "Identificación de alertas de rezago en acciones estratégicas.",
+      "Análisis de evidencia y medios de verificación por país.",
+      "Seguimiento de metas operativas y gestión institucional.",
+      "Desglose de contribución nacional al cumplimiento regional."
     ],
     "source": "Plataforma SIME - Sistema de Monitoreo de la ERAM (CCAD).",
     "learnMore": "/monitoring",
@@ -40,12 +40,12 @@
   },
   "/monitoring/strategic": {
     "title": "Monitoreo Estratégico Regional",
-    "description": "Dashboard de alto nivel sobre el cumplimiento de convenios internacionales y metas globales.",
+    "description": "Este es el Tablero de Impacto Global. Aquí se visualiza cómo Centro América y República Dominicana contribuye a los grandes compromisos mundiales de biodiversidad y cambio climático, transformando datos científicos en indicadores claros para la toma de decisiones.",
     "features": [
-        "Seguimiento de sinergias entre Convenciones de Río (CBD, UNCCD, UNFCCC).",
-        "Visualización de indicadores de impacto a largo plazo.",
-        "Análisis de metas 30x30 y neutralidad de degradación de la tierra.",
-        "Reportes sintetizados para tomadores de decisiones."
+      "Seguimiento de sinergias entre Convenciones de Río (CBD, UNCCD, UNFCCC).",
+      "Visualización de indicadores de impacto a largo plazo.",
+      "Análisis de metas 30x30 y neutralidad de degradación de la tierra.",
+      "Reportes sintetizados para tomadores de decisiones."
     ],
     "source": "Secretaría Ejecutiva CCAD y Organismos Internacionales.",
     "learnMore": "/monitoring",
@@ -55,10 +55,10 @@
     "title": "Preguntas Estratégicas",
     "description": "Respuestas directas a las interrogantes más críticas sobre el estado del ambiente regional.",
     "features": [
-        "Exploración por temas: Bosques, Agua, Clima, Biodiversidad.",
-        "Visualizaciones interactivas y mapas de situación actual.",
-        "Acceso a datos crudos y reportes técnicos asociados.",
-        "Narrativas simplificadas para facilitar la comprensión."
+      "Exploración por temas: Bosques, Agua, Clima, Biodiversidad.",
+      "Visualizaciones interactivas y mapas de situación actual.",
+      "Acceso a datos crudos y reportes técnicos asociados.",
+      "Narrativas simplificadas para facilitar la comprensión."
     ],
     "source": "Base de datos unificada del OAR combinando +50 fuentes satelitales y locales.",
     "learnMore": "/strategic-questions",
@@ -68,10 +68,10 @@
     "title": "Tablero de Control Técnico",
     "description": "Visualización técnica y estadística detallada de todos los parámetros del OAR.",
     "features": [
-        "Gráficos comparativos de tendencias históricas.",
-        "Desglose estadístico por país y categoría.",
-        "Seguimiento de KPIS críticos de salud ambiental.",
-        "Herramientas de filtrado avanzado para perfiles técnicos."
+      "Gráficos comparativos de tendencias históricas.",
+      "Desglose estadístico por país y categoría.",
+      "Seguimiento de KPIS críticos de salud ambiental.",
+      "Herramientas de filtrado avanzado para perfiles técnicos."
     ],
     "source": "Data Lake Regional OAR.",
     "learnMore": "/technical/dashboard",
@@ -79,12 +79,12 @@
   },
   "/technical/geo-analysis": {
     "title": "Laboratorio Geoespacial",
-    "description": "Herramientas avanzadas de análisis espacial para la toma de decisiones.",
+    "description": "Bienvenido al Laboratorio Geoespacial del OAR. Esta es una herramienta técnica de vanguardia para el procesamiento de imágenes satelitales y cruce de mapas, permitiéndole realizar análisis espaciales complejos directamente sobre el territorio regional.",
     "features": [
-        "Detección histórica de deforestación mediante satélites.",
-        "Análisis de restricciones de conservación en áreas protegidas.",
-        "Inventario dinámico de ecosistemas y biodiversidad.",
-        "Cruce de proyectos de cooperación en el territorio."
+      "Detección histórica de deforestación mediante satélites.",
+      "Análisis de restricciones de conservación en áreas protegidas.",
+      "Inventario dinámico de ecosistemas y biodiversidad.",
+      "Cruce de proyectos de cooperación en el territorio."
     ],
     "source": "Motores de procesamiento OAR, Sentinel-2, Landsat y capas vectoriales SICA.",
     "learnMore": "/technical/map",
@@ -94,10 +94,10 @@
     "title": "Explorador de Mapas Regionales",
     "description": "Centro de recursos geoespaciales para la visualización de capas temáticas y territoriales del SICA.",
     "features": [
-        "Visualización de áreas protegidas y ecosistemas terrestres.",
-        "Mapas de amenazas climáticas y seguridad hídrica en tiempo real.",
-        "Comparativa de capas históricas para análisis de cambios.",
-        "Acceso a metadatos y fuentes oficiales de cada capa."
+      "Visualización de áreas protegidas y ecosistemas terrestres.",
+      "Mapas de amenazas climáticas y seguridad hídrica en tiempo real.",
+      "Comparativa de capas históricas para análisis de cambios.",
+      "Acceso a metadatos y fuentes oficiales de cada capa."
     ],
     "source": "Infraestructura de Datos Espaciales (IDE) de CCAD y socios regionales.",
     "learnMore": "/technical/docs",
@@ -105,12 +105,12 @@
   },
   "/analisis-multidimensional": {
     "title": "Análisis Multidimensional (BI)",
-    "description": "Herramienta avanzada de Inteligencia de Negocios para el cruce de variables ambientales y socioeconómicas.",
+    "description": "Usted ha ingresado al Motor de Inteligencia de Negocios (BI). Esta vista permite realizar 'Cruce de Variables', conectando datos ambientales con realidades territoriales para identificar tendencias históricas y proyecciones regionales mediante gráficos dinámicos.",
     "features": [
-        "Cruce dinámico de indicadores entre múltiples bases de datos.",
-        "Generación automática de gráficos de correlación y tendencia.",
-        "Filtrado por periodos temporales y escalas geográficas.",
-        "Exportación de resultados en alta resolución para informes."
+      "Cruce dinámico de indicadores entre múltiples bases de datos.",
+      "Generación automática de gráficos de correlación y tendencia.",
+      "Filtrado por periodos temporales y escalas geográficas.",
+      "Exportación de resultados en alta resolución para informes."
     ],
     "source": "Data Lake OAR y repositorios estadísticos nacionales del SICA.",
     "learnMore": "/technical/docs",
@@ -120,10 +120,10 @@
     "title": "Estado de los Bosques (FRA 2024)",
     "description": "Análisis detallado de la cobertura forestal y su evolución basado en la Evaluación de los Recursos Forestales Mundiales.",
     "features": [
-        "Monitoreo de la superficie forestal total por país.",
-        "Análisis de tasas de deforestación y regeneración.",
-        "Estadísticas de biomasa y stocks de carbono.",
-        "Comparativa histórica de metas de cobertura regional."
+      "Monitoreo de la superficie forestal total por país.",
+      "Análisis de tasas de deforestación y regeneración.",
+      "Estadísticas de biomasa y stocks de carbono.",
+      "Comparativa histórica de metas de cobertura regional."
     ],
     "source": "FAO - Evaluación de los Recursos Forestales Mundiales (FRA) y datos nacionales.",
     "learnMore": "/preguntas/estado-bosques",
@@ -133,10 +133,10 @@
     "title": "Eje 4: Bosques y Paisajes",
     "description": "Portal dedicado a la gestión forestal sostenible, restauración de paisajes y conectividad ecológica en la región.",
     "features": [
-        "Visualización de los 5 Grandes Bosques de Mesoamérica.",
-        "Acceso a narrativas e historias de conservación territorial.",
-        "Monitoreo de metas de restauración y cobertura boscosa.",
-        "Preguntas estratégicas relacionadas con incendios y deforestación."
+      "Visualización de los 5 Grandes Bosques de Centro América y República Dominicana.",
+      "Acceso a narrativas e historias de conservación territorial.",
+      "Monitoreo de metas de restauración y cobertura boscosa.",
+      "Preguntas estratégicas relacionadas con incendios y deforestación."
     ],
     "source": "Estrategia Regional Ambiental (ERAM), CCAD y Ministerios de Ambiente regionales.",
     "learnMore": "/strategic-questions",
@@ -146,10 +146,10 @@
     "title": "Centro de Monitoreo OAR",
     "description": "Plataforma centralizada para el seguimiento del estado ambiental regional y metas estratégicas del SICA.",
     "features": [
-        "Dashboard interactivo con niveles Estratégico y Operativo.",
-        "Seguimiento de cumplimiento de convenios internacionales.",
-        "Alertas tempranas sobre indicadores en estado de rezago.",
-        "Desglose de contribuciones nacionales por país."
+      "Dashboard interactivo con niveles Estratégico y Operativo.",
+      "Seguimiento de cumplimiento de convenios internacionales.",
+      "Alertas tempranas sobre indicadores en estado de rezago.",
+      "Desglose de contribuciones nacionales por país."
     ],
     "source": "Sistema Integrado de Monitoreo (SIME) y reportes oficiales CCAD.",
     "learnMore": "/monitoring/strategic",
@@ -159,10 +159,10 @@
     "title": "Eje 1: Calidad Ambiental",
     "description": "Monitoreo integral de la salud de los ecosistemas, calidad del aire, suelo y gestión de residuos contaminantes.",
     "features": [
-        "Monitoreo de índices de salud ambiental regional.",
-        "Seguimiento a políticas de gestión de desechos sólidos.",
-        "Análisis de contaminantes químicos y orgánicos.",
-        "Acceso a indicadores de impacto en la salud pública."
+      "Monitoreo de índices de salud ambiental regional.",
+      "Seguimiento a políticas de gestión de desechos sólidos.",
+      "Análisis de contaminantes químicos y orgánicos.",
+      "Acceso a indicadores de impacto en la salud pública."
     ],
     "source": "Sistemas nacionales de calidad ambiental y reportes SICA-CCAD.",
     "learnMore": "/strategic-questions",
@@ -170,12 +170,12 @@
   },
   "/strategic-axis/mares": {
     "title": "Eje 2: Mares y Biodiversidad",
-    "description": "Portal para la preservación de la riqueza biológica de Mesoamérica y sus ecosistemas marinos y costeros.",
+    "description": "Portal para la preservación de la riqueza biológica de Centro América y República Dominicana y sus ecosistemas marinos y costeros.",
     "features": [
-        "Monitoreo de biomasa y biodiversidad arrecifal.",
-        "Seguimiento de áreas protegidas marinas.",
-        "Análisis de amenazas a especies migratorias.",
-        "Visualizaciones de salud de manglares y estuarios."
+      "Monitoreo de biomasa y biodiversidad arrecifal.",
+      "Seguimiento de áreas protegidas marinas.",
+      "Análisis de amenazas a especies migratorias.",
+      "Visualizaciones de salud de manglares y estuarios."
     ],
     "source": "NASA, NOAA, Global Fishing Watch e institutos de biodiversidad regionales.",
     "learnMore": "/strategic-questions",
@@ -185,10 +185,10 @@
     "title": "Eje 3: Gestión Hídrica",
     "description": "Seguimiento a la disponibilidad, calidad y gestión sostenible del recurso hídrico en cuencas estratégicas.",
     "features": [
-        "Balance hídrico regional en tiempo real.",
-        "Monitoreo de cuencas transfronterizas.",
-        "Seguimiento a la infraestructura de saneamiento.",
-        "Alertas de estrés hídrico y seguridad para el consumo."
+      "Balance hídrico regional en tiempo real.",
+      "Monitoreo de cuencas transfronterizas.",
+      "Seguimiento a la infraestructura de saneamiento.",
+      "Alertas de estrés hídrico y seguridad para el consumo."
     ],
     "source": "Ministerios de Agua, Institutos de Hidrología y modelos GLDAS.",
     "learnMore": "/strategic-questions",
@@ -198,10 +198,10 @@
     "title": "Eje 5: Cambio Climático",
     "description": "Resiliencia regional frente al cambio climático: mitigación, adaptación y gestión de riesgos.",
     "features": [
-        "Mapas de vulnerabilidad y riesgo climático.",
-        "Seguimiento de contribuciones nacionalmente determinadas (NDC).",
-        "Inventario de gases de efecto invernadero por sector.",
-        "Modelado de escenarios climáticos futuros para el SICA."
+      "Mapas de vulnerabilidad y riesgo climático.",
+      "Seguimiento de contribuciones nacionalmente determinadas (NDC).",
+      "Inventario de gases de efecto invernadero por sector.",
+      "Modelado de escenarios climáticos futuros para el SICA."
     ],
     "source": "IPCC, CMNUCC y dependencias meteorológicas nacionales.",
     "learnMore": "/strategic-questions",
@@ -211,10 +211,10 @@
     "title": "Centro de Documentación Técnica",
     "description": "Repositorio central de guías, metodologías y manuales del Observatorio Ambiental Regional.",
     "features": [
-        "Acceso a metodologías de cálculo de indicadores estratégicos.",
-        "Repositorio de publicaciones técnicas y reportes institucionales.",
-        "Guías de usuario para el uso de visores y herramientas BI.",
-        "Manuales de integración y documentación de APIs para desarrolladores."
+      "Acceso a metodologías de cálculo de indicadores estratégicos.",
+      "Repositorio de publicaciones técnicas y reportes institucionales.",
+      "Guías de usuario para el uso de visores y herramientas BI.",
+      "Manuales de integración y documentación de APIs para desarrolladores."
     ],
     "source": "Secretaría Ejecutiva de la CCAD, especialistas técnicos y socios regionales.",
     "learnMore": "/technical/developers",
@@ -224,10 +224,10 @@
     "title": "Visor Interactivo Geoespacial",
     "description": "Herramienta de exploración cartográfica a pantalla completa para el análisis detallado del territorio regional.",
     "features": [
-        "Navegación fluida por capas de información espacial del SICA.",
-        "Herramientas de medición, dibujo y análisis de proximidad.",
-        "Cambio dinámico entre mapas base satelitales, topográficos y de calles.",
-        "Acceso a la tabla de atributos de las capas vectoriales."
+      "Navegación fluida por capas de información espacial del SICA.",
+      "Herramientas de medición, dibujo y análisis de proximidad.",
+      "Cambio dinámico entre mapas base satelitales, topográficos y de calles.",
+      "Acceso a la tabla de atributos de las capas vectoriales."
     ],
     "source": "Infraestructura de Datos Espaciales (IDE) de CCAD y socios institucionales.",
     "learnMore": "/technical/maps",
@@ -235,12 +235,12 @@
   },
   "/grandes-bosques": {
     "title": "Reporte Especial: Grandes Bosques",
-    "description": "Exploración narrativa y técnica de los corredores biológicos más importantes de Mesoamérica y República Dominicana.",
+    "description": "Exploración narrativa y técnica de los corredores biológicos más importantes de Centro América y República Dominicana.",
     "features": [
-        "Historias de conservación y desafíos en tiempo real.",
-        "Mapas de situación de los 5 grandes bosques regionales.",
-        "Acceso a indicadores específicos de biodiversidad y presiones.",
-        "Galería de recursos visuales y técnicos sobre gestión forestal."
+      "Historias de conservación y desafíos en tiempo real.",
+      "Mapas de situación de los 5 grandes bosques regionales.",
+      "Acceso a indicadores específicos de biodiversidad y presiones.",
+      "Galería de recursos visuales y técnicos sobre gestión forestal."
     ],
     "source": "CCAD, WCS, programas Selva Maya y contrapartes nacionales.",
     "learnMore": "/strategic-axis/bosques",

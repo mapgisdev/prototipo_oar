@@ -4,12 +4,84 @@
 
 @layer base {
   body {
-    @apply antialiased font-sans text-slate-900;
+    @apply antialiased font-sans text-slate-900 overflow-x-hidden;
   }
 }
+
+/* --- Global Dynamic Animations --- */
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.02); }
+}
+
+@keyframes slide-up-reveal {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes parallax-bg {
+  from { background-position: 50% 0%; }
+  to { background-position: 50% 100%; }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-pulse-soft { animation: pulse-soft 4s ease-in-out infinite; }
+.animate-reveal { animation: slide-up-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* --- Hover & Parallax Utility Classes --- */
+
+.hover-lift {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
+}
+
+.hover-glow {
+  transition: all 0.3s ease;
+}
+.hover-glow:hover {
+  filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.4));
+}
+
+.parallax-container {
+  overflow: hidden;
+}
+.parallax-image {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.parallax-container:hover .parallax-image {
+  transform: scale(1.1) translateY(-5%);
+}
+
+.glass-card {
+  @apply bg-white/70 backdrop-blur-md border border-white/40 shadow-xl;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.glass-card:hover {
+  @apply bg-white/90;
+  transform: scale(1.02);
+}
+
+/* --- Fluid Navigation & Generic Transitions --- */
+
+.transition-slow { transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.transition-medium { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.transition-fast { transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+
+.page-fade-enter { opacity: 0; transform: translateY(10px); }
+.page-fade-enter-active { opacity: 1; transform: translateY(0); transition: all 0.5s ease; }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: #f8fafc; }
-::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #c3dafe; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; border: 2px solid #f8fafc; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
