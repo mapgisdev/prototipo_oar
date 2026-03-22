@@ -305,6 +305,14 @@
             .nav-arrow-right { right: 5% !important; }
         }
 
+        .alerts-card { overflow-y: auto; max-height: 250px; }
+        .alert-item { 
+            display: flex; gap: 10px; padding: 10px; border-radius: 8px; 
+            background: rgba(255,255,255,0.03); margin-bottom: 8px; font-size: 11px; 
+            border-left: 2px solid var(--forest-green); line-height: 1.4;
+        }
+        .alert-item i { color: var(--forest-green); font-size: 14px; }
+
         #modal-opciones {
             position: fixed;
             top: 0;
@@ -570,19 +578,84 @@
                     <div style="font-size:11px; margin-bottom:15px; opacity:0.6;">EVENTOS RECIENTES</div>
                     <div id="dash-alerts-container"></div>
                 </div>
+            <div style="margin-top:30px; display:flex; justify-content:center;">
+                <a href="pagina_monitoreo/monitoreo_estrategico.html" target="_parent" class="glass-panel" style="padding:12px 25px; font-size:12px; font-weight:700; letter-spacing:2px; color:var(--forest-green); text-decoration:none; border:1px solid rgba(46, 204, 113, 0.3);">VER INDICADORES ESTRATÉGICOS</a>
             </div>
         </div>
     </div>
 
     <script>
         const menuData = [
-            { id: 0, title: "BOSQUES", color: 0x00b894, desc: "Monitoreo de cobertura forestal y prevención de deforestación." },
-            { id: 1, title: "BIODIVERSIDAD", color: 0x55efc4, desc: "Seguimiento de especies y conservación de ecosistemas." },
-            { id: 2, title: "CLIMA", color: 0x74b9ff, desc: "Análisis atmosférico y alertas meteorológicas regionales." },
-            { id: 3, title: "AGUA", color: 0x0984e3, desc: "Gestión de cuencas hídricas y calidad del recurso." },
-            { id: 4, title: "COSTAS", color: 0x00cec9, desc: "Monitoreo de litorales y salud arrecifal." },
-            { id: 5, title: "MARES", color: 0x1e3799, desc: "Corrientes oceánicas y biodiversidad pelágica." },
-            { id: 6, title: "AIRE", color: 0xdfe6e9, desc: "Calidad del aire e inventario de emisiones." }
+            {
+                id: 0, title: "BOSQUES", color: 0x00b894,
+                desc: "Gestión sostenible y monitoreo de la cobertura forestal regional.",
+                kpis: [
+                    { title: "ÁREA NETA", val: "4,250", sub: "Miles ha" },
+                    { title: "COBERTURA", val: "48%", sub: "+1.2% anual" },
+                    { title: "PROTCONN", val: "42", sub: "Índice regional" }
+                ],
+                alerts: ["Recuperación activa en 15,000 ha de pino-encino.", "Consolidación de MRV para REDD+."]
+            },
+            {
+                id: 1, title: "BIODIVERSIDAD", color: 0x55efc4,
+                desc: "Conservación de especies y ecosistemas críticos del hotspot mesoamericano.",
+                kpis: [
+                    { title: "LISTA ROJA", val: "0.78", sub: "Índice" },
+                    { title: "ESPECIES", val: "65%", sub: "Ne > 500" },
+                    { title: "KBAs", val: "242", sub: "Sitios clave" }
+                ],
+                alerts: ["Actualización de KBAs en el Corredor Biológico.", "Monitoreo genético de felinos en marcha."]
+            },
+            {
+                id: 2, title: "CLIMA", color: 0x81ecec,
+                desc: "Mitigación y adaptación frente a la crisis climática global.",
+                kpis: [
+                    { title: "GEI EMISIONES", val: "8.4M", sub: "tCO2e" },
+                    { title: "NDCs", val: "Activa", sub: "Actualización 2024" },
+                    { title: "RESILIENCIA", val: "Medio", sub: "Índice regional" }
+                ],
+                alerts: ["Actualización de NDCs regionales avanzada.", "Sistema de alerta temprana climática operativo."]
+            },
+            {
+                id: 3, title: "AGUA", color: 0x74b9ff,
+                desc: "Seguridad hídrica y manejo integrado de cuencas transfronterizas.",
+                kpis: [
+                    { title: "CALIDAD", val: "82%", sub: "Índice ICA" },
+                    { title: "ESTRÉS", val: "Bajo", sub: "Sostenibilidad" },
+                    { title: "CUENCAS", val: "12", sub: "Transterritoriales" }
+                ],
+                alerts: ["Control de vertidos en cuenca del Río Lempa.", "Nueva red de monitoreo piezométrico."]
+            },
+            {
+                id: 4, title: "COSTAS", color: 0x0984e3,
+                desc: "Manejo costero integrado y protección de infraestructuras naturales.",
+                kpis: [
+                    { title: "MANGLAR", val: "115k", sub: "Hectáreas" },
+                    { title: "RECUPERACIÓN", val: "+5%", sub: "Proyectos activos" },
+                    { title: "MIIC", val: "85", sub: "Manejo Integrado" }
+                ],
+                alerts: ["Dragado sostenible en zonas de anidación.", "Plan de adaptación de municipios costeros."]
+            },
+            {
+                id: 5, title: "MARES", color: 0x6c5ce7,
+                desc: "Gobernanza de recursos marinos y biodiversidad oceánica.",
+                kpis: [
+                    { title: "PESCA SOST.", val: "74%", sub: "Bajo RMS" },
+                    { title: "ÁREAS MARINAS", val: "12%", sub: "Protección" },
+                    { title: "VIGILANCIA", val: "100%", sub: "VMS Activo" }
+                ],
+                alerts: ["Veda de camarón exitosa en el Pacífico.", "Vigilancia satelital VMS activa."]
+            },
+            {
+                id: 6, title: "AIRE", color: 0x00cec9,
+                desc: "Monitoreo de calidad del aire y emisiones atmosféricas.",
+                kpis: [
+                    { title: "CALIDAD AIRE", val: "15", sub: "µg/m³ PM2.5" },
+                    { title: "SIST. ALERTA", val: "Regional", sub: "Satélite + Sensores" },
+                    { title: "REDUCCIÓN", val: "-10%", sub: "Quemas agrícolas" }
+                ],
+                alerts: ["Reducción de quemas agrícolas reportada.", "Integración de sensores de bajo costo."]
+            }
         ];
 
         let audioCtx; let isMuted = false;
@@ -608,6 +681,26 @@
             const data = menuData[index];
             document.getElementById('dash-title').innerText = data.title;
             document.getElementById('dash-desc').innerText = data.desc;
+
+            // Populating KPIs
+            data.kpis.forEach((kpi, i) => {
+                const kIdx = i + 1;
+                document.getElementById(`dash-kpi${kIdx}-title`).innerText = kpi.title;
+                document.getElementById(`dash-kpi${kIdx}-val`).innerText = kpi.val;
+                document.getElementById(`dash-kpi${kIdx}-sub`).innerText = kpi.sub;
+            });
+
+            // Populating Alerts
+            const alertCont = document.getElementById('dash-alerts-container');
+            if (alertCont) {
+                alertCont.innerHTML = data.alerts.map(a => `
+                    <div class="alert-item">
+                        <i class="ph ph-warning-circle"></i>
+                        <span>${a}</span>
+                    </div>
+                `).join('');
+            }
+
             uiLayer.style.opacity = '0'; uiLayer.style.pointerEvents = 'none';
             setTimeout(() => { dashboardView.classList.add('active'); }, 200);
         }
