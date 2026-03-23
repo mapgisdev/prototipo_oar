@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Sphere, Torus, Float, PerspectiveCamera, Html, Preload } from '@react-three/drei';
+import { Sphere, Torus, Float, PerspectiveCamera, Html, Preload, useTexture, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 import { useNavigate } from 'react-router-dom';
 import { CaretLeft, CaretRight, Tree, Fish, CloudRain, Drop, Wind, WarningCircle, Bell, List, ArrowLeft, SpeakerHigh } from '@phosphor-icons/react';
@@ -27,6 +27,7 @@ const playSound = (isMuted) => {
 
 const Node = ({ position, color, title, isActive, onClick }) => {
     const mesh = useRef();
+    const mapTexture = useTexture('/ca_dr_silhouette.png'); // Load the map silhouette texture
     
     useFrame((state, delta) => {
         if (mesh.current) {
@@ -59,13 +60,22 @@ const Node = ({ position, color, title, isActive, onClick }) => {
                 />
             </Sphere>
 
-            {isActive && (
-                <Float speed={5} rotationIntensity={2} floatIntensity={1}>
-                    <Sphere args={[1.5, 16, 16]} position={[0, 0, 0]}>
-                        <meshBasicMaterial color={color} transparent opacity={0.3} blending={THREE.AdditiveBlending} />
-                    </Sphere>
+            {/* Map Silhouette Core */}
+            <Billboard follow={true}>
+                <Float speed={3} rotationIntensity={0.2} floatIntensity={0.5}>
+                    <mesh>
+                        <planeGeometry args={[5.5, 5.5]} />
+                        <meshBasicMaterial 
+                            color={isActive ? "#ffffff" : color} 
+                            map={mapTexture} 
+                            transparent={true} 
+                            opacity={isActive ? 1.0 : 0.4} 
+                            blending={THREE.AdditiveBlending}
+                            depthWrite={false}
+                        />
+                    </mesh>
                 </Float>
-            )}
+            </Billboard>
 
             <Html center position={[0, isActive ? 8 : -7, 0]} zIndexRange={[100, 0]}>
                 <div 
