@@ -24,7 +24,7 @@ export const Navbar = ({ user, onLogout, toggleSidebar, isSidebarVisible }) => {
                     {/* Logo & Mobile Menu */}
                     <div className="flex items-center gap-2">
                         {user && isSidebarVisible && (
-                            <button onClick={toggleSidebar} className="p-2 text-slate-600 hover:bg-slate-100 rounded-md">
+                            <button onClick={toggleSidebar} className="p-2 h-11 w-11 flex items-center justify-center text-slate-600 hover:bg-slate-100 rounded-md">
                                 <Menu className="h-6 w-6" />
                             </button>
                         )}
@@ -52,7 +52,7 @@ export const Navbar = ({ user, onLogout, toggleSidebar, isSidebarVisible }) => {
                     {/* Mobile Search Icon */}
                     <button
                         onClick={() => setIsSearchOpen(true)}
-                        className="md:hidden p-2 text-slate-600"
+                        className="md:hidden p-2 h-11 w-11 flex items-center justify-center text-slate-600"
                     >
                         <Search className="h-5 w-5" />
                     </button>
@@ -110,7 +110,7 @@ export const Navbar = ({ user, onLogout, toggleSidebar, isSidebarVisible }) => {
                                         <User className="h-5 w-5" />
                                     </div>
                                 </div>
-                                <Button variant="ghost" size="sm" onClick={onLogout} className="text-slate-500">
+                                <Button variant="ghost" size="sm" onClick={onLogout} className="text-slate-500 h-11 md:h-auto min-w-[44px]">
                                     <LogOut className="h-4 w-4 md:mr-2" />
                                     <span className="hidden md:inline">Salir</span>
                                 </Button>
