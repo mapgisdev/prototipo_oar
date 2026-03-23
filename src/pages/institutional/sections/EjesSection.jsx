@@ -23,7 +23,7 @@ export const EjesSection = ({ axes, navigate }) => {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-[10px] font-black uppercase tracking-widest mb-6 border border-slate-200">
             <Globe className="h-3 w-3 animate-spin-slow" /> Marco Estratégico
           </div>
-          <h2 className="text-3xl md:text-5xl font-serif font-black text-slate-900 leading-tight mb-6">Explorar por <span className="text-emerald-600 font-serif italic text-glow">ejes temáticos</span></h2>
+          <h2 className="text-2xl md:text-5xl font-serif font-black text-slate-900 leading-tight mb-6">Explorar por <span className="text-emerald-600 font-serif italic text-glow">ejes temáticos</span></h2>
           <p className="text-slate-500 text-lg font-light leading-relaxed">
             Seleccione un área de trabajo para acceder a sus portales dedicados, bibliotecas y herramientas especializadas.
           </p>
@@ -42,7 +42,7 @@ export const EjesSection = ({ axes, navigate }) => {
             >
               <Card
                 className={cn(
-                  "h-full p-6 bg-white shadow-lg border-t-4 hover:shadow-2xl transition-all cursor-pointer group relative overflow-hidden flex flex-col items-center text-center",
+                  "h-full p-4 md:p-6 bg-white shadow-lg border-t-4 hover:shadow-2xl transition-all cursor-pointer group relative overflow-hidden flex flex-col items-center text-center",
                   axis.id === 'bosques' ? "ring-2 ring-emerald-500/20" : "opacity-90 grayscale-[30%] hover:grayscale-0"
                 )}
                 style={{ borderTopColor: axis.color }}

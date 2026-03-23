@@ -65,7 +65,7 @@ export const IntroScreen = ({ showIntro, handleStartConnection, initParticles })
             hidden: { opacity: 0, y: 30 },
             visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
           }}
-          className="text-3xl md:text-5xl font-black text-white tracking-[0.2em] uppercase leading-tight drop-shadow-2xl text-glow"
+          className="text-2xl md:text-5xl font-black text-white tracking-[0.2em] uppercase leading-tight drop-shadow-2xl text-glow"
         >
           Observatorio Ambiental Regional
         </motion.h1>
@@ -75,7 +75,7 @@ export const IntroScreen = ({ showIntro, handleStartConnection, initParticles })
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
           }}
-          className="text-xl md:text-2xl font-bold text-emerald-400/90 tracking-[0.3em] uppercase"
+          className="text-lg md:text-2xl font-bold text-emerald-400/90 tracking-[0.2em] md:tracking-[0.3em] uppercase"
         >
           Centroamérica y República Dominicana
         </motion.div>
@@ -85,7 +85,7 @@ export const IntroScreen = ({ showIntro, handleStartConnection, initParticles })
             hidden: { opacity: 0, y: 20 },
             visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
           }}
-          className="text-white/80 text-lg font-light leading-relaxed max-w-2xl mx-auto border-l-2 border-emerald-500/30 pl-8 text-left"
+          className="text-white/80 text-base md:text-lg font-light leading-relaxed max-w-2xl mx-auto border-l-2 border-emerald-500/30 pl-6 md:pl-8 text-left"
         >
           Nuestra región está viva y su latido se siente en cada bosque, río y océano. La Comisión Centroamericana de Ambiente y Desarrollo (CCAD) te da la bienvenida al nuevo OAR, tu espacio interactivo para explorar, comprender y tomar el pulso de los ecosistemas que compartimos.
         </motion.p>
@@ -98,7 +98,7 @@ export const IntroScreen = ({ showIntro, handleStartConnection, initParticles })
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleStartConnection}
-          className="mt-8 px-14 py-5 bg-transparent hover:bg-emerald-500 text-white hover:text-[#021226] border-2 border-emerald-500 rounded-full font-black text-sm uppercase tracking-[0.4em] transition-all duration-500 hover:shadow-[0_0_50px_rgba(16,185,129,0.5)] shadow-emerald-500/20"
+          className="mt-6 md:mt-8 px-8 py-4 md:px-14 md:py-5 bg-transparent hover:bg-emerald-500 text-white hover:text-[#021226] border-2 border-emerald-500 rounded-full font-black text-xs md:text-sm uppercase tracking-[0.2em] md:tracking-[0.4em] transition-all duration-500 hover:shadow-[0_0_50px_rgba(16,185,129,0.5)] shadow-emerald-500/20"
           style={{ animation: 'glow-pulse 3s infinite' }}
         >
           Iniciar Conexión

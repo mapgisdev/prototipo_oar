@@ -24,7 +24,7 @@ export const AnaliticaSection = ({ navigate }) => {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-primary/10 text-brand-primary text-[10px] font-black uppercase tracking-[0.2em] border border-brand-primary/20 shadow-sm">
               <Database className="h-3.5 w-3.5" /> Intelligence Center
             </div>
-            <h2 className="text-4xl md:text-6xl font-serif font-black leading-tight text-slate-900">
+            <h2 className="text-3xl md:text-6xl font-serif font-black leading-tight text-slate-900">
               Haz tu propia <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-emerald-600 italic">
                 {word.map((char, i) => (
@@ -44,7 +44,7 @@ export const AnaliticaSection = ({ navigate }) => {
             </p>
             <div className="flex flex-wrap gap-6 pt-4">
               <Button
-                className="bg-brand-primary text-white hover:bg-brand-primary/90 rounded-full px-10 py-7 h-auto font-black text-base shadow-xl shadow-brand-primary/20 transition-all hover:scale-105 active:scale-95 group overflow-hidden"
+                className="bg-brand-primary text-white hover:bg-brand-primary/90 rounded-full px-6 py-4 md:px-10 md:py-7 h-auto font-black text-sm md:text-base shadow-xl shadow-brand-primary/20 transition-all hover:scale-105 active:scale-95 group overflow-hidden"
                 onClick={() => navigate('/analisis-multidimensional')}
               >
                 <div className="flex items-center gap-2 relative z-10">
@@ -54,7 +54,7 @@ export const AnaliticaSection = ({ navigate }) => {
             </div>
           </motion.div>
 
-          <div className="w-full lg:flex-1 relative h-[400px] md:h-[500px]">
+          <div className="w-full lg:flex-1 relative h-[300px] md:h-[500px]">
             <div className="absolute inset-0 flex items-center justify-center">
               <motion.div 
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -67,7 +67,7 @@ export const AnaliticaSection = ({ navigate }) => {
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                   className="absolute top-10 left-0 p-6 bg-white/60 backdrop-blur-xl rounded-[2.5rem] border border-white shadow-2xl rotate-[-6deg] hover:rotate-0 transition-all duration-700 z-20 group cursor-pointer"
                 >
-                  <div className="h-24 w-48 flex items-end gap-2 pt-6">
+                  <div className="h-20 w-40 md:h-24 md:w-48 flex items-end gap-2 pt-6">
                     <motion.div 
                       animate={{ height: ["40%", "100%", "40%"] }} 
                       transition={{ duration: 3, repeat: Infinity }}

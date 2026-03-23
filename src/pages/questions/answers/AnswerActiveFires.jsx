@@ -32,13 +32,13 @@ const StatCard = ({ title, value, unit, colorClass, subtitle, icon: Icon, delay 
         whileHover={{ y: -8 }}
         className="h-full"
     >
-        <Card className={`bg-white/80 backdrop-blur-xl p-8 border-t-4 ${colorClass} shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all rounded-[2.5rem] relative overflow-hidden h-full flex flex-col group`}>
+        <Card className={`bg-white/80 backdrop-blur-xl p-6 md:p-8 border-t-4 ${colorClass} shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all rounded-[2.5rem] relative overflow-hidden h-full flex flex-col group`}>
             <div className="flex justify-between items-start mb-6">
                 <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{title}</h4>
                 {Icon && <Icon className="h-5 w-5 text-slate-200 transition-colors group-hover:text-orange-500" />}
             </div>
             <div className="flex items-baseline gap-2 mb-4">
-                <span className="text-4xl font-black text-slate-900 tracking-tighter">
+                <span className="text-3xl md:text-4xl font-black text-slate-900 tracking-tighter">
                     {new Intl.NumberFormat('es-GT').format(value)}
                 </span>
                 <span className="text-sm font-bold text-slate-500">{unit}</span>
@@ -192,7 +192,7 @@ export const AnswerActiveFires = () => {
                         viewport={{ once: true }}
                     >
                         <Card className="p-0 overflow-hidden border border-slate-200/50 shadow-2xl rounded-[4rem] group relative">
-                            <div className="h-[550px] relative">
+                            <div className="h-[400px] md:h-[550px] relative">
                                 <MiniMap
                                     markers={mapMarkers}
                                     center={[mapView.lat, mapView.lon]}
@@ -237,7 +237,7 @@ export const AnswerActiveFires = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        <Card className="p-12 bg-white/70 backdrop-blur-2xl border border-slate-100 shadow-2xl shadow-orange-500/5 rounded-[3.5rem] relative overflow-hidden group">
+                        <Card className="p-6 md:p-12 bg-white/70 backdrop-blur-2xl border border-slate-100 shadow-2xl shadow-orange-500/5 rounded-[3.5rem] relative overflow-hidden group">
                             <div className="absolute top-0 right-0 p-12 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity pointer-events-none">
                                 <Flame className="h-64 w-64 text-orange-600" />
                             </div>
@@ -315,7 +315,7 @@ export const AnswerActiveFires = () => {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                             >
-                                <Card className="p-12 bg-white border border-slate-100 shadow-2xl rounded-[3.5rem] h-[580px] flex flex-col group">
+                                <Card className="p-6 md:p-12 bg-white border border-slate-100 shadow-2xl rounded-[3.5rem] h-[400px] md:h-[580px] flex flex-col group">
                                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
                                         <div>
                                             <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-3">Dinámica Temporal</h3>
