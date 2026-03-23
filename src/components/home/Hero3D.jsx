@@ -47,16 +47,16 @@ const Node = ({ position, color, title, isActive, onClick }) => {
                 onClick={onClick}
             >
                 <meshPhysicalMaterial 
-                    color={isActive ? "#0a221a" : "#ffffff"} 
+                    color={color} 
                     metalness={0.1} 
                     roughness={0.1} 
-                    transmission={isActive ? 0.5 : 0.8}
-                    thickness={1.5} 
-                    ior={1.33} 
+                    transmission={isActive ? 0.4 : 0.7}
+                    thickness={2} 
+                    ior={1.4} 
                     emissive={color} 
-                    emissiveIntensity={isActive ? 0.45 : 0.05}
+                    emissiveIntensity={isActive ? 0.6 : 0.25}
                     transparent={true} 
-                    opacity={isActive ? 0.8 : 0.4}
+                    opacity={isActive ? 0.9 : 0.6}
                 />
             </Sphere>
 
@@ -77,7 +77,7 @@ const Node = ({ position, color, title, isActive, onClick }) => {
                 </Float>
             </Billboard>
 
-            <Html center position={[0, isActive ? 8 : -7, 0]} zIndexRange={[100, 0]}>
+            <Html center position={[0, isActive ? 11 : -9, 0]} zIndexRange={[100, 0]}>
                 <div 
                     className={cn(
                         "pointer-events-none transition-all duration-500 whitespace-nowrap drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] flex items-center justify-center",
@@ -120,7 +120,7 @@ const CarouselRig = ({ axes, activeIndex, targetRotation, setIsDashboardOpen, is
     });
 
     return (
-        <group position={[0, -10, 0]}>
+        <group position={[0, 0, 0]}>
             <group rotation={[Math.PI / 2.3, 0, 0]} ref={groupRef}>
                 <OrbitBeams color={axes[activeIndex].color} />
                 {axes.map((axis, i) => {
@@ -188,7 +188,7 @@ export const Hero3D = ({ axes }) => {
                 <React.Suspense fallback={null}>
                     <hemisphereLight args={['#87CEEB', '#0984e3', 0.7]} />
                     <directionalLight color="#fff5e6" intensity={0.8} position={[30, 100, 30]} />
-                    <pointLight color={axes[activeIndex].color} intensity={2.5} distance={120} position={[0, -10, 80]} />
+                    <pointLight color={axes[activeIndex].color} intensity={2.5} distance={120} position={[0, 0, 80]} />
                     
                     <CarouselRig 
                         axes={axes} 

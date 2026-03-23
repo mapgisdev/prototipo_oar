@@ -85,7 +85,7 @@
         }
 
         .header-title {
-            font-size: 24px;
+            font-size: 32px;
             font-weight: 700;
             letter-spacing: 5px;
             color: rgba(255, 255, 255, 0.95);
@@ -114,7 +114,7 @@
         }
 
         #core-desc {
-            font-size: 14px;
+            font-size: 18px;
             color: var(--text-light);
             line-height: 1.6;
             font-weight: 300;
@@ -304,14 +304,14 @@
         /* --- RESPONSIVE ADJUSTMENTS --- */
         @media (max-width: 768px) {
             .header-title {
-                font-size: 16px;
+                font-size: 20px;
                 letter-spacing: 2px;
             }
             .core-title {
                 font-size: 28px;
             }
-            .core-desc {
-                font-size: 13px;
+            #core-desc {
+                font-size: 14px;
                 max-width: 280px;
             }
             .nav-arrow {
@@ -507,11 +507,11 @@
             }
 
             .header-title {
-                font-size: 18px;
+                font-size: 22px;
             }
 
             #core-display {
-                top: 110px;
+                top: 190px;
             }
         }
     </style>
@@ -612,7 +612,7 @@
                 alerts: ["Recuperación activa en 15,000 ha de pino-encino.", "Consolidación de MRV para REDD+."]
             },
             {
-                id: 1, title: "BIODIVERSIDAD", color: 0x55efc4,
+                id: 1, title: "BIODIVERSIDAD", color: 0x78e08f,
                 desc: "Conservación de especies y ecosistemas críticos del hotspot mesoamericano.",
                 kpis: [
                     { title: "LISTA ROJA", val: "0.78", sub: "Índice" },
@@ -622,7 +622,7 @@
                 alerts: ["Actualización de KBAs en el Corredor Biológico.", "Monitoreo genético de felinos en marcha."]
             },
             {
-                id: 2, title: "CLIMA", color: 0x81ecec,
+                id: 2, title: "CLIMA", color: 0xf1c40f,
                 desc: "Mitigación y adaptación frente a la crisis climática global.",
                 kpis: [
                     { title: "GEI EMISIONES", val: "8.4M", sub: "tCO2e" },
@@ -632,7 +632,7 @@
                 alerts: ["Actualización de NDCs regionales avanzada.", "Sistema de alerta temprana climática operativo."]
             },
             {
-                id: 3, title: "AGUA", color: 0x74b9ff,
+                id: 3, title: "AGUA", color: 0x00cec9,
                 desc: "Seguridad hídrica y manejo integrado de cuencas transfronterizas.",
                 kpis: [
                     { title: "CALIDAD", val: "82%", sub: "Índice ICA" },
@@ -652,7 +652,7 @@
                 alerts: ["Dragado sostenible en zonas de anidación.", "Plan de adaptación de municipios costeros."]
             },
             {
-                id: 5, title: "MARES", color: 0x6c5ce7,
+                id: 5, title: "MARES", color: 0x1e3799,
                 desc: "Gobernanza de recursos marinos y biodiversidad oceánica.",
                 kpis: [
                     { title: "PESCA SOST.", val: "74%", sub: "Bajo RMS" },
@@ -662,7 +662,7 @@
                 alerts: ["Veda de camarón exitosa en el Pacífico.", "Vigilancia satelital VMS activa."]
             },
             {
-                id: 6, title: "AIRE", color: 0x00cec9,
+                id: 6, title: "AIRE", color: 0xecf0f1,
                 desc: "Monitoreo de calidad del aire y emisiones atmosféricas.",
                 kpis: [
                     { title: "CALIDAD AIRE", val: "15", sub: "µg/m³ PM2.5" },
@@ -762,9 +762,9 @@
 
         const hemiLight = new THREE.HemisphereLight(0x87CEEB, 0x0984e3, 0.7); scene.add(hemiLight);
         const sunLight = new THREE.DirectionalLight(0xfff5e6, 0.8); sunLight.position.set(30, 100, 30); scene.add(sunLight);
-        const activeLight = new THREE.PointLight(0xffffff, 2.5, 120); activeLight.position.set(0, -10, 80); scene.add(activeLight);
+        const activeLight = new THREE.PointLight(0xffffff, 2.5, 120); activeLight.position.set(0, 0, 80); scene.add(activeLight);
 
-        const carouselGroup = new THREE.Group(); carouselGroup.position.y = -10; carouselGroup.rotation.x = Math.PI / 2.3; scene.add(carouselGroup);
+        const carouselGroup = new THREE.Group(); carouselGroup.position.y = 0; carouselGroup.rotation.x = Math.PI / 2.3; scene.add(carouselGroup);
         
         // --- BACKGROUND CONCAVE SCREEN ---
         const textureLoader = new THREE.TextureLoader();
@@ -892,8 +892,8 @@
         }
 
         const nodeMaterials = menuData.map(item => new THREE.MeshPhysicalMaterial({
-            color: 0xffffff, metalness: 0.1, roughness: 0.1, transmission: 0.8,
-            emissive: item.color, emissiveIntensity: 0.05, transparent: true, opacity: 0.4
+            color: item.color, metalness: 0.1, roughness: 0.1, transmission: 0.7,
+            emissive: item.color, emissiveIntensity: 0.25, transparent: true, opacity: 0.6
         }));
 
         // Load Map Silhouette once for all nodes
@@ -966,11 +966,11 @@
             });
             nodes.forEach((n, i) => {
                 if (i === index) {
-                    n.material.color.setHex(0xffffff); 
-                    n.material.transmission = 0.9;
-                    n.material.opacity = 1.0; 
-                    n.material.emissiveIntensity = 0.1;
-                    n.material.roughness = 0.05;
+                    n.material.color.setHex(menuData[i].color); 
+                    n.material.transmission = 0.4;
+                    n.material.opacity = 0.9; 
+                    n.material.emissiveIntensity = 0.6;
+                    n.material.roughness = 0.1;
                     n.material.clearcoat = 1.0;
                     n.material.clearcoatRoughness = 0.1;
                     
@@ -983,10 +983,10 @@
                         n.userData.mapSprite.material.color.setHex(menuData[i].color); // Emits core color
                     }
                 } else {
-                    n.material.color.setHex(0xffffff); 
-                    n.material.transmission = 0.8;
-                    n.material.opacity = 0.4; 
-                    n.material.emissiveIntensity = 0.05;
+                    n.material.color.setHex(menuData[i].color); 
+                    n.material.transmission = 0.7;
+                    n.material.opacity = 0.6; 
+                    n.material.emissiveIntensity = 0.25;
                     n.material.roughness = 0.1;
                     n.material.clearcoat = 0.0;
                     if (n.userData.mapSprite) {
@@ -1133,22 +1133,32 @@
         document.addEventListener('click', onInteraction);
 
         function updateHUD() {
-            const activePos = new THREE.Vector3(); const center3D = new THREE.Vector3(0, -10, 0).project(camera);
+            const activePos = new THREE.Vector3(); const center3D = new THREE.Vector3(0, 0, 0).project(camera);
             const cX = (center3D.x * .5 + .5) * window.innerWidth; const cY = (center3D.y * -.5 + .5) * window.innerHeight;
-            const rest3D = new THREE.Vector3(0, Math.cos(Math.PI / 2.3) * 55 - 10, Math.sin(Math.PI / 2.3) * 55).project(camera);
+            const rest3D = new THREE.Vector3(0, Math.cos(Math.PI / 2.3) * 55, Math.sin(Math.PI / 2.3) * 55).project(camera);
             const rX = (rest3D.x * .5 + .5) * window.innerWidth; const rY = (rest3D.y * -.5 + .5) * window.innerHeight;
             labels.forEach((l, i) => {
                 const v = new THREE.Vector3(); l.mesh.getWorldPosition(v);
                 v.project(camera); const x = (v.x * .5 + .5) * window.innerWidth; const y = (v.y * -.5 + .5) * window.innerHeight;
-                if (i === getActiveIndex()) { l.element.style.left = cX + 'px'; l.element.style.top = (cY - 85) + 'px'; activePos.set(x, y, 0); }
-                else { l.element.style.left = x + 'px'; l.element.style.top = (y - 35) + 'px'; }
+                if (i === getActiveIndex()) { 
+                    l.element.style.left = cX + 'px'; 
+                    l.element.style.top = (cY - (window.innerWidth > 768 ? 140 : 85)) + 'px'; 
+                    activePos.set(x, y, 0); 
+                }
+                else { 
+                    l.element.style.left = x + 'px'; 
+                    l.element.style.top = (y - (window.innerWidth > 768 ? 60 : 35)) + 'px'; 
+                }
             });
             if (!isMoving && !isDashboardOpen) {
                 const p = document.getElementById('organic-pulse');
                 p.style.left = activePos.x + 'px'; p.style.top = activePos.y + 'px'; p.style.opacity = '1';
             } else document.getElementById('organic-pulse').style.opacity = '0';
             const acts = document.getElementById('action-container');
-            if (!isDashboardOpen) { acts.style.left = rX + 'px'; acts.style.top = (rY + 130) + 'px'; acts.style.opacity = '1'; acts.style.transform = 'translate(-50%,0) scale(1)'; }
+            if (!isDashboardOpen) { 
+                const yOffset = window.innerWidth > 768 ? 190 : 130;
+                acts.style.left = rX + 'px'; acts.style.top = (rY + yOffset) + 'px'; acts.style.opacity = '1'; acts.style.transform = 'translate(-50%,0) scale(1)'; 
+            }
             else acts.style.opacity = '0';
             document.getElementById('nav-arrow-left').style.top = activePos.y + 'px';
             document.getElementById('nav-arrow-right').style.top = activePos.y + 'px';
