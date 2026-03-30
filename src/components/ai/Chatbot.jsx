@@ -17,7 +17,7 @@ const API_TIMEOUT_MS = 30000; // 30 segundos de timeout
 
 const DEFAULT_MESSAGE = { id: 1, sender: 'bot', text: 'Hola, soy el asistente IA del OAR. He procesado toda la información institucional para resolver tus dudas de forma clara y formal.' };
 
-/** Fix #2: Escapa caracteres HTML peligrosos para prevenir XSS */
+/** Escapa caracteres HTML peligrosos para prevenir XSS */
 const escapeHtml = (text) => {
     return text
         .replace(/&/g, '&amp;')
@@ -27,20 +27,16 @@ const escapeHtml = (text) => {
         .replace(/'/g, '&#039;');
 };
 
-/** Formatea texto plano de la IA a HTML legible con rutas clickeables, negritas y listas */
+/** Formatea texto plano de la IA a HTML legible con rutas clickeables, negritas, itálicas y listas */
 const formatMessageHtml = (text) => {
     return escapeHtml(text)
-        // Negritas
         .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
-        // Rutas internas clickeables: detecta /ruta/sub-ruta
+        .replace(/\*(.*?)\*/g, '<i>$1</i>')
         .replace(/(\/(?:preguntas|analisis|strategic|mapa|dashboard|admin)[a-zA-Z0-9\-\/]*)/g,
             '<a class="oar-route-link" data-route="$1" href="#" style="display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,#1e40af15,#3b82f615);color:#1e40af;padding:4px 12px;border-radius:999px;font-size:0.75rem;font-weight:700;margin:4px 0;text-decoration:none;border:1px solid #1e40af30;cursor:pointer;transition:all 0.2s">📍 $1 →</a>'
         )
-        // Listas numeradas
         .replace(/^(\d+)\.\s+(.+)$/gm, '<div style="margin-left:1rem;margin-bottom:0.35rem;padding-left:0.5rem;border-left:2px solid #3b82f640">$1. $2</div>')
-        // Listas con viñetas
         .replace(/^[-•]\s+(.+)$/gm, '<div style="margin-left:1rem;margin-bottom:0.35rem;padding-left:0.5rem;border-left:2px solid #10b98140">• $1</div>')
-        // Saltos de línea
         .replace(/\n/g, '<br>');
 };
 
@@ -139,28 +135,61 @@ export const Chatbot = () => {
 
     // Contexto cacheado: se construye UNA SOLA VEZ al montar el componente
     const systemContext = useMemo(() => {
-        let contextText = "Eres el Asistente Inteligente del Observatorio Ambiental Regional (OAR).\n";
-        contextText += "Tu personalidad es cálida, profesional y cercana. Usas un tono amigable pero informativo.\n";
-        contextText += "Tu misión es ayudar a ciudadanos sin conocimientos técnicos a entender información ambiental.\n";
-        contextText += "Debes basar tus respuestas EXCLUSIVAMENTE en el catálogo de Respuestas Conceptuales proporcionado.\n\n";
-        contextText += "REGLAS DE FORMATO Y ESTILO:\n";
-        contextText += "1. Responde siempre en español, con tono profesional pero cercano.\n";
-        contextText += "2. Usa emojis temáticos al inicio de tus respuestas para hacerlas visualmente atractivas (🔥🌲💧🌎🏔️📊🐾🌿🛡️📍).\n";
-        contextText += "3. Estructura tus respuestas con negritas (**texto**) para resaltar datos clave.\n";
-        contextText += "4. Cuando menciones rutas del portal, escríbelas EXACTAMENTE como aparecen (ej: /preguntas/incendios-activos), el sistema las convertirá en enlaces clickeables automáticamente.\n";
-        contextText += "5. Siempre que sea relevante, sugiere al usuario visitar una sección del portal incluyendo la ruta.\n";
-        contextText += "6. Menciona datos específicos (porcentajes, hectáreas, especies) si están disponibles.\n";
-        contextText += "7. Sé conciso pero informativo. Máximo 3-4 párrafos por respuesta.\n";
-        contextText += "8. Si el usuario pregunta algo fuera de tu conocimiento, sugiere amablemente temas que sí conoces.\n";
-        contextText += "9. Termina tus respuestas con una frase que invite a seguir explorando.\n\n";
-        contextText += "CATÁLOGO DE RESPUESTAS CONCEPTUALES:\n";
+        // Auto-descubrir temas y rutas de los archivos .md cargados
+        const topics = [];
+        const docs = [];
 
-        Object.entries(IA_CONTEXT_FILES).forEach(([path, content]) => {
-            contextText += `\n--- DOCUMENTO: ${path.split('/').pop()} ---\n${content.default || content}\n`;
+        Object.entries(IA_CONTEXT_FILES).forEach(([path, rawContent]) => {
+            const content = rawContent.default || rawContent;
+            const filename = path.split('/').pop();
+
+            // Extraer título del documento (primera línea con #)
+            const titleMatch = content.match(/^#\s+(.+)$/m);
+            const title = titleMatch ? titleMatch[1].trim() : filename;
+
+            // Extraer ruta del portal (última línea que contiene /preguntas/ o similar)
+            const routeMatch = content.match(/(\/(?:preguntas|analisis|strategic|mapa|dashboard|admin)[a-zA-Z0-9\-\/]+)/);
+            const route = routeMatch ? routeMatch[1] : null;
+
+            topics.push({ title, route, filename });
+            docs.push(`\n--- DOCUMENTO: ${filename} ---\n${content}\n`);
         });
 
-        console.log("Chatbot: Contexto del sistema cacheado.", contextText.length, "caracteres");
-        return contextText;
+        let ctx = "";
+        ctx += "=== IDENTIDAD ===\n";
+        ctx += "Eres el Asistente Inteligente del Observatorio Ambiental Regional (OAR) de la región SICA (8 países: Guatemala, Honduras, El Salvador, Nicaragua, Costa Rica, Panamá, Belice y República Dominicana).\n";
+        ctx += "Tu personalidad es cálida, profesional y cercana. Eres un experto ambiental que traduce datos complejos a un lenguaje accesible para ciudadanos comunes.\n\n";
+
+        ctx += "=== REGLAS ABSOLUTAS DE FORMATO ===\n";
+        ctx += "1. NUNCA uses asteriscos simples (*texto*) para itálicas. Usa SOLO negritas (**texto**) para resaltar.\n";
+        ctx += "2. Usa UN emoji temático relevante al INICIO de tu respuesta (🔥🌲💧🌎🏔️📊🐾🌿🛡️📍🌊🦜).\n";
+        ctx += "3. Estructura con negritas los datos clave: cifras, porcentajes, nombres de países, índices.\n";
+        ctx += "4. Para listas, usa el formato '1. Texto' o '- Texto' (con salto de línea entre cada ítem).\n";
+        ctx += "5. Máximo 3-4 párrafos cortos por respuesta. No hagas muros de texto.\n";
+        ctx += "6. SIEMPRE incluye datos numéricos concretos del catálogo (hectáreas, porcentajes, índices, fechas).\n";
+        ctx += "7. SIEMPRE termina sugiriendo la ruta del portal relacionada. Escribe SOLO la ruta sin asteriscos ni decoración extra alrededor. Ejemplo correcto: 'Puedes explorar los datos interactivos en /preguntas/seguridad-hidrica'.\n";
+        ctx += "8. Cuando el usuario compare dos o más países, presenta los datos de AMBOS países con sus cifras exactas del catálogo.\n";
+        ctx += "9. Si el usuario pregunta algo fuera de tu catálogo, indícalo amablemente y sugiere los temas que sí conoces.\n\n";
+
+        // Sección generada dinámicamente desde los .md
+        ctx += "=== TEMAS QUE CONOCES Y SUS RUTAS (auto-generado) ===\n";
+        topics.forEach(({ title, route }) => {
+            ctx += route
+                ? `- ${title}: ${route}\n`
+                : `- ${title}\n`;
+        });
+        ctx += "\n";
+
+        ctx += "=== INSTRUCCIONES PARA RESPONDER ===\n";
+        ctx += "Cuando el usuario haga una pregunta, busca en el CATÁLOGO de abajo el documento más relevante. Extrae las CIFRAS EXACTAS (tablas, índices, porcentajes) y preséntaselas al usuario de forma clara y comparativa.\n";
+        ctx += "Si la pregunta involucra una COMPARACIÓN entre países, busca la tabla de datos del documento correspondiente y extrae las filas de ambos países.\n";
+        ctx += "Si la pregunta es genérica ('¿cómo están los bosques?'), da el panorama regional con las cifras clave del documento.\n\n";
+        
+        ctx += `=== CATÁLOGO DE DOCUMENTOS CONCEPTUALES (${docs.length} documentos cargados) ===\n`;
+        ctx += docs.join("");
+
+        console.log("Chatbot: Contexto del sistema cacheado.", ctx.length, "caracteres,", topics.length, "temas detectados");
+        return ctx;
     }, []);
 
     // Fix #9: Limpiar conversación y reiniciar
