@@ -9,7 +9,7 @@ const IA_CONTEXT_FILES = import.meta.glob('../../pages/questions/answers/answer_
 
 const API_KEY = "8e539cd5095a459a82b5cb805e793fcb.mkCYrEsUv6COyzr3";
 const API_URL = "https://api.z.ai/api/paas/v4/chat/completions";
-const MODEL = "GLM-4.7-Flash";
+const MODEL = "GLM-4.5-Flash";
 
 const STORAGE_KEY = 'oar-chatbot-messages';
 const MAX_HISTORY_MESSAGES = 6; // Máximo de mensajes de historial para no saturar los tokens por minuto (TPM)
@@ -37,6 +37,9 @@ const formatMessageHtml = (text) => {
         )
         .replace(/^(\d+)\.\s+(.+)$/gm, '<div style="margin-left:1rem;margin-bottom:0.35rem;padding-left:0.5rem;border-left:2px solid #3b82f640">$1. $2</div>')
         .replace(/^[-•]\s+(.+)$/gm, '<div style="margin-left:1rem;margin-bottom:0.35rem;padding-left:0.5rem;border-left:2px solid #10b98140">• $1</div>')
+        .replace(/\[SUGERENCIA\](.*?)\[\/SUGERENCIA\]/g,
+            '<button class="oar-followup-question" data-question="$1" style="display:block; width:100%; text-align:left; background-color:#f1f5f9; color:#0f172a; padding:10px 14px; border-radius:12px; font-size:0.85rem; font-weight:500; margin-top:8px; border:1px solid #cbd5e1; cursor:pointer; transition:all 0.2s; white-space: normal; line-height:1.4;">💭 $1</button>'
+        )
         .replace(/\n/g, '<br>');
 };
 
@@ -169,7 +172,8 @@ export const Chatbot = () => {
         ctx += "6. SIEMPRE incluye datos numéricos concretos del catálogo (hectáreas, porcentajes, índices, fechas).\n";
         ctx += "7. SIEMPRE termina sugiriendo la ruta del portal relacionada. Escribe SOLO la ruta sin asteriscos ni decoración extra alrededor. Ejemplo correcto: 'Puedes explorar los datos interactivos en /preguntas/seguridad-hidrica'.\n";
         ctx += "8. Cuando el usuario compare dos o más países, presenta los datos de AMBOS países con sus cifras exactas del catálogo.\n";
-        ctx += "9. Si el usuario pregunta algo fuera de tu catálogo, indícalo amablemente y sugiere los temas que sí conoces.\n\n";
+        ctx += "9. Si el usuario pregunta algo fuera de tu catálogo, indícalo amablemente y sugiere los temas que sí conoces.\n";
+        ctx += "10. Al final de tu respuesta, DEBES generar exactamente 3 sugerencias de preguntas de seguimiento relacionadas estrictamente con la información que posees relacionada con TEMAS QUE CONOCES Y SUS RUTAS, es decir, preguntas que puedas responder solo con tu catálogo. Escríbelas en este formato estricto: [SUGERENCIA]Aquí va la pregunta[/SUGERENCIA]. No uses viñetas ni las numeres.\n\n";
 
         // Sección generada dinámicamente desde los .md
         ctx += "=== TEMAS QUE CONOCES Y SUS RUTAS (auto-generado) ===\n";
@@ -200,8 +204,21 @@ export const Chatbot = () => {
         setInput('');
     }, []);
 
-    // Intercepta clicks en rutas generadas dinámicamente dentro de los mensajes
-    const handleMessageClick = useCallback((e) => {
+    // Intercepta clicks en rutas y en botones de seguimiento generados dinámicamente
+    const handleMessageClick = (e) => {
+        // Clicks en sugerencias de seguimiento
+        const followUpBtn = e.target.closest('.oar-followup-question');
+        if (followUpBtn) {
+            e.preventDefault();
+            e.stopPropagation();
+            const question = followUpBtn.getAttribute('data-question');
+            if (question && !isTyping) {
+                handleSend(question); // Envía directamente la pregunta
+            }
+            return;
+        }
+
+        // Clicks en rutas normales
         const routeLink = e.target.closest('.oar-route-link');
         if (routeLink) {
             e.preventDefault();
@@ -212,11 +229,14 @@ export const Chatbot = () => {
                 setIsChatOpen(false);
             }
         }
-    }, [navigate]);
+    };
 
-    const handleSend = async () => {
-        console.log("Chatbot: Intentando enviar mensaje...", { input, isTyping });
-        if (!input.trim() || isTyping) return;
+    const handleSend = async (overrideInput = null) => {
+        // Permite enviar texto desde el input normal (click/enter) o una cadena forzada (botón seguimiento)
+        const textToSend = typeof overrideInput === 'string' ? overrideInput : input;
+
+        console.log("Chatbot: Intentando enviar mensaje...", { textToSend, isTyping });
+        if (!textToSend.trim() || isTyping) return;
 
         // Fix #6: Verificar conexión antes de intentar enviar
         if (!navigator.onLine) {
@@ -228,7 +248,7 @@ export const Chatbot = () => {
             return;
         }
 
-        const currentInput = input.trim();
+        const currentInput = textToSend.trim();
         const userMsg = { id: Date.now(), sender: 'user', text: currentInput };
 
         // Actualizar UI inmediatamente
