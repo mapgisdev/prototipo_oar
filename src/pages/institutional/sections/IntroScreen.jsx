@@ -90,19 +90,34 @@ export const IntroScreen = ({ showIntro, handleStartConnection, initParticles })
           Nuestra región está viva y su latido se siente en cada bosque, río y océano. La Comisión Centroamericana de Ambiente y Desarrollo (CCAD) te da la bienvenida al OAR, tu espacio interactivo para explorar, comprender y tomar el pulso de los ecosistemas que compartimos.
         </motion.p>
 
-        <motion.button
-          variants={{
-            hidden: { opacity: 0, scale: 0.9 },
-            visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
-          }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleStartConnection}
-          className="mt-6 md:mt-8 px-8 py-4 md:px-14 md:py-5 bg-transparent hover:bg-emerald-500 text-white hover:text-[#021226] border-2 border-emerald-500 rounded-full font-black text-xs md:text-sm uppercase tracking-[0.2em] md:tracking-[0.4em] transition-all duration-500 hover:shadow-[0_0_50px_rgba(16,185,129,0.5)] shadow-emerald-500/20"
-          style={{ animation: 'glow-pulse 3s infinite' }}
-        >
-          Iniciar Conexión
-        </motion.button>
+        <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 mt-8">
+          <motion.button
+            variants={{
+              hidden: { opacity: 0, scale: 0.9 },
+              visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
+            }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleStartConnection}
+            className="px-8 py-4 md:px-14 md:py-5 bg-transparent hover:bg-emerald-500 text-white hover:text-[#021226] border-2 border-emerald-500 rounded-full font-black text-xs md:text-sm uppercase tracking-[0.2em] md:tracking-[0.4em] transition-all duration-500 hover:shadow-[0_0_50px_rgba(16,185,129,0.5)] shadow-emerald-500/20"
+            style={{ animation: 'glow-pulse 3s infinite' }}
+          >
+            Iniciar Conexión
+          </motion.button>
+          <motion.button
+            variants={{
+              hidden: { opacity: 0, scale: 0.9 },
+              visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
+            }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => window.location.href = "https://web-production-9d135.up.railway.app/viewer/"}
+            className="px-8 py-4 md:px-14 md:py-5 bg-transparent hover:bg-emerald-500 text-white hover:text-[#021226] border-2 border-emerald-500 rounded-full font-black text-xs md:text-sm uppercase tracking-[0.2em] md:tracking-[0.4em] transition-all duration-500 hover:shadow-[0_0_50px_rgba(16,185,129,0.5)] shadow-emerald-500/20"
+            style={{ animation: 'glow-pulse 3s infinite' }}
+          >
+            Ver Prototipo
+          </motion.button>
+        </div>
       </motion.div>
     </motion.div>
   );

@@ -562,7 +562,7 @@
             <div id="center-arrow" class="animated-arrow">→</div>
         </div>
         <div id="action-container">
-            <div id="btn-opciones">MÁS OPCIONES</div>
+            <div id="btn-opciones">ACCESOS RÁPIDOS</div>
         </div>
         <div id="btn-mute"><i class="ph ph-speaker-high"></i></div>
 
@@ -1245,11 +1245,22 @@
                 isMuted = !isMuted; e.currentTarget.querySelector('i').className = isMuted ? 'ph ph-speaker-slash' : 'ph ph-speaker-high';
             };
 
+            const quickLinks = [
+                { title: "PREGUNTAS FRECUENTES", url: "preguntas/" },
+                { title: "CIFRAS CLAVE", url: "/data/cifras" },
+                { title: "MONITOREO ESTRATÉGICO", url: "/monitoring?level=estrategico" },
+                { title: "MONITOREO OPERATIVO", url: "/monitoring?level=operativo" },
+                { title: "REPORTE", url: "/technical/reports/fra-2024" },
+                { title: "ANÁLISIS MULTIDIMENSIONAL", url: "/analisis-multidimensional" },
+                { title: "GEO-ANÁLISIS RÁPIDO", url: "/technical/geo-análisis" },
+                { title: "MAPAS BASE", url: "/technical/maps" },
+                { title: "DOCUMENTACIÓN TÉCNICA", url: "/technical/docs" }
+            ];
+
             const modalCont = document.getElementById('modal-list-container');
-            menuData.forEach((d, i) => {
+            quickLinks.forEach((link) => {
                 const li = document.createElement('li');
-                li.innerHTML = `<a href="#"><span class="color-dot" style="background-color:#${d.color.toString(16)}"></span> ${d.title}</a>`;
-                li.onclick = () => { openDashboard(i); document.getElementById('modal-opciones').classList.remove('visible'); };
+                li.innerHTML = `<a href="${link.url}"><span class="color-dot" style="background-color:var(--forest-green)"></span> ${link.title}</a>`;
                 modalCont.appendChild(li);
             });
 
