@@ -271,6 +271,7 @@ function App() {
                 icon={Layers}
                 description="Identificación de la composición de ecosistemas y unidades de vegetación presentes dentro del perímetro seleccionado."
                 pythonFunction="get_ecosystem_inventory"
+                toolUrl="https://web-production-9d135.up.railway.app/viewer/"
                 layers={["Mapa Regional de Ecosistemas", "Densidad de Biodiversidad (GBIF)", "Variables Bioclimáticas"]}
                 uses={[
                   "Diseño de planes de manejo basados en biodiversidad local.",

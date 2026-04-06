@@ -25,7 +25,8 @@ export const GeoAnalysisGeneric = ({
     layers, 
     pythonFunction, 
     icon: Icon,
-    uses = []
+    uses = [],
+    toolUrl
 }) => {
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [result, setResult] = useState(null);
@@ -48,6 +49,14 @@ export const GeoAnalysisGeneric = ({
                 ]
             });
         }, 2500);
+    };
+
+    const handleToolClick = () => {
+        if (toolUrl) {
+            window.open(toolUrl, '_blank');
+        } else {
+            setStep(2);
+        }
     };
 
     return (
@@ -78,7 +87,7 @@ export const GeoAnalysisGeneric = ({
                     <Button 
                         variant={step === 2 ? "primary" : "outline"} 
                         size="sm" 
-                        onClick={() => setStep(2)}
+                        onClick={handleToolClick}
                         className="rounded-xl flex gap-2"
                     >
                         <MapIcon className="h-4 w-4" /> Herramienta
