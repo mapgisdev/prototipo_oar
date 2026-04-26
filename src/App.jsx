@@ -40,6 +40,7 @@ import { MonitoringPortal } from './pages/monitoring/MonitoringPortal';
 import { StrategicMonitoring } from './pages/monitoring/StrategicMonitoring';
 import { OperationalMonitoring } from './pages/monitoring/OperationalMonitoring';
 import { SitemapIndependent } from './pages/technical/SitemapIndependent';
+import { UserManagement } from './pages/admin/UserManagement';
 
 // Component to scroll to top on route change
 const ScrollToTop = () => {
@@ -142,6 +143,7 @@ function App() {
           <Route path="/monitoring" element={<MonitoringPortal />} />
           <Route path="/monitoring/strategic" element={<StrategicMonitoring />} />
           <Route path="/monitoring/operational" element={<OperationalMonitoring />} />
+          <Route path="/admin" element={<UserManagement />} />
 
           {/* Technical Routes (Protected) */}
           <Route path="/technical/dashboard" element={

@@ -95,18 +95,26 @@ export const Navbar = ({ user, onLogout, toggleSidebar, isSidebarVisible }) => {
                             </div>
                         </div>
 
-                        {!user ? (
-                            <Button onClick={() => navigate('/auth/login')} size="sm">
-                                Acceso Funcionarios
-                            </Button>
+                        {!user || user.role === 'public' ? (
+                            <div className="flex items-center gap-3">
+                                <Link to="/admin" className="text-xs font-bold text-slate-400 hover:text-brand-primary transition-colors uppercase tracking-widest mr-2">Admin Sim</Link>
+                                <Button onClick={() => navigate('/auth/login')} size="sm">
+                                    Acceso Funcionarios
+                                </Button>
+                            </div>
                         ) : (
                             <div className="flex items-center gap-4">
                                 <div className="hidden md:flex items-center gap-2 text-right">
+                                    {user.role === 'admin' && (
+                                        <Link to="/admin" className="mr-4 px-3 py-1 bg-slate-900 text-white text-[10px] font-bold rounded-full hover:bg-brand-primary transition-colors uppercase tracking-tighter">
+                                            Panel Control
+                                        </Link>
+                                    )}
                                     <div className="flex flex-col">
-                                        <span className="text-sm font-bold text-brand-primary">Admin</span>
-                                        <span className="text-xs text-slate-500">Ministerio Ambiente</span>
+                                        <span className="text-sm font-bold text-brand-primary">{user.name}</span>
+                                        <span className="text-[10px] text-slate-500 uppercase font-bold tracking-tight">{user.simulatedRole || user.department}</span>
                                     </div>
-                                    <div className="h-8 w-8 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary">
+                                    <div className="h-8 w-8 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary border border-brand-primary/20">
                                         <User className="h-5 w-5" />
                                     </div>
                                 </div>
