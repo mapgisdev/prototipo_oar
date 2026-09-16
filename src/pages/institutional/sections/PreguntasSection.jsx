@@ -93,10 +93,10 @@ export const PreguntasSection = ({ questions, navigate }) => {
                 <div className="mt-auto space-y-4">
                   <div className="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
                     <motion.div 
-                      initial={{ width: 0 }}
-                      whileInView={{ width: '100%' }}
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
                       transition={{ duration: 1, delay: 0.5 }}
-                      className="h-full" 
+                      className="h-full w-full origin-left" 
                       style={{ backgroundColor: q.color }} 
                     />
                   </div>

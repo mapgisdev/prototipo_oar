@@ -69,19 +69,19 @@ export const AnaliticaSection = ({ navigate }) => {
                 >
                   <div className="h-20 w-40 md:h-24 md:w-48 flex items-end gap-2 pt-6">
                     <motion.div 
-                      animate={{ height: ["40%", "100%", "40%"] }} 
+                      animate={{ scaleY: [0.4, 1, 0.4] }} 
                       transition={{ duration: 3, repeat: Infinity }}
-                      className="flex-1 bg-brand-primary/60 rounded-t-xl shadow-lg shadow-brand-primary/20"
+                      className="flex-1 h-full origin-bottom bg-brand-primary/60 rounded-t-xl shadow-lg shadow-brand-primary/20"
                     ></motion.div>
                     <motion.div 
-                      animate={{ height: ["30%", "60%", "30%"] }} 
+                      animate={{ scaleY: [0.3, 0.6, 0.3] }} 
                       transition={{ duration: 4, repeat: Infinity }}
-                      className="flex-1 bg-brand-primary/30 rounded-t-xl"
+                      className="flex-1 h-full origin-bottom bg-brand-primary/30 rounded-t-xl"
                     ></motion.div>
                     <motion.div 
-                      animate={{ height: ["60%", "85%", "60%"] }} 
+                      animate={{ scaleY: [0.6, 0.85, 0.6] }} 
                       transition={{ duration: 2.5, repeat: Infinity }}
-                      className="flex-1 bg-brand-primary/80 rounded-t-xl shadow-lg shadow-brand-primary/40"
+                      className="flex-1 h-full origin-bottom bg-brand-primary/80 rounded-t-xl shadow-lg shadow-brand-primary/40"
                     ></motion.div>
                   </div>
                   <div className="mt-4 flex justify-between">
